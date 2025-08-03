@@ -1,9 +1,9 @@
 <?php
 
+use App\Enums\Role;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Enums\Role;
 
 return new class extends Migration
 {
@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('telepon');
             $table->date('tanggal_lahir');
+            $table->string('photo')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

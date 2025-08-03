@@ -2,18 +2,18 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
 use App\Traits\WithNotify;
+use Livewire\Component;
 
 class IndexPage extends Component
 {
-
     use WithNotify;
 
-    public function notif() {
+    public function notif()
+    {
 
         $this->notifySuccess('Berhasil memperbarui gejala ke penyakit');
-        $this->dispatch('deleteConfirmation', message: "trest");
+        $this->dispatch('deleteConfirmation', message: 'trest');
 
     }
 

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
+use Illuminate\Support\Str;
 
 class Berita extends Model
 {
@@ -12,7 +12,24 @@ class Berita extends Model
 
     public $table = 'berita';
 
-    public function penulis() {
+    public $guarded = [];
+
+    public function penulis()
+    {
         return $this->belongsTo(User::class, 'id_user', 'id');
+    }
+
+    public function getLabelJudulAttribute()
+    {
+        return strlen($this->judul) > 30
+            ? substr($this->judul, 0, 30).'...'
+            : $this->judul;
+    }
+
+    public function getExcerptAttribute()
+    {
+
+        return Str::limit(strip_tags($this->isi), 50);
+
     }
 }

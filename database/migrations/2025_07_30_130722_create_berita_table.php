@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('berita', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
-            $table->longText('isi');
+            $table->mediumText('isi');
             $table->date('tanggal_publikasi');
             $table->foreignId('id_user')->constrained('users')->cascadeOnDelete();
             $table->timestamps();

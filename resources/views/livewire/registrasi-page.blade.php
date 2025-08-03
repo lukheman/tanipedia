@@ -1,0 +1,47 @@
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-6">
+            <div class="card shadow-sm border-0" style="border-radius: 15px;">
+                <div class="card-body p-4">
+                    <h2 class="section-title text-center mb-4">Daftar ke Tani Pedia</h2>
+                    <form wire:submit.prevent="register">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nama Lengkap</label>
+                            <input type="text" class="form-control" id="name" wire:model="name" placeholder="Masukkan nama lengkap" required>
+                            @error('name') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" wire:model="email" placeholder="Masukkan email Anda" required>
+                            @error('email') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="telepon" class="form-label">Nomor Telepon</label>
+                            <input type="text" class="form-control" id="telepon" wire:model="telepon" placeholder="Masukkan nomor telepon" required>
+                            @error('telepon') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
+                            <input type="date" class="form-control" id="tanggal_lahir" wire:model="tanggal_lahir" required>
+                            @error('tanggal_lahir') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Kata Sandi</label>
+                            <input type="password" class="form-control" id="password" wire:model="password" placeholder="Masukkan kata sandi" required>
+                            @error('password') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="password_confirmation" class="form-label">Konfirmasi Kata Sandi</label>
+                            <input type="password" class="form-control" id="password_confirmation" wire:model="password_confirmation" placeholder="Konfirmasi kata sandi" required>
+                        </div>
+                        <button type="submit" class="btn btn-custom w-100">Daftar</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <p>Sudah punya akun? <a href="{{ route('login') }}" class="text-decoration-none">Masuk sekarang</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

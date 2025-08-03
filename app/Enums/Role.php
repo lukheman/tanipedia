@@ -4,12 +4,29 @@ namespace App\Enums;
 
 enum Role: string
 {
-    case ADMIN = 'admin';
-    case PETANI = 'petani';
-    case AHLIPERTANIAN = 'ahli_pertanian';
-    case KEPALADINAS = 'kepala_dinas';
+    case ADMIN = 'Admin';
+    case PETANI = 'Petani';
+    case AHLIPERTANIAN = 'Ahli Pertanian';
+    case KEPALADINAS = 'Kepala Dinas';
 
-    public static function values(): array {
-        return array_map(fn($case) => $case->value, self::cases());
+    public function getLabel(): ?string
+    {
+        return $this->value;
+    }
+
+    public function getColor(): ?string
+    {
+        return match ($this) {
+            self::ADMIN => 'primary',
+            self::PETANI => 'success',
+            self::AHLIPERTANIAN => 'danger',
+            self::KEPALADINAS => 'warning',
+            default => 'default'
+        };
+    }
+
+    public static function values(): array
+    {
+        return array_map(fn ($case) => $case->value, self::cases());
     }
 }

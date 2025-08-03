@@ -1,63 +1,74 @@
-<div>
-    <x-slot:heading>
-        <button class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#default">Tambah Data</button>
-        <button type="button" class="btn btn-outline-primary block" data-bs-toggle="modal" data-bs-target="#default">
-            Launch Modal
-        </button>
-    </x-slot:heading>
+<div class="card">
+    <div class="card-body">
 
-    <div class="modal fade text-left" id="default" tabindex="-1" role="dialog" style="display: none;">
-        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-full" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel1">Basic Modal</h5>
+
+    <a href="{{ route('berita.add')}}" class="btn btn-primary" >
+    <i class="bi bi-pencil"></i>
+    Tulis Berita</a>
+
+<div class="modal fade" id="default" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+        <div class="modal-content shadow-lg rounded-3">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title text-white" id="myModalLabel1">
+                    <i class="bi bi-eye"></i> Lihat Berita
+                </h5>
                     <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="judul">Judul</label>
-                        <input wire:model="judul" type="text" class="form-control" id="judul" placeholder="Masukan judul berita">
+            </div>
+            <div class="modal-body">
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        <label class="form-label fw-semibold" for="judul">Judul Berita</label>
+                        <input type="text" id="judul" wire:model="judul" class="form-control-plaintext border rounded px-3 py-2" readonly>
                     </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold" for="tanggal-publikasi">Tanggal Publikasi</label>
+                        <input type="text" id="tanggal-publikasi" wire:model="tanggal_publikasi" class="form-control-plaintext border rounded px-3 py-2" readonly>
+                    </div>
+                </div>
 
-                    <div wire:ignore>
-                        <div id="editor" style="min-height: 200px;"></div>
+                <div class="mt-4">
+                    <label class="form-label fw-semibold" for="isi">Isi Berita</label>
+                    <div class="border rounded p-3 bg-light overflow-auto" style="max-height: 400px;">
+                        <div wire:model="isi" id="isi" class="text-dark" style="white-space: pre-line;">
+                            {{ $isi }}
+                        </div>
                     </div>
-                    <input type="hidden" wire:model="isi">
-                    <button wire:click="submit" class="btn btn-primary">Submit</button>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn" data-bs-dismiss="modal">
-                        <i class="bx bx-x d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">Close</span>
-                    </button>
-                    <button type="button" class="btn btn-primary ms-1" data-bs-dismiss="modal">
-                        <i class="bx bx-check d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">Accept</span>
-                    </button>
-                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i> Tutup
+                </button>
             </div>
         </div>
     </div>
+</div>
 
+    @if ($currentState === \App\Enums\State::LISTDATA)
     <div class="table-responsive">
         <table class="table table-lg">
             <thead>
                 <tr>
-                    <th>judul</th>
-                    <th>tanggal</th>
+                    <th>Judul Berita</th>
+                    <th>Tanggal Publikasi</th>
                     <th class="text-end">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($berita as $item)
                 <tr>
-                    <td class="text-bold-500">{{ $item->judul }}</td>
+                    <td class="text-bold-500">{{ $item->label_judul }}</td>
                     <td>{{ $item->tanggal_publikasi}}</td>
                     <td class="text-end">
-                        <button class="btn btn-sm btn-info">Detail</button>
+                        <button wire:click="detail({{ $item }})"class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#default">Lihat</button>
+                        <button wire:click="edit({{ $item->id }})" class="btn btn-sm btn-warning">Edit</button>
                         <button wire:click="delete({{ $item->id }})" class="btn btn-sm btn-danger">Hapus</button>
+
                     </td>
                 </tr>
                 @endforeach
@@ -65,33 +76,8 @@
         </table>
         <x-pagination :items="$berita" />
     </div>
+    @elseif($currentState === \App\Enums\State::CREATE)
+    <livewire:form-berita-page />
+    @endif
+    </div>
 </div>
-
-@push('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const quill = new Quill('#editor', {
-            theme: 'snow',
-            modules: {
-                toolbar: [
-                    [{ 'header': [1, 2, 3, false] }],
-                    ['bold', 'italic', 'underline'],
-                    ['link', 'image'],
-                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                    ['clean']
-                ]
-            }
-        });
-
-        // Sync Quill content with Livewire model
-        const hiddenInput = document.querySelector('input[wire\\:model="isi"]');
-        quill.on('text-change', function() {
-            hiddenInput.value = quill.root.innerHTML;
-            hiddenInput.dispatchEvent(new Event('input', { bubbles: true }));
-        });
-
-        // Initialize editor content from Livewire model
-        quill.root.innerHTML = hiddenInput.value || '';
-    });
-</script>
-@endpush

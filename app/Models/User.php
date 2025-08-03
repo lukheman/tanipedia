@@ -6,7 +6,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Berita;
 
 class User extends Authenticatable
 {
@@ -14,7 +13,6 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $guarded = [];
-
 
     /**
      * The attributes that should be hidden for serialization.
@@ -39,8 +37,28 @@ class User extends Authenticatable
         ];
     }
 
-    public function berita() {
+    public function berita()
+    {
         return $this->hasMany(Berita::class, 'id_user', 'id');
     }
 
+    public function video()
+    {
+        return $this->hasMany(Edukasi::class, 'id_user', 'id');
+    }
+
+    public function komentar()
+    {
+        return $this->hasMany(Komentar::class, 'id_user', 'id');
+    }
+
+    public function konsultasi()
+    {
+        return $this->hasMany(Konsultasi::class, 'id_user', 'id');
+    }
+
+    public function hasilKonsultasi()
+    {
+        return $this->hasMany(HasilKonsultasi::class, 'id_user', 'id');
+    }
 }
