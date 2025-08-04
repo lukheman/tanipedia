@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Enums\Role;
 use App\Models\Konsultasi;
 use App\Models\User;
+use App\Models\Desa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LaporanController extends Controller
 {
@@ -45,4 +47,20 @@ class LaporanController extends Controller
         ]);
 
     }
+
+    public function laporanKonsultasiKecamatan(Request $request)
+{
+    $request->validate([
+        'id' => 'required|exists:kecamatan,id',
+    ]);
+
+    $konsultasi = Konsultasi::with(['user', 'user.desa', 'hasil'])
+        ->whereHas('user.desa', function ($query) use ($request) {
+            $query->where('id_kecamatan', $request->id);
+        })->get();
+
+    return view('invoices.konsultasi-kecamatan', [
+        'konsultasi' => $konsultasi,
+    ]);
+}
 }

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('tanggal_lahir');
             $table->string('photo')->nullable();
             $table->string('alamat')->nullable();
+            $table->foreignId('id_desa')->nullable()->constrained('desa')->nullOnDelete();
             $table->rememberToken();
             $table->timestamps();
         });

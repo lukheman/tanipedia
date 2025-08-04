@@ -61,4 +61,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(HasilKonsultasi::class, 'id_user', 'id');
     }
+
+    public function desa() {
+        return $this->belongsTo(Desa::class, 'id_desa', 'id');
+    }
+
+    // public function kecamatan() {
+    //     return $this->belongsTo(kecamatan::class, 'id_user', 'id');
+    // }
+
 }

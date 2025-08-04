@@ -26,11 +26,17 @@ class ProfileForm extends Form
     #[Validate('required|date|before:today', message: 'Tanggal lahir wajib diisi dan harus sebelum hari ini.')]
     public $tanggal_lahir;
 
+    #[Validate('nullable|string', message: 'Alamat wajib di isi')]
+    public $alamat;
+
     #[Validate(['nullable', 'min:4'], onUpdate: false)]
     public string $password = '';
 
     #[Validate('nullable|image|max:2048', message: 'Foto harus berupa gambar dengan ukuran maksimal 2MB.')]
     public $photo;
+
+    #[Validate('required|exists:desa,id', message: 'Desa tidak boleh kosong')]
+    public $desa;
 
     public function update(): bool
     {
@@ -50,6 +56,8 @@ class ProfileForm extends Form
                 'email',
                 Rule::unique('users', 'email')->ignore($user->id),
             ],
+            'desa' => 'required|exists:desa,id',
+            'alamat' => 'required',
             'password' => ['nullable', 'min:4'],
             'telepon' => ['nullable', 'required', 'string', 'regex:/^0[0-9]{9,14}$/'],
             'tanggal_lahir' => ['nullable', 'date', 'before:today'],
@@ -73,6 +81,13 @@ class ProfileForm extends Form
         if ($this->tanggal_lahir !== $user->tanggal_lahir) {
             $updates['tanggal_lahir'] = $this->tanggal_lahir;
         }
+        if ($this->desa !== $user->id_desa) {
+            $updates['id_desa'] = $this->desa;
+        }
+        if ($this->alamat !== $user->alamat) {
+            $updates['alamat'] = $this->alamat;
+        }
+
         if ($this->photo) {
             // Delete old photo if exists
             if ($user->photo) {

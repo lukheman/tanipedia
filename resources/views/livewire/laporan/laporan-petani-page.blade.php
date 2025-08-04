@@ -1,11 +1,15 @@
 <div class="card">
-    <div class="card-body">
-
+    <div class="card-header">
 
 <a href="{{ route('print-laporan.petani')}}" class="btn btn-danger" type="submit">
     <i class="bi bi-printer"></i>
     Cetak Laporan
 </a>
+
+    </div>
+    <div class="card-body">
+
+
 
     <div class="table-responsive">
         <table class="table table-lg">

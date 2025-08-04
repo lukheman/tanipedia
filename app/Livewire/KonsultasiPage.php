@@ -130,7 +130,17 @@ class KonsultasiPage extends Component
         $konsultasi = Konsultasi::with('user')
             ->where('id_user', auth()->id())
             ->get();
-    } else {
+        } else if(auth()->user()->role === Role::AHLIPERTANIAN->value) {
+$konsultasi = Konsultasi::with(['user', 'user.desa'])
+    ->whereHas('user.desa', function ($query) {
+        $currentUser = Auth::user();
+        if ($currentUser && $currentUser->id_desa) {
+            $kecamatanId = \App\Models\Desa::find($currentUser->id_desa)->id_kecamatan;
+            $query->where('id_kecamatan', $kecamatanId);
+        }
+    })->get();
+        }
+    else {
         $konsultasi = Konsultasi::with('user')->get();
     }
 

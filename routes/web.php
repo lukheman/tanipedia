@@ -36,3 +36,4 @@ Route::get('/profile', \App\Livewire\Profile::class)->name('profile')->middlewar
 Route::get('/cetak-laporan/petani', [LaporanController::class, 'laporanPetani'])->name('print-laporan.petani')->middleware('auth');
 Route::get('/cetak-laporan/ahli-pertanian', [LaporanController::class, 'laporanAhliPertanian'])->name('print-laporan.ahli-pertanian')->middleware('auth');
 Route::post('/cetak-laporan/konsultasi', [LaporanController::class, 'laporanKonsultasi'])->name('print-laporan.konsultasi')->middleware('auth');
+Route::post('/cetak-laporan/konsultasi-kecamatan', [LaporanController::class, 'laporanKonsultasiKecamatan'])->name('print-laporan.konsultasi-kecamatan')->middleware('auth');

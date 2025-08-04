@@ -67,6 +67,33 @@
             border-radius: 4px;
             font-size: 1.1rem;
         }
+        .consultation-section {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #435ebe;
+            border-radius: 4px;
+        }
+        .consultation-section h6 {
+            font-weight: 600;
+            color: #435ebe;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        .consultation-section p {
+            margin: 5px 0;
+            font-size: 1rem;
+        }
+        .consultation-section .label {
+            font-weight: 600;
+            color: #555;
+        }
+        .consultation-section .solution {
+            background-color: #e6ecff;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
         .signature {
             display: flex;
             justify-content: space-between;
@@ -88,6 +115,41 @@
             font-weight: 600;
             font-size: 1.1rem;
         }
+        table#petani {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1rem;
+        }
+        table#petani thead {
+            background-color: #435ebe;
+            color: white;
+        }
+        table#petani th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        table#petani td {
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        table#petani tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        table#petani tbody tr:hover {
+            background-color: #eef1ff;
+        }
+        table#petani td.center {
+            text-align: center;
+        }
+        .total {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: right;
+        }
         @media print {
             body {
                 background: white;
@@ -97,12 +159,21 @@
                 margin: 0;
                 width: 100%;
             }
+            table#petani {
+                font-size: 0.9rem;
+            }
+            table#petani th, table#petani td {
+                padding: 8px;
+            }
+            .consultation-section {
+                break-inside: avoid;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-            {{ $slot }}
+        {{ $slot }}
     </div>
 </body>
 </html>

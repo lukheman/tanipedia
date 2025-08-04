@@ -44,7 +44,7 @@
 <ul class="menu">
 <div class="d-flex align-items-center">
                                                     <div class="avatar avatar-md">
-                                                        <img src="{{ auth()->user()->photo ? asset('storage/' . (auth()->user()->photo ?? '')) : './assets/compiled/jpg/2.jpg' }}">
+                                                        <img src="{{ auth()->user()->photo ? asset('storage/' . (auth()->user()->photo ?? '')) : asset('./assets/compiled/jpg/2.jpg') }}">
                                                     </div>
                                                     <p class="font-bold ms-3 mb-0">{{ auth()->user()->role}} - {{ auth()->user()->name }}</p>
                                                 </div>

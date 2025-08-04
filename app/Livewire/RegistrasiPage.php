@@ -3,6 +3,8 @@
 namespace App\Livewire;
 
 use App\Enums\Role;
+use App\Models\Desa;
+use App\Models\Kecamatan;
 use App\Models\User;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
@@ -30,7 +32,26 @@ class RegistrasiPage extends Component
     #[Rule('required|string|min:4|confirmed')]
     public $password;
 
+    #[Rule('required|exists:desa,id')]
+    public $desa;
+
     public $password_confirmation;
+
+    public $kecamatanList;
+    public $desaList;
+
+    public $kecamatan;
+
+    public function mount()
+    {
+        $this->kecamatanList = Kecamatan::all();
+        $this->desaList = collect(); // Initialize as empty
+    }
+
+    public function updatedKecamatan($value)
+    {
+        $this->desaList = $value ? Desa::where('id_kecamatan', $value)->get() : collect();
+    }
 
     public function register()
     {
@@ -41,6 +62,7 @@ class RegistrasiPage extends Component
             'email' => $this->email,
             'telepon' => $this->telepon,
             'tanggal_lahir' => $this->tanggal_lahir,
+            'id_desa' => $this->desa,
             'alamat' => $this->alamat,
             'role' => Role::PETANI->value,
             'password' => bcrypt($this->password),
