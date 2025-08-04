@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('telepon');
             $table->date('tanggal_lahir');
             $table->string('photo')->nullable();
+            $table->string('alamat')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

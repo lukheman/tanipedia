@@ -23,6 +23,7 @@ class PenggunaPage extends Component
     public $role = '';
     public $telepon = '';
     public $tanggal_lahir = '';
+    public $alamat = '';
 
     public $selectedIdUser;
 
@@ -33,8 +34,8 @@ class PenggunaPage extends Component
 
     public function edit($user)
     {
-        $this->currentState = State::UPDATE;
         $this->detail($user);
+        $this->currentState = State::UPDATE;
         $this->openModal($this->idModal);
     }
 
@@ -44,9 +45,11 @@ class PenggunaPage extends Component
         $this->selectedIdUser = $user['id'];
         $this->name = $user['name'];
         $this->email = $user['email'];
+        $this->alamat = $user['alamat'];
         $this->role = $user['role'];
         $this->telepon = $user['telepon'];
         $this->tanggal_lahir = $user['tanggal_lahir'];
+        $this->openModal($this->idModal);
     }
 
     public function save()
@@ -56,6 +59,7 @@ class PenggunaPage extends Component
             $this->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|max:255|unique:users,email',
+                'alamat' => 'required|max:255',
                 'role' => 'required',
                 'telepon' => 'required|string',
                 'tanggal_lahir' => 'required|date|before:today',
@@ -67,6 +71,7 @@ class PenggunaPage extends Component
                 'email.email' => 'Email wajib diisi, harus valid, dan belum terdaftar.',
                 'email.max' => 'Email wajib diisi, harus valid, dan belum terdaftar.',
                 'email.unique' => 'Email wajib diisi, harus valid, dan belum terdaftar.',
+                'alamat.required' => 'Alamat wajib diisi',
                 'role.required' => 'Role wajib dipilih (admin atau user).',
                 'telepon.required' => 'Telepon wajib diisi dan harus berupa nomor Indonesia yang dimulai dari 0 dengan panjang 10 hingga 15 digit.',
                 'tanggal_lahir.required' => 'Tanggal lahir wajib diisi dan harus sebelum hari ini.',
@@ -78,6 +83,7 @@ class PenggunaPage extends Component
                 User::create([
                     'name' => $this->name,
                     'email' => $this->email,
+                    'alamat' => $this->alamat,
                     'role' => $this->role,
                     'telepon' => $this->telepon,
                     'tanggal_lahir' => $this->tanggal_lahir,
@@ -85,7 +91,7 @@ class PenggunaPage extends Component
                 ]);
 
                 $this->notifySuccess('Pengguna berhasil ditambahkan!');
-                $this->reset(['name', 'email', 'role', 'telepon', 'tanggal_lahir']);
+                $this->reset(['name', 'email', 'role', 'telepon', 'tanggal_lahir', 'alamat']);
             } catch (\Exception $e) {
                 $this->notifyError('Gagal menambahkan pengguna: ' . $e->getMessage());
             }
@@ -94,6 +100,7 @@ class PenggunaPage extends Component
             $this->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|max:255|unique:users,email,' . $this->selectedIdUser,
+                'alamat' => 'required|max:255',
                 'role' => 'required',
                 'telepon' => 'required|string|regex:/^0[0-9]{9,14}$/|unique:users,telepon,' . $this->selectedIdUser,
                 'tanggal_lahir' => 'required|date|before:today',
@@ -105,6 +112,7 @@ class PenggunaPage extends Component
                 'email.email' => 'Email wajib diisi, harus valid, dan belum terdaftar.',
                 'email.max' => 'Email wajib diisi, harus valid, dan belum terdaftar.',
                 'email.unique' => 'Email wajib diisi, harus valid, dan belum terdaftar.',
+                'alamat.required' => 'Alamat wajib diisi',
                 'role.required' => 'Role wajib dipilih (admin atau user).',
                 'telepon.required' => 'Telepon wajib diisi dan harus berupa nomor Indonesia yang dimulai dari 0 dengan panjang 10 hingga 15 digit.',
                 'telepon.string' => 'Telepon wajib diisi dan harus berupa nomor Indonesia yang dimulai dari 0 dengan panjang 10 hingga 15 digit.',
@@ -121,13 +129,13 @@ class PenggunaPage extends Component
                 $user->update([
                     'name' => $this->name,
                     'email' => $this->email,
+                    'alamat' => $this->alamat,
                     'role' => $this->role,
                     'telepon' => $this->telepon,
                     'tanggal_lahir' => $this->tanggal_lahir,
                 ]);
 
                 $this->notifySuccess('Berhasil memperbarui pengguna');
-                $this->closeModal();
             } catch (\Exception $e) {
                 $this->notifyError('Gagal memperbarui pengguna: ' . $e->getMessage());
             }
@@ -162,7 +170,7 @@ class PenggunaPage extends Component
     public function clearForm()
     {
 
-        $this->reset(['name', 'email', 'role', 'telepon', 'tanggal_lahir']);
+        $this->reset(['name', 'email', 'alamat', 'role', 'telepon', 'tanggal_lahir']);
     }
 
     public function render()

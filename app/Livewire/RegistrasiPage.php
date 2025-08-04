@@ -21,10 +21,13 @@ class RegistrasiPage extends Component
     #[Validate('required|string|regex:/^0[0-9]{9,14}$/', message: 'Telepon wajib diisi dan harus berupa nomor Indonesia yang dimulai dari 0 dengan panjang 10 hingga 15 digit.')]
     public $telepon;
 
+    #[Validate('nullable|string', message: 'Alamat wajib di isi')]
+    public $alamat;
+
     #[Validate('required|date|before:today', message: 'Tanggal lahir wajib diisi dan harus sebelum hari ini.')]
     public $tanggal_lahir;
 
-    #[Rule('required|string|min:8|confirmed')]
+    #[Rule('required|string|min:4|confirmed')]
     public $password;
 
     public $password_confirmation;
@@ -38,6 +41,7 @@ class RegistrasiPage extends Component
             'email' => $this->email,
             'telepon' => $this->telepon,
             'tanggal_lahir' => $this->tanggal_lahir,
+            'alamat' => $this->alamat,
             'role' => Role::PETANI->value,
             'password' => bcrypt($this->password),
         ]);

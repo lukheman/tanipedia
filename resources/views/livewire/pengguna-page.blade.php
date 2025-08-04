@@ -40,6 +40,13 @@
                         @enderror
                     </div>
                     <div class="mb-3">
+                        <label for="alamat" class="form-label fw-semibold">Alamat</label>
+                        <input wire:model="alamat" type="text" class="form-control" id="alamat" name="alamat" placeholder="Masukkan alamat">
+                        @error('alamat')
+                            <small class="d-block mt-1 text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
                         <label for="role" class="form-label fw-semibold">Role</label>
                         <select wire:model="role" class="form-select" id="role" name="role">
                             @foreach (\App\Enums\Role::values() as $role)
@@ -100,9 +107,9 @@
                     <td><span class="badge bg-{{\App\Enums\Role::from($item->role)->getColor()}}">{{ $item->role }}</span></td>
                     <td class="text-end">
 
-                        <button wire:click="detail({{ $item }})"class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#modal-form-pengguna">Lihat</button>
+                        <button wire:click="detail({{ $item }})"class="btn btn-sm btn-info">Lihat</button>
 
-                        <button wire:click="edit({{ $item }})" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modal-form-pengguna">Edit</button>
+                        <button wire:click="edit({{ $item }})" class="btn btn-sm btn-warning">Edit</button>
 
                         <button wire:click="delete({{ $item->id }})" class="btn btn-sm btn-danger">Hapus</button>
 

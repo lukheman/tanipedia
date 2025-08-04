@@ -22,6 +22,11 @@
                             @error('telepon') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
+                            <label for="alamat" class="form-label">Alamat</label>
+                            <input type="text" class="form-control" id="alamat" wire:model="alamat" placeholder="Masukkan alamat" required>
+                            @error('alamat') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="mb-3">
                             <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
                             <input type="date" class="form-control" id="tanggal_lahir" wire:model="tanggal_lahir" required>
                             @error('tanggal_lahir') <span class="text-danger">{{ $message }}</span> @enderror
