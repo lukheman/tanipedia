@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Enums\State;
 use App\Models\Berita;
+use App\Traits\Traits\WithModal;
 use App\Traits\WithNotify;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
@@ -15,6 +16,7 @@ class BeritaPage extends Component
 {
     use WithNotify;
     use WithPagination;
+    use WithModal;
 
     public ?int $selectedIdBerita;
 
@@ -25,6 +27,8 @@ class BeritaPage extends Component
     public $tanggal_publikasi = '';
 
     public $currentState = State::LISTDATA;
+
+    public string $idModal = 'modal-show-berita';
 
     public function edit($id)
     {
@@ -52,6 +56,7 @@ class BeritaPage extends Component
         $this->isi = $item['isi'];
         $this->judul = $item['judul'];
         $this->tanggal_publikasi = $item['tanggal_publikasi'];
+        $this->openModal($this->idModal);
     }
 
     public function delete(int $id)

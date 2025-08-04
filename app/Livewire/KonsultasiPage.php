@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\HasilKonsultasi;
 use App\Models\Konsultasi;
+use App\Traits\Traits\WithModal;
 use App\Traits\WithNotify;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -16,6 +17,7 @@ use App\Enums\Role;
 class KonsultasiPage extends Component
 {
     use WithNotify;
+    use WithModal;
 
     public $selectedIdKonsultasi;
 
@@ -46,6 +48,8 @@ class KonsultasiPage extends Component
             $this->jawaban = $konsultasi->hasil->isi;
         }
 
+        $this->openModal('modal-detail-konsultasi');
+
     }
 
     public function jawab($id)
@@ -55,6 +59,7 @@ class KonsultasiPage extends Component
         if ($konsultasi->hasil) {
             $this->jawaban = $konsultasi->hasil->isi;
         }
+        $this->openModal('modal-jawab');
     }
 
     public function kirimJawaban()

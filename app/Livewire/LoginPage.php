@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
+use function request;
 
 #[Layout('layouts.guest')]
 class LoginPage extends Component
@@ -17,6 +18,8 @@ class LoginPage extends Component
     #[Rule(['required'])]
     public string $password = '';
 
+    public ?string $redirect = null;
+
     public function messages(): array
     {
         return [
@@ -26,24 +29,28 @@ class LoginPage extends Component
         ];
     }
 
+    public function mount() {
+        $this->redirect = request()->query('redirect');
+    }
+
     public function submit()
     {
-
         if (Auth::attempt($this->validate())) {
-
             $role = Role::from(Auth::user()->role);
+
+            // Cek apakah ada parameter redirect
+             $redirectUrl = $this->redirect ?? route('dashboard');
 
             match (Role::from(Auth::user()->role)) {
                 Role::ADMIN,
                 Role::PETANI,
                 Role::AHLIPERTANIAN,
-                Role::KEPALADINAS => redirect()->route('dashboard'),
+                Role::KEPALADINAS => redirect()->to($redirectUrl), // Redirect ke URL yang disimpan
                 default => flash('Email tidak terdaftar atau password tidak valid', 'danger')
             };
         }
 
         flash('Password tidak valid', 'danger');
-
     }
 
     public function render()

@@ -42,6 +42,13 @@
     </div>
     <div class="sidebar-menu">
 <ul class="menu">
+<div class="d-flex align-items-center">
+                                                    <div class="avatar avatar-md">
+                                                        <img src="{{ auth()->user()->photo ? asset('storage/' . (auth()->user()->photo ?? '')) : './assets/compiled/jpg/2.jpg' }}">
+                                                    </div>
+                                                    <p class="font-bold ms-3 mb-0">{{ auth()->user()->role}} - {{ auth()->user()->name }}</p>
+                                                </div>
+                        <hr>
     <li class="sidebar-title">Navigasi Utama</li>
 
     <x-nav-link
@@ -66,7 +73,7 @@
     <x-nav-link
         icon="bi-newspaper"
         href="{{ route('berita')}}"
-        :active="request()->routeIs('berita')"
+        :active="request()->routeIs('berita*')"
     >
         Artikel & Berita
     </x-nav-link>
@@ -74,7 +81,7 @@
     <x-nav-link
         icon="bi-camera-video-fill"
         href="{{ route('video')}}"
-        :active="request()->routeIs('video')"
+        :active="request()->routeIs('video*')"
     >
         Galeri Video
     </x-nav-link>

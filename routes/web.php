@@ -14,13 +14,13 @@ Route::get('/baca-berita/{id}', \App\Livewire\BacaBerita::class)->name('baca-ber
 Route::get('/nonton-video/{id}', \App\Livewire\NontonVideo::class)->name('nonton-video');
 
 Route::get('/berita-edit/{id}', \App\Livewire\FormBeritaPage::class)->name('berita.edit')->middleware('auth');
-Route::get('/berita-tambah', \App\Livewire\FormBeritaPage::class)->name('berita.add')->middleware('auth');
+Route::get('/berita/tambah', \App\Livewire\FormBeritaPage::class)->name('berita.add')->middleware('auth');
 Route::get('/berita', \App\Livewire\BeritaPage::class)->name('berita')->middleware('auth');
 
 Route::get('/dashboard', \App\Livewire\DashboardPage::class)->name('dashboard')->middleware(['auth']);
 
 Route::get('/video', \App\Livewire\VideoPage::class)->name('video')->middleware('auth');
-Route::get('/video/{id}/komentar', \App\Livewire\KomentarPage::class)->name('komentar')->middleware('auth');
+Route::get('/video/{id}/komentar', \App\Livewire\KomentarPage::class)->name('video.komentar')->middleware('auth');
 
 Route::get('/pengguna', \App\Livewire\PenggunaPage::class)->name('pengguna')->middleware('auth');
 

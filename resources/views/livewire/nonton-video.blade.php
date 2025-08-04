@@ -31,11 +31,11 @@
                             </div>
                             <button wire:click="saveKomentar" type="button" class="btn btn-custom">Kirim Komentar</button>
                         </form>
-                    @else
-                        <div class="alert alert-info" role="alert">
-                            <p class="mb-0">Silakan <a href="{{ route('login') }}" class="text-decoration-none">masuk</a> untuk menulis komentar.</p>
-                        </div>
-                    @endauth
+@else
+    <div class="alert alert-info" role="alert">
+        <p class="mb-0">Silakan <a href="{{ route('login') }}?redirect={{ urlencode(url()->current()) }}" class="text-decoration-none">masuk</a> untuk menulis komentar.</p>
+    </div>
+@endauth
 
                     <!-- Komentar -->
                     @if ($video->komentar->isEmpty())

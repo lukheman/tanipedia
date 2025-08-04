@@ -1,4 +1,6 @@
-<div>
+<div class="card">
+    <div class="card-body">
+
         <div class="table-responsive">
             <table class="table table-lg">
                 <thead>
@@ -24,4 +26,5 @@
                 </tbody>
             </table>
         </div>
+    </div>
 </div>

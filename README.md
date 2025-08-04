@@ -16,3 +16,21 @@
 # perintah untuk menjalankan
 
 php artisan serve
+
+Nama: Admin
+email: admin@gmail.com
+
+Nama: Petani 1
+email: petani1@gmail.com
+
+Nama: Petani 2
+email: petani2@gmail.com
+
+Nama: Ahli Pertanian
+email: ahlipertanian@gmail.com
+
+Nama: KEPALADINAS
+email: kepaladinas@gmail.com
+
+
+password semua user: password123
