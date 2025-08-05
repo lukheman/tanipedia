@@ -38,6 +38,8 @@
                     </div>
 
 
+@if ($user->role === \App\Enums\Role::PETANI->value || $user->role === \App\Enums\Role::AHLIPERTANIAN->value )
+
 <div class="row">
     <div class="col-6">
         <!-- Kecamatan -->
@@ -70,6 +72,8 @@
         </div>
     </div>
 </div>
+
+@endif
 
                             <div class="form-group">
                                 <label for="alamat" class="form-label">Alamat</label>
