@@ -1,3 +1,13 @@
+@push('styles')
+<style>
+        #modal-show-berita img {
+            max-width: 100%; /* Agar responsif */
+            width: 300px; /* Atur lebar tetap, misalnya 300px */
+            height: auto; /* Jaga rasio aspek */
+        }
+    </style>
+
+@endpush
 <div class="card">
     <div class="card-body">
 
@@ -34,7 +44,7 @@
                     <label class="form-label fw-semibold" for="isi">Isi Berita</label>
                     <div class="border rounded p-3 bg-light overflow-auto" style="max-height: 400px;">
                         <div wire:model="isi" id="isi" class="text-dark" style="white-space: pre-line;">
-                            {{ $isi }}
+                            {!! $isi !!}
                         </div>
                     </div>
                 </div>

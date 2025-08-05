@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\UploadImageController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', \App\Livewire\LandingPage::class)->name('index');
@@ -37,3 +38,7 @@ Route::get('/cetak-laporan/petani', [LaporanController::class, 'laporanPetani'])
 Route::get('/cetak-laporan/ahli-pertanian', [LaporanController::class, 'laporanAhliPertanian'])->name('print-laporan.ahli-pertanian')->middleware('auth');
 Route::post('/cetak-laporan/konsultasi', [LaporanController::class, 'laporanKonsultasi'])->name('print-laporan.konsultasi')->middleware('auth');
 Route::post('/cetak-laporan/konsultasi-kecamatan', [LaporanController::class, 'laporanKonsultasiKecamatan'])->name('print-laporan.konsultasi-kecamatan')->middleware('auth');
+
+Route::post('/upload-image', [FormBeritaPage::class, 'uploadImage'])->name('upload.image');
+
+Route::post('/upload-image', UploadImageController::class)->name('upload.image');

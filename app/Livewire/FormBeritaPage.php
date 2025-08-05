@@ -4,9 +4,12 @@ namespace App\Livewire;
 
 use App\Models\Berita;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class FormBeritaPage extends Component
 {
+    use WithFileUploads;
+
     public ?int $selectedIdBerita = null;
 
     public $isi = '';
