@@ -76,7 +76,7 @@ class BeritaPage extends Component
     {
 
         return view('livewire.berita-page', [
-            'berita' => Berita::with('penulis')->paginate(3),
+            'berita' => Berita::with('penulis')->paginate(5),
         ]);
     }
 }

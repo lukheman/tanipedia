@@ -12,7 +12,7 @@
     <div class="card-body">
 
 
-    <a href="{{ route('berita.add')}}" class="btn btn-primary" wire:navigate>
+    <a href="{{ route('berita.add')}}" class="btn btn-primary">
     <i class="bi bi-pencil"></i>
     Tulis Berita</a>
 
