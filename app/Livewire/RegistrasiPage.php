@@ -14,19 +14,19 @@ use Livewire\Component;
 #[Layout('layouts.guest')]
 class RegistrasiPage extends Component
 {
-    #[Validate('required|string|max:255', message: 'Nama wajib diisi dan maksimal 255 karakter.')]
+    #[Validate('required|string|max:255')]
     public $name;
 
     #[Validate('required|email|max:255|unique:users,email', message: 'Email wajib diisi, harus valid, dan belum terdaftar.')]
     public $email;
 
-    #[Validate('required|string|regex:/^0[0-9]{9,14}$/', message: 'Telepon wajib diisi dan harus berupa nomor Indonesia yang dimulai dari 0 dengan panjang 10 hingga 15 digit.')]
+    #[Validate('required|string|regex:/^0[0-9]{9,14}$/|unique:users,telepon')]
     public $telepon;
 
     #[Validate('nullable|string', message: 'Alamat wajib di isi')]
     public $alamat;
 
-    #[Validate('required|date|before:today', message: 'Tanggal lahir wajib diisi dan harus sebelum hari ini.')]
+    #[Validate('required|date|before:today')]
     public $tanggal_lahir;
 
     #[Rule('required|string|min:4|confirmed')]
@@ -46,6 +46,29 @@ class RegistrasiPage extends Component
     {
         $this->kecamatanList = Kecamatan::all();
         $this->desaList = collect(); // Initialize as empty
+    }
+
+    public function messages(): array {
+
+        return [
+            'name.required' => 'Nama wajib diisi dan maksimal 255 karakter.',
+            'name.string' => 'Nama wajib diisi dan maksimal 255 karakter.',
+            'name.max' => 'Nama wajib diisi dan maksimal 255 karakter.',
+            'email.required' => 'Email wajib diisi, harus valid, dan belum terdaftar.',
+            'email.email' => 'Email wajib diisi, harus valid, dan belum terdaftar.',
+            'email.max' => 'Email wajib diisi, harus valid, dan belum terdaftar.',
+            'email.unique' => 'Email telah terdaftar',
+            'alamat.required' => 'Alamat wajib diisi.',
+            'telepon.required' => 'Telepon wajib diisi dan harus berupa nomor Indonesia (0xxxxxxxxxx).',
+            'telepon.regex' => 'Telepon harus berupa nomor Indonesia yang dimulai dari 0 dengan panjang 10 hingga 15 digit.',
+            'telepon.unique' => 'Nomor telepon telah terdaftar',
+            'tanggal_lahir.required' => 'Tanggal lahir wajib diisi dan harus sebelum hari ini.',
+            'tanggal_lahir.date' => 'Tanggal lahir wajib diisi dan harus sebelum hari ini.',
+            'tanggal_lahir.before' => 'Tanggal lahir wajib diisi dan harus sebelum hari ini.',
+            'desa.required' => 'Desa wajib dipilih.',
+            'desa.exists' => 'Desa yang dipilih tidak valid.',
+            'password.confirmed' => 'Konfirmasi password tidak sesuai dengan password yang dimasukkan.',
+        ];
     }
 
     public function updatedKecamatan($value)
