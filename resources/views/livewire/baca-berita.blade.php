@@ -1,3 +1,15 @@
+
+
+@push('styles')
+<style>
+        .berita-content img {
+            max-width: 100%; /* Agar responsif */
+            width: 300px; /* Atur lebar tetap, misalnya 300px */
+            height: auto; /* Jaga rasio aspek */
+        }
+    </style>
+
+@endpush
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-8">

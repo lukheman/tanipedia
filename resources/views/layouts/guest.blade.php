@@ -85,6 +85,8 @@
             object-fit: cover;
         }
     </style>
+
+        @stack('styles')
 </head>
 <body>
     <!-- Navbar -->
