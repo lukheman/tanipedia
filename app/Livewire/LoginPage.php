@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
-use function request;
 
 #[Layout('layouts.guest')]
 class LoginPage extends Component
@@ -23,34 +22,43 @@ class LoginPage extends Component
     public function messages(): array
     {
         return [
-            'email.required' => 'Email harus di isi',
-            'email.exists' => 'Email tidak terdaftar',
-            'password.required' => 'Password harus di isi',
+            'email.required' => 'Email harus diisi.',
+            'email.exists' => 'Email tidak terdaftar.',
+            'password.required' => 'Password harus diisi.',
         ];
     }
 
-    public function mount() {
+    public function mount()
+    {
         $this->redirect = request()->query('redirect');
     }
 
     public function submit()
     {
-        if (Auth::attempt($this->validate())) {
-            $role = Role::from(Auth::user()->role);
+        $credentials = $this->validate();
 
-            // Cek apakah ada parameter redirect
-             $redirectUrl = $this->redirect ?? route('dashboard');
-
-            match (Role::from(Auth::user()->role)) {
-                Role::ADMIN,
-                Role::PETANI,
-                Role::AHLIPERTANIAN,
-                Role::KEPALADINAS => redirect()->to($redirectUrl), // Redirect ke URL yang disimpan
-                default => flash('Email tidak terdaftar atau password tidak valid', 'danger')
-            };
+        if (!Auth::attempt($credentials)) {
+            return flash('Password tidak valid.', 'danger');
         }
 
-        flash('Password tidak valid', 'danger');
+        $user = Auth::user();
+        $role = Role::from($user->role);
+
+        // Cek jika user bukan petani tapi mencoba akses tambah konsultasi
+        if ($this->redirect === route('tambah-konsultasi') && $role !== Role::PETANI) {
+            Auth::logout();
+            return flash('Anda bukan petani, tidak bisa login.', 'danger');
+        }
+
+        $redirectUrl = $this->redirect ?? route('dashboard');
+
+        return match ($role) {
+            Role::ADMIN,
+            Role::PETANI,
+            Role::AHLIPERTANIAN,
+            Role::KEPALADINAS => redirect()->to($redirectUrl),
+            default => flash('Email tidak terdaftar atau role tidak valid.', 'danger'),
+        };
     }
 
     public function render()
