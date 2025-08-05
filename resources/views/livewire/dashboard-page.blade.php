@@ -4,6 +4,7 @@
 @endphp
 
 <div>
+    <x-flash-message />
     @if ($role === Role::ADMIN->value)
     <livewire:admin-dashboard />
     @elseif($role === Role::PETANI->value)

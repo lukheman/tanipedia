@@ -52,6 +52,7 @@ class LoginPage extends Component
 
         $redirectUrl = $this->redirect ?? route('dashboard');
 
+        flash('Login berhasil');
         return match ($role) {
             Role::ADMIN,
             Role::PETANI,
