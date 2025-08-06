@@ -110,12 +110,7 @@ class KonsultasiPage extends Component
         try {
             $konsultasi = Konsultasi::findOrFail($this->selectedIdKonsultasi);
 
-            // Optional: Check if the authenticated user owns the consultation
-            if ($konsultasi->id_user !== Auth::id()) {
-                $this->notifyError('Anda tidak memiliki izin untuk menghapus konsultasi ini.');
-            }
-
-            $konsultasi->delete(); // Deletes Konsultasi and its HasilKonsultasi (via cascadeOnDelete)
+            $konsultasi->delete();
 
             $this->notifySuccess('Konsultasi berhasil dihapus!');
             $this->reset(['selectedIdKonsultasi']);
