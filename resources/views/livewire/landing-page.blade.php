@@ -52,7 +52,7 @@
                             <div class="p-3">
                                 <h5>{{ $item->judul }}</h5>
                                 <p>{{ $item->label_deskripsi}}</p>
-                                <a href="{{ route('nonton-video', ['id' => $item->id])}}" class="btn btn-custom">Tonton Sekarang</a>
+                                <a href="{{ route('nonton-video', ['id' => $item->id])}}" class="btn btn-custom" wire:navigate>Tonton Sekarang</a>
                             </div>
                         </div>
                     </div>
