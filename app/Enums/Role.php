@@ -30,10 +30,11 @@ enum Role: string
         return array_map(fn ($case) => $case->value, self::cases());
     }
 
-public static function getOptions(): array {
-    return array_map(
-        fn ($case) => $case->value,
-        array_filter(self::cases(), fn ($case) => !in_array($case, [self::ADMIN, self::KEPALADINAS]))
-    );
-}
+    public static function getOptions(): array
+    {
+        return array_map(
+            fn ($case) => $case->value,
+            array_filter(self::cases(), fn ($case) => ! in_array($case, [self::ADMIN, self::KEPALADINAS]))
+        );
+    }
 }

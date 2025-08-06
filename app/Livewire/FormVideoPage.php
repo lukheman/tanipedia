@@ -47,8 +47,9 @@ class FormVideoPage extends Component
                     'url_video' => $path,
                 ]);
 
-                $this->notifySuccess('Berhasil menambahkan video');
+                $this->dispatch('setState', state: State::LISTDATA->value);
 
+                $this->notifySuccess('Berhasil menambahkan video');
                 $this->reset();
 
             } catch (\Exception $e) {
@@ -70,6 +71,7 @@ class FormVideoPage extends Component
                     'tanggal_publikasi' => date('Y-m-d'),
                 ]);
 
+                $this->dispatch('setState', state: State::LISTDATA->value);
                 $this->notifySuccess('Berhasil memperbarui video');
 
             } catch (\Exception $e) {

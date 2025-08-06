@@ -16,6 +16,7 @@
                 @forelse ($berita as $item)
                     <div class="col-md-4 mb-4">
                         <div class="news-card h-100 d-flex flex-column shadow-sm border rounded overflow-hidden plant-themed">
+
                             <div class="p-3 d-flex flex-column justify-content-start flex-grow-1">
                                 <div>
                                     <h5 class="fw-bold">{{ $item->judul }}</h5>

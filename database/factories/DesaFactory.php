@@ -17,7 +17,7 @@ class DesaFactory extends Factory
     public function definition(): array
     {
         return [
-            'nama' => 'Desa ' . $this->faker->lastName()
+            'nama' => 'Desa '.$this->faker->lastName(),
         ];
     }
 }

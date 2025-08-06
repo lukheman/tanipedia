@@ -15,6 +15,7 @@ class LogoutController extends Controller
         Auth::logout();
 
         flash('Berhasil logout dari aplikasi');
+
         return to_route('login');
     }
 }

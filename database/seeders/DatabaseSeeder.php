@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\Kecamatan;
-use App\Models\Desa;
-use App\Models\User;
 use App\Enums\Role;
+use App\Models\Desa;
+use App\Models\Kecamatan;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
                 $desaList->push(
                     Desa::create([
                         'id_kecamatan' => $kecamatan->id,
-                        'nama' => $namaDesa
+                        'nama' => $namaDesa,
                     ])
                 );
             }

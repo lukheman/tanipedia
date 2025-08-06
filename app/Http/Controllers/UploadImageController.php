@@ -11,7 +11,6 @@ class UploadImageController extends Controller
     /**
      * Handle the incoming request to upload an image.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function __invoke(Request $request)
@@ -32,7 +31,7 @@ class UploadImageController extends Controller
             // Return the publicly accessible URL
             return response()->json(['url' => Storage::url($path)], 200);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to upload image: ' . $e->getMessage()], 500);
+            return response()->json(['error' => 'Failed to upload image: '.$e->getMessage()], 500);
         }
     }
 }

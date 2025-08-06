@@ -14,9 +14,9 @@ use Livewire\WithPagination;
 #[Title('Artikel & Berita')]
 class BeritaPage extends Component
 {
+    use WithModal;
     use WithNotify;
     use WithPagination;
-    use WithModal;
 
     public ?int $selectedIdBerita;
 
@@ -76,7 +76,7 @@ class BeritaPage extends Component
     {
 
         return view('livewire.berita-page', [
-            'berita' => Berita::with('penulis')->paginate(5),
+            'berita' => Berita::with('penulis')->latest()->paginate(5),
         ]);
     }
 }

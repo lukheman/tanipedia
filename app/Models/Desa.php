@@ -10,14 +10,16 @@ class Desa extends Model
     use HasFactory;
 
     protected $table = 'desa';
+
     protected $guarded = [];
 
-    public function user() {
+    public function user()
+    {
         return $this->hasMany(User::class, 'id_user', 'id');
     }
 
-    public function kecamatan() {
+    public function kecamatan()
+    {
         return $this->belongsTo(Kecamatan::class, 'id_kecamatan', 'id');
     }
-
 }

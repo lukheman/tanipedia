@@ -4,9 +4,9 @@ namespace App\Livewire;
 
 use App\Models\Berita;
 use App\Traits\WithNotify;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Livewire\Attributes\Title;
 
 #[Title('Artikel & Berita')]
 class FormBeritaPage extends Component
@@ -50,7 +50,6 @@ class FormBeritaPage extends Component
                 'tanggal_publikasi' => date('Y-m-d'),
                 'id_user' => auth()->id(),
             ]);
-            // session()->flash('message', 'Berita berhasil diperbarui!');
             $this->notifySuccess('Berita berhasil diperbarui');
         } else {
             // Buat berita baru
@@ -60,11 +59,9 @@ class FormBeritaPage extends Component
                 'tanggal_publikasi' => date('Y-m-d'),
                 'id_user' => auth()->id(),
             ]);
-            $this->notifySuccess('Berita berhasil diperbarui');
-            // session()->flash('message', 'Berita berhasil ditambahkan!');
+            $this->notifySuccess('Berita berhasil ditambahkan');
         }
 
-        // return redirect()->route('berita');
     }
 
     public function render()

@@ -10,14 +10,15 @@ class Kecamatan extends Model
     use HasFactory;
 
     protected $table = 'kecamatan';
+
     protected $guarded = [];
 
     // public function user() {
     //     return $this->hasMany(User::class, 'id_user', 'id');
     // }
 
-    public function desa() {
+    public function desa()
+    {
         return $this->hasMany(Desa::class, 'id_kecamatan', 'id');
     }
-
 }

@@ -9,8 +9,8 @@ class AhliPertanianDashboard extends Component
 {
     public function render()
     {
-        return view('livewire.ahli-pertanian-dashboard', [ 
-            'jumlah_konsultasi' => Konsultasi::count()
+        return view('livewire.ahli-pertanian-dashboard', [
+            'jumlah_konsultasi' => Konsultasi::count(),
         ]);
     }
 }

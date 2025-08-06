@@ -3,9 +3,9 @@
 namespace App\Livewire;
 
 use App\Enums\State;
-use App\Models\User;
 use App\Models\Desa;
 use App\Models\Kecamatan;
+use App\Models\User;
 use App\Traits\Traits\WithModal;
 use App\Traits\WithNotify;
 use Livewire\Attributes\On;
@@ -16,26 +16,38 @@ use Livewire\WithPagination;
 #[Title('Manajemen Pengguna')]
 class PenggunaPage extends Component
 {
+    use WithModal;
     use WithNotify;
     use WithPagination;
-    use WithModal;
 
     public $name = '';
+
     public $email = '';
+
     public $role = '';
+
     public $telepon = '';
+
     public $tanggal_lahir = '';
+
     public $alamat = '';
+
     public $kecamatan = '';
+
     public $desa = '';
 
     public $selectedIdUser;
+
     public $currentState = State::CREATE;
+
     public $idModal = 'modal-form-pengguna';
+
     public $kecamatanList;
+
     public $desaList;
 
     public $selectedDesa;
+
     public $selectedKecamatan;
 
     public function mount()
@@ -108,8 +120,8 @@ class PenggunaPage extends Component
             $rules['email'] .= '|unique:users,email';
             $rules['telepon'] .= '|unique:users,telepon';
         } elseif ($this->currentState === State::UPDATE) {
-            $rules['email'] .= '|unique:users,email,' . $this->selectedIdUser;
-            $rules['telepon'] .= '|unique:users,telepon,' . $this->selectedIdUser;
+            $rules['email'] .= '|unique:users,email,'.$this->selectedIdUser;
+            $rules['telepon'] .= '|unique:users,telepon,'.$this->selectedIdUser;
         }
 
         $this->validate($rules, $messages);
@@ -138,7 +150,7 @@ class PenggunaPage extends Component
 
             $this->closeModal($this->idModal);
         } catch (\Exception $e) {
-            $this->notifyError('Gagal menyimpan pengguna: ' . $e->getMessage());
+            $this->notifyError('Gagal menyimpan pengguna: '.$e->getMessage());
         }
     }
 
@@ -157,7 +169,7 @@ class PenggunaPage extends Component
             $this->notifySuccess('Pengguna berhasil dihapus!');
             $this->reset('selectedIdUser');
         } catch (\Exception $e) {
-            $this->notifyError('Gagal menghapus pengguna: ' . $e->getMessage());
+            $this->notifyError('Gagal menghapus pengguna: '.$e->getMessage());
         }
     }
 

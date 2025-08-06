@@ -20,8 +20,11 @@ class Profile extends Component
     public ProfileForm $form;
 
     public User $user;
+
     public $kecamatanList;
+
     public $desaList;
+
     public $kecamatan;
 
     public function edit()

@@ -38,6 +38,7 @@ class RegistrasiPage extends Component
     public $password_confirmation;
 
     public $kecamatanList;
+
     public $desaList;
 
     public $kecamatan;
@@ -48,7 +49,8 @@ class RegistrasiPage extends Component
         $this->desaList = collect(); // Initialize as empty
     }
 
-    public function messages(): array {
+    public function messages(): array
+    {
 
         return [
             'name.required' => 'Nama wajib diisi dan maksimal 255 karakter.',

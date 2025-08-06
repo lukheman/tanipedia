@@ -37,7 +37,7 @@ class LoginPage extends Component
     {
         $credentials = $this->validate();
 
-        if (!Auth::attempt($credentials)) {
+        if (! Auth::attempt($credentials)) {
             return flash('Password tidak valid.', 'danger');
         }
 
@@ -47,12 +47,14 @@ class LoginPage extends Component
         // Cek jika user bukan petani tapi mencoba akses tambah konsultasi
         if ($this->redirect === route('tambah-konsultasi') && $role !== Role::PETANI) {
             Auth::logout();
+
             return flash('Anda bukan petani, tidak bisa login.', 'danger');
         }
 
         $redirectUrl = $this->redirect ?? route('dashboard');
 
         flash('Login berhasil');
+
         return match ($role) {
             Role::ADMIN,
             Role::PETANI,

@@ -64,7 +64,7 @@ class VideoPage extends Component
     {
 
         return view('livewire.video-page', [
-            'videos' => \App\Models\Edukasi::paginate(5),
+            'videos' => \App\Models\Edukasi::latest()->paginate(5),
         ]);
     }
 }

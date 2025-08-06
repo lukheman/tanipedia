@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Enums\Role;
 use App\Models\HasilKonsultasi;
 use App\Models\Konsultasi;
 use App\Traits\Traits\WithModal;
@@ -11,13 +12,12 @@ use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
-use App\Enums\Role;
 
 #[Title('Daftar Konsultasi')]
 class KonsultasiPage extends Component
 {
-    use WithNotify;
     use WithModal;
+    use WithNotify;
 
     public $selectedIdKonsultasi;
 
@@ -126,26 +126,25 @@ class KonsultasiPage extends Component
 
     public function render()
     {
-    if (auth()->user()->role === Role::PETANI->value) {
-        $konsultasi = Konsultasi::with('user')
-            ->where('id_user', auth()->id())
-            ->get();
-        } else if(auth()->user()->role === Role::AHLIPERTANIAN->value) {
-$konsultasi = Konsultasi::with(['user', 'user.desa'])
-    ->whereHas('user.desa', function ($query) {
-        $currentUser = Auth::user();
-        if ($currentUser && $currentUser->id_desa) {
-            $kecamatanId = \App\Models\Desa::find($currentUser->id_desa)->id_kecamatan;
-            $query->where('id_kecamatan', $kecamatanId);
+        if (auth()->user()->role === Role::PETANI->value) {
+            $konsultasi = Konsultasi::with('user')
+                ->where('id_user', auth()->id())
+                ->get();
+        } elseif (auth()->user()->role === Role::AHLIPERTANIAN->value) {
+            $konsultasi = Konsultasi::with(['user', 'user.desa'])
+                ->whereHas('user.desa', function ($query) {
+                    $currentUser = Auth::user();
+                    if ($currentUser && $currentUser->id_desa) {
+                        $kecamatanId = \App\Models\Desa::find($currentUser->id_desa)->id_kecamatan;
+                        $query->where('id_kecamatan', $kecamatanId);
+                    }
+                })->get();
+        } else {
+            $konsultasi = Konsultasi::with('user')->get();
         }
-    })->get();
-        }
-    else {
-        $konsultasi = Konsultasi::with('user')->get();
-    }
 
-    return view('livewire.konsultasi-page', [
-        'konsultasi' => $konsultasi,
-    ]);
-}
+        return view('livewire.konsultasi-page', [
+            'konsultasi' => $konsultasi,
+        ]);
+    }
 }

@@ -17,7 +17,7 @@ class KecamatanFactory extends Factory
     public function definition(): array
     {
         return [
-            'nama' => 'Kecamatan ' . $this->faker->lastName
+            'nama' => 'Kecamatan '.$this->faker->lastName,
         ];
     }
 }
