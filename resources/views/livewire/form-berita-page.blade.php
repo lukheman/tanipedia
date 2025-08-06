@@ -2,9 +2,9 @@
 @push('styles')
 <style>
         #editor img {
-            max-width: 100%; /* Agar responsif */
-            width: 300px; /* Atur lebar tetap, misalnya 300px */
-            height: auto; /* Jaga rasio aspek */
+            max-width: 100%;
+            width: 300px;
+            height: auto;
         }
     </style>
 
@@ -30,7 +30,8 @@
 <!-- Include Quill and quill-image-uploader via CDN -->
 <link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/quill-image-uploader@1.3.0/dist/quill.imageUploader.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/quill-image-uploader@1.3.0/dist/quill.imageUploader.min.js"></script> -->
+<script src="{{ asset('js/quill.imageUploader.min.js')}}"></script>
 
 <script>
 // Register the imageUploader module

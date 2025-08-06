@@ -22,7 +22,7 @@
                                     <p class="text-muted small">{!! $item->excerpt !!}</p>
                                 </div>
                                 <div class="d-flex justify-content-start mt-3">
-                                    <a href="{{ route('baca-berita', ['id' => $item->id])}}" class="btn btn-custom">
+                                    <a href="{{ route('baca-berita', ['id' => $item->id])}}" class="btn btn-custom" wire:navigate>
                                         🌿 Baca Selengkapnya
                                     </a>
                                 </div>
