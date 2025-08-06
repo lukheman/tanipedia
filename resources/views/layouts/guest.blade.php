@@ -105,7 +105,7 @@
                         <a class="nav-link" href="{{ route('landing')}}#video">Video Edukasi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login')}}?redirect={{ urlencode(route('tambah-konsultasi'))}}">Konsultasi</a>
+                        <a class="nav-link" href="{{ route('login')}}?redirect={{ urlencode(route('tambah-konsultasi'))}}" wire:navigate>Konsultasi</a>
                     </li>
 
                     @auth
@@ -115,7 +115,7 @@
 
                     @else
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login')}}">Login</a>
+                        <a class="nav-link" href="{{ route('login')}}" wire:navigate>Login</a>
                     </li>
 
                     @endauth
