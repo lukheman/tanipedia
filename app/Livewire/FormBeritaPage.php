@@ -37,10 +37,21 @@ class FormBeritaPage extends Component
 
     public function submit()
     {
-        $this->validate([
+
+            // 'judul' => 'required|min:3|max:255',
+        $this->validate(
+            [
             'judul' => 'required|min:3|max:255|unique:berita,judul,'.($this->selectedIdBerita ?? 'NULL'),
-            'isi' => 'required|min:3|max:10000',
-        ]);
+            'isi' => 'required|min:10|max:10000',
+            ], [
+                'judul.required' => 'Judul tidak boleh kosong',
+                'judul.min' => 'Judul minimal 3 karakter',
+                'judul.max' => 'Judul maksimal 255 karakter',
+                'judul.unique' => 'Judul telah digunakan',
+                'isi.required' => 'Isi berita tidak boleh kosong',
+                'isi.min' => 'Isi minimal 3 karakter',
+                'isi.max' => 'Isi maksimal 10000 karakter'
+            ]);
 
         if ($this->isEditMode && $this->selectedIdBerita) {
             // Update berita
@@ -59,8 +70,10 @@ class FormBeritaPage extends Component
                 'tanggal_publikasi' => date('Y-m-d'),
                 'id_user' => auth()->id(),
             ]);
-            $this->notifySuccess('Berita berhasil ditambahkan');
+            // $this->notifySuccess('Berita berhasil ditambahkan');
         }
+
+        return redirect()->route('berita');
 
     }
 

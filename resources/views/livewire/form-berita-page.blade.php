@@ -15,12 +15,20 @@
     <div class="form-group">
         <label for="judul">Judul</label>
         <input wire:model="judul" type="text" class="form-control" id="judul" placeholder="Masukan judul berita">
+
+                                @error('judul')
+                                    <small class="d-block mt-1 text-danger">{{ $message }}</small>
+                                @enderror
     </div>
 
-    <div>
+    <div wire:ignore.this>
         <div id="editor" style="min-height: 200px;"></div>
     </div>
     <input type="hidden" wire:model="isi" id="isi">
+
+                                @error('isi')
+                                    <small class="d-block mt-1 text-danger">{{ $message }}</small>
+                                @enderror
 
     <button class="btn btn-primary float-end mt-3" wire:click="submit">Publikasi</button>
     </div>
@@ -31,7 +39,6 @@
 <link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/quill-image-uploader@1.3.0/dist/quill.imageUploader.min.js"></script>
-<script src="{{ asset('js/quill.imageUploader.min.js')}}"></script>
 
 <script>
 // Register the imageUploader module
@@ -68,6 +75,7 @@ const quill = new Quill('#editor', {
                     })
                     .then(result => {
                         if (result.url) {
+                                console.log(result.url);
                             resolve(result.url); // Insert image URL into editor
                         } else {
                             reject(result.error || 'Upload failed');
