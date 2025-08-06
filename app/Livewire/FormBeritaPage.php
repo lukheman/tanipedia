@@ -61,7 +61,7 @@ class FormBeritaPage extends Component
                 'tanggal_publikasi' => date('Y-m-d'),
                 'id_user' => auth()->id(),
             ]);
-            $this->notifySuccess('Berita berhasil diperbarui');
+            $this->notifySuccess('Berita berhasil diperbarui', reload: true);
         } else {
             // Buat berita baru
             Berita::create([
@@ -70,7 +70,7 @@ class FormBeritaPage extends Component
                 'tanggal_publikasi' => date('Y-m-d'),
                 'id_user' => auth()->id(),
             ]);
-            // $this->notifySuccess('Berita berhasil ditambahkan');
+            $this->notifySuccess(message: 'Berita berhasil ditambahkan', reload: true);
         }
 
         return redirect()->route('berita');

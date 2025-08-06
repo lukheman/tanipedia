@@ -101,14 +101,13 @@
 
 <script>
 
-        document.addEventListener('livewire:initialized', () => {
+        $(window).on('livewire:initialized', () => {
 
             Livewire.on('openModal', ({ id }) => {
                 $('#' + id).modal('show');
             });
 
             Livewire.on('closeModal', ({id}) => {
-                console.log(id);
                 $('#' + id).modal('hide');
             });
 
@@ -141,7 +140,14 @@
                     });
             });
 
-            Livewire.on('toast', ({ message, variant }) => {
+            Livewire.on('toast', ({ message, variant, reload}) => {
+
+                if(reload) {
+                    sessionStorage.setItem('reload', 'true');
+                    sessionStorage.setItem('variant', variant);
+                    sessionStorage.setItem('message', message);
+                }
+
                 const borderColors = {
                     success: "#435ebe",
                     warning: "#ffc107",
@@ -164,6 +170,40 @@
                 }).showToast();
             });
 
+        });
+
+        // setelah halamat dimuat ulang, periksa apakah ada notifikasi yang harus ditampilkan
+        $(window).on('load', function() {
+            if (sessionStorage.getItem('reload') === 'true') {
+                message = sessionStorage.getItem('message');
+                variant = sessionStorage.getItem('variant');
+                // Tampilkan toast
+                const borderColors = {
+                    success: "#435ebe",
+                    warning: "#ffc107",
+                    error: "#dc3545"
+                };
+
+                Toastify({
+                    text: message,
+                    duration: 3000,
+                    close: false,
+                    gravity: "top",
+                    position: "right",
+                    stopOnFocus: true,
+                    style: {
+                        background: "#ffffff",
+                        border: `2px solid ${borderColors[variant] || "#374151"}`,
+                        color: "#111827",
+                        borderRadius: "15px"
+                    },
+                }).showToast();
+
+                // Hapus item setelah toast ditampilkan
+                sessionStorage.removeItem('reload');
+                sessionStorage.removeItem('message');
+                sessionStorage.removeItem('variant');
+            }
         });
 
         </script>

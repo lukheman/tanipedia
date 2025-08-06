@@ -4,9 +4,9 @@ namespace App\Traits;
 
 trait WithNotify
 {
-    public function notifySuccess(string $message)
+    public function notifySuccess(string $message, bool $reload = false)
     {
-        $this->dispatch('toast', variant: 'success', message: $message);
+        $this->dispatch('toast', variant: 'success', message: $message, reload: $reload);
     }
 
     public function notifyError(string $message)
