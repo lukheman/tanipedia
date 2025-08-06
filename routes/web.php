@@ -14,7 +14,8 @@ Route::get('/registrasi', \App\Livewire\RegistrasiPage::class)->name('registrasi
 Route::get('/baca-berita/{id}', \App\Livewire\BacaBerita::class)->name('baca-berita');
 Route::get('/nonton-video/{id}', \App\Livewire\NontonVideo::class)->name('nonton-video');
 
-Route::get('/berita-semua', \App\Livewire\BeritaIndex::class)->name('berita.index');
+Route::get('/semua-berita', \App\Livewire\BeritaIndex::class)->name('berita.index');
+Route::get('/semua-video', \App\Livewire\VideoIndex::class)->name('video.index');
 
 Route::get('/edit-berita/{id}', \App\Livewire\FormBeritaPage::class)->name('berita.edit')->middleware('auth');
 Route::get('/tambah-berita', \App\Livewire\FormBeritaPage::class)->name('berita.add')->middleware('auth');

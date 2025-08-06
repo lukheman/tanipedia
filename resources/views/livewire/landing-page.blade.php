@@ -12,11 +12,9 @@
         <div class="container">
             <h2 class="section-title text-center">Berita Terkini</h2>
             <div class="row">
-
                 @forelse ($berita as $item)
                     <div class="col-md-4 mb-4">
                         <div class="news-card h-100 d-flex flex-column shadow-sm border rounded overflow-hidden plant-themed">
-
                             <div class="p-3 d-flex flex-column justify-content-start flex-grow-1">
                                 <div>
                                     <h5 class="fw-bold">{{ $item->judul }}</h5>
@@ -35,7 +33,9 @@
                         <p class="text-muted">Belum ada berita yang tersedia saat ini.</p>
                     </div>
                 @endforelse
-
+            </div>
+            <div class="text-center mt-4">
+                <a href="{{ route('berita.index') }}" class="btn btn-custom" wire:navigate>Lihat Semua Berita</a>
             </div>
         </div>
     </section>
@@ -45,7 +45,6 @@
         <div class="container">
             <h2 class="section-title text-center">Video Edukasi</h2>
             <div class="row">
-
                 @forelse ($videos as $item)
                     <div class="col-md-4 mb-4">
                         <div class="video-card">
@@ -62,7 +61,9 @@
                         <p class="text-muted">Belum ada video edukasi yang tersedia saat ini.</p>
                     </div>
                 @endforelse
-
+            </div>
+            <div class="text-center mt-4">
+                <a href="{{ route('video.index') }}" class="btn btn-custom" wire:navigate>Lihat Semua Video</a>
             </div>
         </div>
     </section>

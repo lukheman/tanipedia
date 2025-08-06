@@ -13,8 +13,8 @@ class LandingPage extends Component
     public function render()
     {
         return view('livewire.landing-page', [
-            'berita' => Berita::all(),
-            'videos' => Edukasi::all(),
+            'berita' => Berita::limit(3)->latest()->get(),
+            'videos' => Edukasi::limit(3)->latest()->get(),
         ]);
     }
 }

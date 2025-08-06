@@ -13,7 +13,7 @@
                     <div class="video-description mb-4">
                         {{ $video->deskripsi }}
                     </div>
-                    <a href="{{ route('landing') }}" class="btn btn-custom mt-4">Kembali ke Video Edukasi</a>
+                    <a href="{{ route('video.index') }}" class="btn btn-custom mt-4" wire:navigate>Kembali ke Video Edukasi</a>
                 </div>
             </div>
 

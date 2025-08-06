@@ -23,7 +23,7 @@
                     <div class="berita-content">
                         {!! $berita->isi !!}
                     </div>
-                    <a href="{{ route('landing') }}" class="btn btn-custom mt-4">Kembali ke Berita</a>
+                    <a href="{{ route('berita.index') }}" class="btn btn-custom mt-4" wire:navigate>Kembali ke Berita</a>
                 </div>
             </div>
         </div>
