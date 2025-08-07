@@ -45,16 +45,10 @@
         <div class="container">
             <h2 class="section-title text-center">Video Edukasi</h2>
             <div class="row">
-                @forelse ($videos as $item)
+                @forelse ($videos as $video)
                     <div class="col-md-4 mb-4">
-                        <div class="video-card">
-                            <iframe width="100%" height="200" src="{{ asset('storage/' . $item->url_video) }}" frameborder="0" allowfullscreen></iframe>
-                            <div class="p-3">
-                                <h5>{{ $item->judul }}</h5>
-                                <p>{{ $item->label_deskripsi}}</p>
-                                <a href="{{ route('nonton-video', ['id' => $item->id])}}" class="btn btn-custom" wire:navigate>Tonton Sekarang</a>
-                            </div>
-                        </div>
+
+                    <livewire:video-card :video="$video" :wire:key="$video->id" />
                     </div>
                 @empty
                     <div class="col-12 text-center">
