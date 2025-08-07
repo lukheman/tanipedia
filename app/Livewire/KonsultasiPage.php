@@ -56,9 +56,7 @@ class KonsultasiPage extends Component
     {
         $this->selectedIdKonsultasi = $id;
         $konsultasi = Konsultasi::with('hasil')->find($id);
-        if ($konsultasi->hasil) {
-            $this->jawaban = $konsultasi->hasil->isi;
-        }
+        $this->jawaban = $konsultasi->hasil->isi ?? '';
         $this->openModal('modal-jawab');
     }
 
