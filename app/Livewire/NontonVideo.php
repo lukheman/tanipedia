@@ -13,8 +13,11 @@ class NontonVideo extends Component
 
     public $new_komentar;
 
+    public ?string $redirect;
+
     public function mount($id)
     {
+        $this->redirect = request()->query('redirect');
         $this->video = Edukasi::with(['user', 'komentar', 'komentar.user'])->find($id);
     }
 
