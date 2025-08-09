@@ -38,11 +38,11 @@ class FormBeritaPage extends Component
     public function submit()
     {
 
-            // 'judul' => 'required|min:3|max:255',
+        // 'judul' => 'required|min:3|max:255',
         $this->validate(
             [
-            'judul' => 'required|min:3|max:255|unique:berita,judul,'.($this->selectedIdBerita ?? 'NULL'),
-            'isi' => 'required|min:10|max:10000',
+                'judul' => 'required|min:3|max:255|unique:berita,judul,'.($this->selectedIdBerita ?? 'NULL'),
+                'isi' => 'required|min:10|max:10000',
             ], [
                 'judul.required' => 'Judul tidak boleh kosong',
                 'judul.min' => 'Judul minimal 3 karakter',
@@ -50,7 +50,7 @@ class FormBeritaPage extends Component
                 'judul.unique' => 'Judul telah digunakan',
                 'isi.required' => 'Isi berita tidak boleh kosong',
                 'isi.min' => 'Isi minimal 3 karakter',
-                'isi.max' => 'Isi maksimal 10000 karakter'
+                'isi.max' => 'Isi maksimal 10000 karakter',
             ]);
 
         if ($this->isEditMode && $this->selectedIdBerita) {

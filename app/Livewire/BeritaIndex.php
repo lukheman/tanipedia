@@ -13,13 +13,14 @@ class BeritaIndex extends Component
     public string $search = '';
 
     #[Computed]
-    public function berita() {
+    public function berita()
+    {
         return Berita::query()
-            ->when($this->search, function($query) {
+            ->when($this->search, function ($query) {
                 $query->where('judul', 'like', '%'.$this->search.'%');
             })
             ->latest()
-            ->get() ;
+            ->get();
 
     }
 
