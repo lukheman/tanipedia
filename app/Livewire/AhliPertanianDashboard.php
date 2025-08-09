@@ -13,16 +13,15 @@ class AhliPertanianDashboard extends Component
     {
         return view('livewire.ahli-pertanian-dashboard', [
             'jumlah_konsultasi' => Konsultasi::with(['user.desa'])
-                ->whereHas('user.desa', function($query) {
+                ->whereHas('user.desa', function ($query) {
 
                     $currentUser = Auth::user();
-                    if($currentUser && $currentUser->id_desa) {
+                    if ($currentUser && $currentUser->id_desa) {
                         $kecamatanId = Desa::find($currentUser->id_desa)->id_kecamatan;
                         $query->where('id_kecamatan', $kecamatanId);
                     }
 
-                })->count()
-            ,
+                })->count(),
         ]);
     }
 }
