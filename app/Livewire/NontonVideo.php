@@ -30,6 +30,8 @@ class NontonVideo extends Component
             'tanggal_komentar' => date('Y-m-d'),
         ]);
 
+        $this->reset('new_komentar');
+
     }
 
     public function render()
