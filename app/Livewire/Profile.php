@@ -46,8 +46,7 @@ class Profile extends Component
     public function mount()
     {
 
-        $this->user = User::with('desa')->find(auth()->user()->id);
-        // dd($this->user, $this->user->desa);
+        $this->user = auth()->user()->load('desa');
 
         $this->form->name = $this->user->name;
         $this->form->email = $this->user->email;
