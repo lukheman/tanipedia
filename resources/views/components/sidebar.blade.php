@@ -114,6 +114,22 @@
         Daftar Konsultasi
     </x-nav-link>
 
+    <x-nav-link
+        icon="bi-newspaper"
+        href="{{ route('berita.index') }}"
+        :active="request()->routeIs('berita.index')"
+    >
+        Berita Terbaru
+    </x-nav-link>
+
+    <x-nav-link
+        icon="bi-play-circle-fill"
+        href="{{ route('video.index') }}"
+        :active="request()->routeIs('video.index')"
+    >
+        Video Terkini
+    </x-nav-link>
+
     @endif
 
         @if (auth()->user()->role === \App\Enums\Role::AHLIPERTANIAN->value)
