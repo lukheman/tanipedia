@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Enums\State;
+use App\Livewire\Forms\UserForm;
 use App\Models\Desa;
 use App\Models\Kecamatan;
 use App\Models\User;
@@ -12,7 +13,6 @@ use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Livewire\Forms\UserForm;
 
 #[Title('Manajemen Pengguna')]
 class PenggunaPage extends Component

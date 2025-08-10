@@ -4,12 +4,10 @@ namespace App\Livewire\Forms;
 
 use App\Models\User;
 use Illuminate\Validation\Rule;
-use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class UserForm extends Form
 {
-
     public ?User $user = null;
 
     public $name = '';
@@ -26,13 +24,14 @@ class UserForm extends Form
 
     public ?int $id_desa;
 
-    protected function rules(): array {
+    protected function rules(): array
+    {
         return [
             'name' => 'required|string|max:255',
             'email' => [
                 'required',
                 'email',
-                Rule::unique('users', 'email')->ignore($this->user?->id)
+                Rule::unique('users', 'email')->ignore($this->user?->id),
             ],
             'role' => 'required',
             'telepon' => [
@@ -40,16 +39,17 @@ class UserForm extends Form
                 'regex:/^0[0-9]{9,14}$/',
             ],
             'tanggal_lahir' => [
-                    'required',
-                    'date',
-                    'before:today'
-                ],
+                'required',
+                'date',
+                'before:today',
+            ],
             'alamat' => 'required|max:255',
-            'id_desa' => 'required|exists:desa,id'
+            'id_desa' => 'required|exists:desa,id',
         ];
     }
 
-    public function messages(): array {
+    public function messages(): array
+    {
         return [
             'name.required' => 'Mohon masukkan nama Anda (maksimal 255 karakter).',
             'name.string' => 'Nama hanya boleh berisi huruf atau karakter yang valid.',
@@ -75,19 +75,21 @@ class UserForm extends Form
         ];
     }
 
-    public function store() {
+    public function store()
+    {
         User::create($this->validate());
         $this->reset();
     }
 
-    public function update() {
+    public function update()
+    {
         $this->user->update($this->validate());
         $this->reset();
     }
 
-    public function delete() { 
+    public function delete()
+    {
         $this->user->delete();
         $this->reset();
     }
-
 }
