@@ -21,6 +21,8 @@
             <div class="card shadow-sm border-0 mt-4" style="border-radius: 15px;">
                 <div class="card-body p-4">
                     <h3 class="section-title mb-4">Komentar</h3>
+                    
+                    <x-flash-message />
 
                     <!-- Comment Form -->
                     @auth

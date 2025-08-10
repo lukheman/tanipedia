@@ -31,6 +31,7 @@ class NontonVideo extends Component
         ]);
 
         $this->reset('new_komentar');
+        flash('Terima kasih, komentar Anda sudah berhasil dikirim.');
 
     }
 
