@@ -109,11 +109,14 @@
         }
         .signature .col .ttd {
             margin-top: 80px;
-            border-top: 2px solid #333;
             display: inline-block;
             padding-top: 5px;
             font-weight: 600;
-            font-size: 1.1rem;
+        }
+        .signature .col .nip {
+            display: inline-block;
+            border-top: 2px solid #333;
+            font-weight: 600;
         }
         table#petani {
             width: 100%;
