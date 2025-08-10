@@ -1,10 +1,7 @@
 <x-laporan>
     <!-- Kop Surat -->
-    <div class="kop-surat">
-        <h2>Dinas Pertanian</h2>
-        <!-- <p>Jl. Raya Tani No. 123, Jakarta</p> -->
-        <!-- <p>Telp: (021) 123-4567 | Email: info@dinaspertanian.jkt</p> -->
-    </div>
+    <x-kop-laporan />
+
 
     <h5 class="report-title">Laporan Konsultasi Petani</h5>
 
@@ -35,8 +32,9 @@
     <div class="signature">
         <div class="col"></div>
         <div class="col">
-            <p>Dinas Pertanian</p>
-            <p class="ttd">{{ auth()->user()->name ?? 'Nama Penandatangan' }}</p>
+            <p>Dinas Tanaman Pangan <br> dan Hortikultura Kabupaten Kolaka</p>
+            <p class="ttd">SUYANTO, SP., M.Si </p> <br>
+            <p class="nip">NIP. 19650111 198709 1 001</p>
         </div>
     </div>
 </x-laporan>
