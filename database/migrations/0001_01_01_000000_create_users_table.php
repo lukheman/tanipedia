@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->enum('role', Role::values());
-            $table->string('password');
+            $table->string('password')->default(bcrypt('password123'));
             $table->string('telepon');
             $table->date('tanggal_lahir');
             $table->string('photo')->nullable();
