@@ -12,7 +12,7 @@ class LaporanController extends Controller
     public function laporanPetani()
     {
 
-        $users = User::where('role', Role::PETANI->value)->get();
+        $users = User::where('role', Role::PETANI->value)->with(['desa', 'desa.kecamatan'])->get();
 
         return view('invoices.laporan-users', [
             'users' => $users,
@@ -23,7 +23,7 @@ class LaporanController extends Controller
     public function laporanAhliPertanian()
     {
 
-        $users = User::where('role', Role::AHLIPERTANIAN->value)->get();
+        $users = User::where('role', Role::AHLIPERTANIAN->value)->with(['desa', 'desa.kecamatan'])->get();
 
         return view('invoices.laporan-users', [
             'users' => $users,
