@@ -6,30 +6,26 @@
     <title>@yield('title', 'Laporan')</title>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Source Sans Pro', sans-serif;
-            background-color: #f4f6f9;
-            color: #333;
-            line-height: 1.6;
-        }
+            body {
+                font-family: 'Source Sans Pro', sans-serif;
+                font-size: 12pt;
+                margin: 0;
+                padding: 0;
+            }
         .container {
-            width: 80%;
-            max-width: 900px;
-            margin: 30px auto;
+            width: 100%;
+            margin: 0 auto;
+            padding: 10px 20px;
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         .kop-surat {
             text-align: center;
             padding-bottom: 15px;
-            border-bottom: 3px solid #435ebe;
+            border-bottom: 3px solid #000;
             margin-bottom: 20px;
         }
-        .kop-surat h2 {
+        .kop-surat h6 {
             font-weight: 700;
-            color: #435ebe;
             margin-bottom: 5px;
             font-size: 2rem;
         }
@@ -95,38 +91,41 @@
             margin-top: 10px;
         }
         .signature {
-            display: flex;
-            justify-content: space-between;
             margin-top: 50px;
+            text-align: right;
+            page-break-inside: avoid; /* Biar tidak terpotong */
         }
         .signature .col {
             flex: 1;
             text-align: center;
         }
-        .signature .col p {
-            margin: 0;
-            font-size: 1.1rem;
+        .signature p {
+            margin: 2px 0;
+            font-size: 12pt;
         }
-        .signature .col .ttd {
-            margin-top: 80px;
-            display: inline-block;
-            padding-top: 5px;
+        .signature .ttd {
+            margin-top: 60px; /* ruang untuk tanda tangan */
             font-weight: 600;
         }
-        .signature .col .nip {
+
+        .signature .nip {
             display: inline-block;
-            border-top: 2px solid #333;
+            border-top: 2px solid #000;
+            padding-top: 2px;
             font-weight: 600;
         }
         table#petani {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
-            font-size: 1rem;
+            font-size: 11pt;
+        }
+        table#petani th, table#petani td {
+            border: 1px solid #000;
+            padding: 5px;
         }
         table#petani thead {
-            background-color: #435ebe;
-            color: white;
+            background-color: #ddd !important;
+            color: black !important;
         }
         table#petani th {
             padding: 12px;
@@ -136,7 +135,7 @@
         }
         table#petani td {
             padding: 10px;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid #000;
         }
         table#petani tbody tr:nth-child(even) {
             background-color: #f9f9f9;
@@ -171,6 +170,10 @@
             .consultation-section {
                 break-inside: avoid;
             }
+        }
+        @page {
+            size: A4 portrait;
+            margin: 20mm;
         }
     </style>
 </head>
