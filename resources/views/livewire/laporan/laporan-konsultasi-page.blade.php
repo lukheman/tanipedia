@@ -5,7 +5,7 @@
             <div class="modal-dialog modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-danger">
-                        <h5 class="modal-title white" id="myModalLabel120">Cetak Laporan Konsultasi
+                        <h5 class="modal-title white" id="myModalLabel120">Download Laporan Konsultasi
                         </h5>
                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -41,7 +41,7 @@
 
 <button class="btn btn-danger" type="submit" wire:click="$dispatch('openModal', {id: 'modal-cetak-laporan-konsultasi'})">
     <i class="bi bi-printer"></i>
-    Cetak Laporan
+    Download Laporan
 </button>
     </div>
     <div class="card-body">

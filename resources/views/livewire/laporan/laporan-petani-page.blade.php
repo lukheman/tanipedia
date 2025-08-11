@@ -3,7 +3,7 @@
 
 <a href="{{ route('print-laporan.petani')}}" class="btn btn-danger" type="submit">
     <i class="bi bi-printer"></i>
-    Cetak Laporan
+    Download Laporan
 </a>
 
     </div>
