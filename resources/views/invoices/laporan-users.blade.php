@@ -4,7 +4,7 @@
 
     <x-kop-laporan />
 
-    <h5 class="report-title">Laporan Data Petani</h5>
+    <h5 class="report-title">Laporan Data {{ $label ?? ''}}</h5>
 
     <p class="report-date">Laporan Data Petani - {{ date('d F Y')}}</p>
 
@@ -37,7 +37,7 @@
 
     <!-- Total -->
     <div class="total">
-        <p>Total Petani: <strong>{{ $users->count() }}</strong></p>
+        <p>Total {{ $label ?? 'data'}}: <strong>{{ $users->count() }}</strong></p>
     </div>
 
     <!-- Tanda Tangan -->

@@ -16,6 +16,7 @@ class LaporanController extends Controller
 
         return view('invoices.laporan-users', [
             'users' => $users,
+            'label' => 'Petani'
         ]);
 
     }
@@ -27,6 +28,7 @@ class LaporanController extends Controller
 
         return view('invoices.laporan-users', [
             'users' => $users,
+            'label' => 'Ahli Pertanian'
         ]);
 
     }
