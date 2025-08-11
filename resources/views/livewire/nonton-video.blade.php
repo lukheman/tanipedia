@@ -5,7 +5,7 @@
                 <div class="card-body p-4">
                     <h1 class="section-title mb-3">{{ $video->judul }}</h1>
                     <div class="text-muted mb-3">
-                        <small>Diunggah pada {{ $video->created_at->format('d M Y') }} oleh {{ $video->author }}</small>
+                        <small>Diunggah pada {{ $video->created_at->format('d M Y') }} oleh {{ $video->user->name }}</small>
                     </div>
                     <div class="video-embed mb-4">
                         <iframe width="100%" height="400" src="{{ asset('storage/' . $video->url_video) }}" frameborder="0" allowfullscreen style="border-radius: 10px;"></iframe>
@@ -21,7 +21,7 @@
             <div class="card shadow-sm border-0 mt-4" style="border-radius: 15px;">
                 <div class="card-body p-4">
                     <h3 class="section-title mb-4">Komentar</h3>
-                    
+
                     <x-flash-message />
 
                     <!-- Comment Form -->
