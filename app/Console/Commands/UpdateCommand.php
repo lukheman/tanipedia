@@ -11,6 +11,27 @@ class UpdateCommand extends Command
 
     public function handle()
     {
+        // Informasi aplikasi
+        $appName = 'Nama Aplikasi: TaniPedia';
+        $author = 'Dibuat oleh: Lukmanul Rahman (Akmal)';
+        // $license = 'Lisensi: Tidak untuk dijual kembali';
+
+        // Kontak
+        $contactWA = '📱 WhatsApp: 0822-5022-3147';
+        $contactYT = '▶️ YouTube: youtube.com/@lukheeman';
+        $contactIG = '📸 Instagram: instagram.com/lukheeman';
+
+        // Tampilkan informasi
+        $this->newLine();
+        $this->info("📌 {$appName}");
+        $this->line($author);
+        $this->line($license);
+        $this->newLine();
+        $this->line($contactWA);
+        $this->line($contactYT);
+        $this->line($contactIG);
+        $this->newLine();
+
         $this->info('🔄 Memulai pembaruan aplikasi...');
 
         // Simpan hash composer.json sebelum git pull
