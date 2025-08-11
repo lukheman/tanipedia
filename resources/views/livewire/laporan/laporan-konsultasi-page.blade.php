@@ -31,7 +31,7 @@
                             <i class="bx bx-check d-block d-sm-none"></i>
                             <span class="d-none d-sm-block">
                                 <i class="bi bi-printer"></i>
-                                Cetak</span>
+                                Download</span>
                         </button>
                     </div>
                     </form>
@@ -69,7 +69,7 @@
                         <button type="submit" class="btn btn-sm btn-danger" >
 
     <i class="bi bi-printer"></i>
-                                    Cetak</button>
+                                    Download</button>
                     </form>
 
                     </td>
