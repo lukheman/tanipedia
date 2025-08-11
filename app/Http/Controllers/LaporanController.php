@@ -6,6 +6,7 @@ use App\Enums\Role;
 use App\Models\Konsultasi;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class LaporanController extends Controller
 {
@@ -13,11 +14,14 @@ class LaporanController extends Controller
     {
 
         $users = User::where('role', Role::PETANI->value)->with(['desa', 'desa.kecamatan'])->get();
+        $pdf = Pdf::loadView('invoices.laporan-users', ['users' => $users, 'label' => 'Petani']);
 
-        return view('invoices.laporan-users', [
-            'users' => $users,
-            'label' => 'Petani'
-        ]);
+        return $pdf->download('laporan_data_petani_' . date('d_m_Y') . '.pdf');
+
+        // return view('invoices.laporan-users', [
+        //     'users' => $users,
+        //     'label' => 'Petani'
+        // ]);
 
     }
 
@@ -26,10 +30,14 @@ class LaporanController extends Controller
 
         $users = User::where('role', Role::AHLIPERTANIAN->value)->with(['desa', 'desa.kecamatan'])->get();
 
-        return view('invoices.laporan-users', [
-            'users' => $users,
-            'label' => 'Ahli Pertanian'
-        ]);
+        $pdf = Pdf::loadView('invoices.laporan-users', ['users' => $users, 'label' => 'Ahli Pertanian']);
+
+        return $pdf->download('laporan_data_ahli_pertanian_' . date('d_m_Y') . '.pdf');
+
+        // return view('invoices.laporan-users', [
+        //     'users' => $users,
+        //     'label' => 'Ahli Pertanian'
+        // ]);
 
     }
 
@@ -42,9 +50,13 @@ class LaporanController extends Controller
 
         $konsultasi = Konsultasi::with('hasil')->find($request->id);
 
-        return view('invoices.konsultasi', [
-            'konsultasi' => $konsultasi,
-        ]);
+        $pdf = Pdf::loadView('invoices.konsultasi', ['konsultasi' => $konsultasi]);
+
+        return $pdf->download('laporan_konsultasi_' . date('d_m_Y') . '.pdf');
+
+        // return view('invoices.konsultasi', [
+        //     'konsultasi' => $konsultasi,
+        // ]);
 
     }
 
@@ -59,8 +71,12 @@ class LaporanController extends Controller
                 $query->where('id_kecamatan', $request->id);
             })->get();
 
-        return view('invoices.konsultasi-kecamatan', [
-            'konsultasi' => $konsultasi,
-        ]);
+        $pdf = Pdf::loadView('invoices.konsultasi-kecamatan', ['konsultasi' => $konsultasi]);
+
+        return $pdf->download('laporan_konsultasi_kecamatan' . date('d_m_Y') . '.pdf');
+
+        // return view('invoices.konsultasi-kecamatan', [
+        //     'konsultasi' => $konsultasi,
+        // ]);
     }
 }
