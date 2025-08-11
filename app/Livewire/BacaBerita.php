@@ -16,7 +16,8 @@ class BacaBerita extends Component
     public function mount($id)
     {
         $this->berita = Berita::with('penulis')->find($id);
-        $this->redirect = request()->query('redirect');
+        // $this->redirect = request()->query('redirect');
+        $this->redirect = route('berita.index');
     }
 
     public function render()
