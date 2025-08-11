@@ -17,7 +17,7 @@ class NontonVideo extends Component
 
     public function mount($id)
     {
-        $this->redirect = request()->query('redirect');
+        $this->redirect = request()->query('redirect') ?? route('video.index');
         $this->video = Edukasi::with(['user', 'komentar', 'komentar.user'])->find($id);
     }
 
