@@ -111,7 +111,7 @@
                                 <label for="role" class="form-label fw-semibold">Role</label>
                                 <select wire:model="form.role" class="form-select" id="role" name="role" @if ($currentState === \App\Enums\State::SHOW) disabled @endif>
                                     <option value="">Pilih Role</option>
-                                    @foreach (\App\Enums\Role::getOptions() as $role)
+                                    @foreach (\App\Enums\Role::values() as $role)
                                         <option value="{{ $role }}">{{ $role }}</option>
                                     @endforeach
                                 </select>
