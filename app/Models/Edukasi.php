@@ -10,6 +10,7 @@ class Edukasi extends Model
     use HasFactory;
 
     protected $table = 'edukasi';
+    protected $primaryKey = 'id_video';
 
     protected $guarded = [];
 
