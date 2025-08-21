@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class HasilKonsultasi extends Model
 {
-    public $table = 'hasil_konsultasi';
+    protected $table = 'hasil_konsultasi';
+    protected $primaryKey = 'id_solusi';
 
-    public $guarded = [];
+    protected $guarded = [];
 
     public function user()
     {
