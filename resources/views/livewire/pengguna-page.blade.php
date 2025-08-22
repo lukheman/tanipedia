@@ -67,7 +67,7 @@
                                         <select wire:model.live="kecamatan" class="form-control" id="kecamatan" @if ($currentState === \App\Enums\State::SHOW) disabled @endif>
                                             <option value="">Pilih Kecamatan</option>
                                             @foreach ($kecamatanList as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                                <option value="{{ $item->id_kecamatan }}">{{ $item->nama }}</option>
                                             @endforeach
                                         </select>
                                         @error('kecamatan')
@@ -81,7 +81,7 @@
                                         <select wire:model.live="form.id_desa" class="form-control" id="desa" @if ($currentState === \App\Enums\State::SHOW) disabled @endif>
                                             <option value="">Pilih Desa</option>
                                             @foreach ($desaList as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                                <option value="{{ $item->id_desa }}">{{ $item->nama }}</option>
                                             @endforeach
                                         </select>
                                         @error('form.id_desa')
@@ -101,24 +101,6 @@
                             </div>
                             @if ($currentState === \App\Enums\State::SHOW)
 
-                                <div class="mb-3">
-                                    <label for="role" class="form-label fw-semibold">Role</label>
-                                <input wire:model="form.role" type="text" class="form-control" disabled>
-                                </div>
-
-                            @else
-                            <div class="mb-3">
-                                <label for="role" class="form-label fw-semibold">Role</label>
-                                <select wire:model="form.role" class="form-select" id="role" name="role" @if ($currentState === \App\Enums\State::SHOW) disabled @endif>
-                                    <option value="">Pilih Role</option>
-                                    @foreach (\App\Enums\Role::values() as $role)
-                                        <option value="{{ $role }}">{{ $role }}</option>
-                                    @endforeach
-                                </select>
-                                @error('form.role')
-                                    <small class="d-block mt-1 text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
                             @endif
                             <div class="row">
                                 <div class="col-6">
@@ -168,7 +150,7 @@
                         <tr>
                             <td class="text-bold-500">{{ $item->name }}</td>
                             <td>{{ $item->email }}</td>
-                            <td><span class="badge bg-{{ \App\Enums\Role::from($item->role)->getColor() }}">{{ $item->role }}</span></td>
+                            <td><span class="badge bg-{{ $item->role->getColor() }}">{{ $item->role }}</span></td>
                             <td class="text-end">
                                 <button wire:click="detail({{ $item->id }})" class="btn btn-sm btn-info">Lihat</button>
                                 <button wire:click="edit({{ $item->id }})" class="btn btn-sm btn-warning">Edit</button>
