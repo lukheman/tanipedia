@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('komentar', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('id_video')->constrained('edukasi')->cascadeOnDelete();
-            $table->foreignId('id_user')->constrained('users')->cascadeOnDelete();
+            $table->id('id_komentar');
+            $table->foreignId('id_video')->constrained('edukasi', 'id_video')->cascadeOnDelete();
+            $table->foreignId('id_user')->constrained('petani', 'id_petani')->cascadeOnDelete();
             $table->text('isi');
             $table->date('tanggal_komentar');
             $table->timestamps();

@@ -60,6 +60,7 @@
 
                             @if ($currentState !== \App\Enums\State::SHOW)
 
+
                             <div class="row">
                                 <div class="col-6">
                                     <div class="mb-3">
@@ -92,6 +93,7 @@
                             </div>
 
                             @endif
+
                             <div class="mb-3">
                                 <label for="alamat" class="form-label fw-semibold">Alamat</label>
                                 <input wire:model="form.alamat" type="text" class="form-control" id="alamat" name="alamat" placeholder="Contoh: Jl. Pemuda" @if ($currentState === \App\Enums\State::SHOW) disabled @endif>
@@ -99,7 +101,21 @@
                                     <small class="d-block mt-1 text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-                            @if ($currentState === \App\Enums\State::SHOW)
+                            @if ($currentState === \App\Enums\State::CREATE)
+
+                            <div class="mb-3">
+                                <label for="role" class="form-label fw-semibold">Role</label>
+                                <select wire:model="type" class="form-select" id="role" name="role" @if ($currentState === \App\Enums\State::SHOW) disabled @endif>
+                                    <option value="">Pilih Role</option>
+                                    @foreach (\App\Enums\Role::values() as $role)
+                                        <option value="{{ $role }}">{{ $role }}</option>
+                                    @endforeach
+                                </select>
+                                @error('type')
+                                    <small class="d-block mt-1 text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+
 
                             @endif
                             <div class="row">
@@ -152,9 +168,9 @@
                             <td>{{ $item->email }}</td>
                             <td><span class="badge bg-{{ $item->role->getColor() }}">{{ $item->role }}</span></td>
                             <td class="text-end">
-                                <button wire:click="detail({{ $item->id }})" class="btn btn-sm btn-info">Lihat</button>
-                                <button wire:click="edit({{ $item->id }})" class="btn btn-sm btn-warning">Edit</button>
-                                <button wire:click="delete({{ $item->id }})" class="btn btn-sm btn-danger">Hapus</button>
+                                <button wire:click="detail({{ $item->id }}, '{{ $item->role }}')" class="btn btn-sm btn-info">Lihat</button>
+                                <button wire:click="edit({{ $item->id }}, '{{ $item->role }}')" class="btn btn-sm btn-warning">Edit</button>
+                                <button wire:click="delete({{ $item->id }} , '{{ $item->role }}')" class="btn btn-sm btn-danger">Hapus</button>
                             </td>
                         </tr>
                     @endforeach

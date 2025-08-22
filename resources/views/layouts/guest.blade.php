@@ -113,7 +113,7 @@
                         @endauth
                     </li>
 
-                    @auth
+                    @if (getActiveGuard())
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('dashboard')}}">Dashboard</a>
                     </li>
@@ -123,7 +123,7 @@
                         <a class="nav-link" href="{{ route('login')}}" wire:navigate>Login</a>
                     </li>
 
-                    @endauth
+                    @endif
 
 
                 </ul>

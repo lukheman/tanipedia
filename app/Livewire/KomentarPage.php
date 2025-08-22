@@ -4,12 +4,12 @@ namespace App\Livewire;
 
 use App\Models\Komentar;
 use App\Traits\WithNotify;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Layout('layouts.app')]
+#[Title('Komentar Video')]
 class KomentarPage extends Component
 {
     use WithNotify;

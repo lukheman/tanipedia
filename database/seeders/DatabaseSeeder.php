@@ -1,8 +1,10 @@
 <?php
 
-use App\Enums\Role;
+use App\Models\Admin;
 use App\Models\Desa;
 use App\Models\Kecamatan;
+use App\Models\KepalaDinas;
+use App\Models\Penyuluh;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -33,7 +35,7 @@ class DatabaseSeeder extends Seeder
             foreach ($desaDesa as $namaDesa) {
                 $desaList->push(
                     Desa::create([
-                        'id_kecamatan' => $kecamatan->id,
+                        'id_kecamatan' => $kecamatan->id_kecamatan,
                         'nama' => $namaDesa,
                     ])
                 );
@@ -41,41 +43,42 @@ class DatabaseSeeder extends Seeder
         }
 
         // Ambil daftar desa secara acak untuk dipakai user
-        $desaIds = $desaList->pluck('id');
+        $desaIds = $desaList->pluck('id_desa');
 
         // Buat user dengan id_desa secara acak
-        User::factory()->create([
+        Admin::create([
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
-            'role' => Role::ADMIN->value,
+            'telepon' => '082250223148',
+            'tanggal_lahir' => now(),
             'id_desa' => $desaIds->random(),
         ]);
 
         User::factory()->create([
             'name' => 'Petani 1',
             'email' => 'petani1@gmail.com',
-            'role' => Role::PETANI->value,
             'id_desa' => $desaIds->random(),
         ]);
 
         User::factory()->create([
             'name' => 'Petani 2',
             'email' => 'petani2@gmail.com',
-            'role' => Role::PETANI->value,
             'id_desa' => $desaIds->random(),
         ]);
 
-        User::factory()->create([
-            'name' => 'Ahli Pertanian',
+        Penyuluh::create([
+            'name' => 'Penyuluh',
             'email' => 'ahlipertanian@gmail.com',
-            'role' => Role::AHLIPERTANIAN->value,
+            'telepon' => '0822502231231',
+            'tanggal_lahir' => now(),
             'id_desa' => $desaIds->random(),
         ]);
 
-        User::factory()->create([
+        KepalaDinas::create([
             'name' => 'KEPALADINAS',
             'email' => 'kepaladinas@gmail.com',
-            'role' => Role::KEPALADINAS->value,
+            'telepon' => '082283919291',
+            'tanggal_lahir' => now(),
             'id_desa' => $desaIds->random(),
         ]);
     }

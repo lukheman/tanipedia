@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class LogoutController extends Controller
 {
@@ -12,7 +11,20 @@ class LogoutController extends Controller
      */
     public function __invoke(Request $request)
     {
-        Auth::logout();
+        // contoh di controller logout
+        if (auth('petani')->check()) {
+            auth('petani')->logout();
+        } elseif (auth('penyuluh')->check()) {
+            auth('penyuluh')->logout();
+        } elseif (auth('admin')->check()) {
+            auth('admin')->logout();
+        } elseif (auth('kepala_dinas')->check()) {
+            auth('kepala_dinas')->logout();
+        }
+
+        // clear session
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
 
         flash('Berhasil logout dari aplikasi');
 

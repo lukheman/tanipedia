@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Enums\State;
 use App\Models\Edukasi;
 use App\Traits\WithNotify;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -40,7 +41,7 @@ class FormVideoPage extends Component
                 $path = $this->video->store('videos', 'public');
 
                 Edukasi::create([
-                    'id_user' => 1,
+                    'id_user' => Auth::guard('admin')->user()->id_admin,
                     'judul' => $this->judul,
                     'tanggal_publikasi' => date('Y-m-d'),
                     'deskripsi' => $this->deskripsi,
@@ -87,7 +88,7 @@ class FormVideoPage extends Component
             $this->judul = $video['judul'];
             $this->deskripsi = $video['deskripsi'];
             $this->url_video = $video['url_video'];
-            $this->selectedId = $video['id'];
+            $this->selectedId = $video['id_video'];
         }
     }
 

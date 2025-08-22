@@ -27,13 +27,6 @@
                     <td>{{ $item->email}}</td>
                     <td>{{ $item->telepon}}</td>
                     <td>{{ $item->tanggal_lahir}}</td>
-                    <!-- <td><span class="badge bg-{{\App\Enums\Role::from($item->role)->getColor()}}">{{ $item->role }}</span></td> -->
-                    <!-- <td class="text-end"> -->
-                    <!--     <button wire:click="detail({{ $item }})"class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#modal-form-pengguna">Lihat</button> -->
-                    <!--     <button wire:click="edit({{ $item }})" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modal-form-pengguna">Edit</button> -->
-                    <!--     <button wire:click="delete({{ $item->id }})" class="btn btn-sm btn-danger">Hapus</button> -->
-                    <!---->
-                    <!-- </td> -->
                 </tr>
                 @endforeach
             </tbody>

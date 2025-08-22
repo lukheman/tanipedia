@@ -11,15 +11,17 @@ class Desa extends Model
 
     protected $table = 'desa';
 
+    protected $primaryKey = 'id_desa';
+
     protected $guarded = [];
 
     public function user()
     {
-        return $this->hasMany(User::class, 'id_user', 'id');
+        return $this->hasMany(User::class, 'id_user', 'id_desa');
     }
 
     public function kecamatan()
     {
-        return $this->belongsTo(Kecamatan::class, 'id_kecamatan', 'id');
+        return $this->belongsTo(Kecamatan::class, 'id_kecamatan', 'id_kecamatan');
     }
 }

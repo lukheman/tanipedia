@@ -3,13 +3,15 @@
 namespace App\Livewire;
 
 use App\Models\Edukasi;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use function getActiveGuard;
 
 #[Layout('layouts.guest')]
 class NontonVideo extends Component
 {
-    public $video;
+    public ?Edukasi $video;
 
     public $new_komentar;
 
@@ -23,10 +25,12 @@ class NontonVideo extends Component
 
     public function saveKomentar()
     {
+        $guard = getActiveGuard();
+        $user = Auth::guard($guard)->user();
 
         $this->video->komentar()->create([
             'isi' => $this->new_komentar,
-            'id_user' => auth()->user()->id,
+            'id_user' => $user->id,
             'tanggal_komentar' => date('Y-m-d'),
         ]);
 

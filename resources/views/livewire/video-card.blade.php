@@ -6,6 +6,6 @@
                             <div class="p-3">
                                 <h5>{{ $video->judul }}</h5>
                                 <p>{{ $video->label_deskripsi}}</p>
-                                <a href="{{ route('nonton-video', ['id' => $video->id])}}?redirect={{ urlencode(url()->full())}}" class="btn btn-custom" wire:navigate>Tonton Sekarang</a>
+                                <a href="{{ route('nonton-video', ['id' => $video->id_video])}}?redirect={{ urlencode(url()->full())}}" class="btn btn-custom" wire:navigate>Tonton Sekarang</a>
                             </div>
                         </div>

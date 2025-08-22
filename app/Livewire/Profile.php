@@ -5,11 +5,12 @@ namespace App\Livewire;
 use App\Livewire\Forms\ProfileForm;
 use App\Models\Desa;
 use App\Models\Kecamatan;
-use App\Models\User;
 use App\Traits\WithNotify;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use function getActiveGuard;
 
 #[Title('Profile')]
 class Profile extends Component
@@ -19,7 +20,7 @@ class Profile extends Component
 
     public ProfileForm $form;
 
-    public User $user;
+    public $user;
 
     public $kecamatanList;
 
@@ -46,17 +47,21 @@ class Profile extends Component
     public function mount()
     {
 
-        $this->user = auth()->user()->load('desa');
+        $guard = getActiveGuard();
+        $this->user = Auth::guard($guard)->user(); // guard aktif
 
-        $this->form->name = $this->user->name;
-        $this->form->email = $this->user->email;
-        $this->form->tanggal_lahir = $this->user->tanggal_lahir;
-        $this->form->telepon = $this->user->telepon;
-        $this->form->alamat = $this->user->alamat;
-        $this->form->desa = $this->user->desa->id;
-        $this->kecamatan = $this->user->desa->id_kecamatan;
+        $this->form->user = $this->user;
+
+        $this->form->name = $this->user->name ?? '';
+        $this->form->email = $this->user->email ?? '';
+        $this->form->tanggal_lahir = $this->user->tanggal_lahir ?? '';
+        $this->form->telepon = $this->user->telepon ?? '';
+        $this->form->alamat = $this->user->alamat ?? '';
+        $this->form->desa = $this->user->desa->id ?? '';
+        $this->kecamatan = $this->user->desa->id_kecamatan ?? '';
 
         $this->desaList = Desa::where('id_kecamatan', $this->kecamatan)->get();
+
         $this->kecamatanList = Kecamatan::all();
 
     }

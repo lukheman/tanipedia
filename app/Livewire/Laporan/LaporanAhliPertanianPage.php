@@ -3,7 +3,7 @@
 namespace App\Livewire\Laporan;
 
 use App\Enums\Role;
-use App\Models\User;
+use App\Models\Penyuluh;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -14,7 +14,7 @@ class LaporanAhliPertanianPage extends Component
     {
         return view('livewire.laporan.laporan-ahli-pertanian-page', [
 
-            'users' => User::where('role', Role::AHLIPERTANIAN->value)->paginate(10),
+            'users' => Penyuluh::latest()->paginate(10),
         ]);
     }
 }

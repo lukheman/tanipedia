@@ -15,9 +15,13 @@ class LaporanKonsultasiPage extends Component
     public $kecamatan;
 
     public $selectedIKonsultasi;
+
     public $nama_petani = '';
+
     public $isi = '';
+
     public $nama_tanaman = '';
+
     public $tanggal_konsultasi = '';
 
     public function detail($konsultasi)

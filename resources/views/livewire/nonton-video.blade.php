@@ -24,20 +24,24 @@
 
                     <x-flash-message />
 
-                    <!-- Comment Form -->
-                    @auth
-                        <form class="mb-4">
-                            <div class="mb-3">
-                                <label for="comment" class="form-label">Tulis Komentar Anda</label>
-                                <textarea wire:model="new_komentar" class="form-control" id="comment"  rows="4" placeholder="Masukkan komentar Anda" required></textarea>
-                            </div>
-                            <button wire:click="saveKomentar" type="button" class="btn btn-custom">Kirim Komentar</button>
-                        </form>
+<!-- Comment Form -->
+@if(auth('petani')->check())
+    <form class="mb-4">
+        <div class="mb-3">
+            <label for="comment" class="form-label">Tulis Komentar Anda</label>
+            <textarea wire:model="new_komentar" class="form-control" id="comment" rows="4" placeholder="Masukkan komentar Anda" required></textarea>
+        </div>
+        <button wire:click="saveKomentar" type="button" class="btn btn-custom">Kirim Komentar</button>
+    </form>
 @else
     <div class="alert alert-info" role="alert">
-        <p class="mb-0">Silakan <a href="{{ route('login') }}?redirect={{ urlencode(url()->current()) }}" class="text-decoration-none">masuk</a> untuk menulis komentar.</p>
+        <p class="mb-0">
+            Silakan
+            <a href="{{ route('login') }}?redirect={{ urlencode(url()->current()) }}" class="text-decoration-none">masuk</a>
+            sebagai <strong>Petani</strong> untuk menulis komentar.
+        </p>
     </div>
-@endauth
+@endif
 
                     <!-- Komentar -->
                     @if ($video->komentar->isEmpty())

@@ -16,7 +16,7 @@ class LaporanPetaniPage extends Component
     public function render()
     {
         return view('livewire.laporan.laporan-petani-page', [
-            'users' => User::where('role', Role::PETANI->value)->paginate(10),
+            'users' => User::latest()->paginate(10),
         ]);
     }
 }

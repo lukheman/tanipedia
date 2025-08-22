@@ -2,13 +2,19 @@
 
 namespace App\Livewire;
 
+use App\Enums\Role;
 use App\Enums\State;
 use App\Livewire\Forms\UserForm;
+use App\Models\Admin;
 use App\Models\Desa;
 use App\Models\Kecamatan;
+use App\Models\KepalaDinas;
+use App\Models\Penyuluh;
 use App\Models\User;
 use App\Traits\Traits\WithModal;
 use App\Traits\WithNotify;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -37,6 +43,8 @@ class PenggunaPage extends Component
 
     public $kecamatan;
 
+    public $type;
+
     public function mount()
     {
         $this->kecamatanList = Kecamatan::all();
@@ -48,9 +56,21 @@ class PenggunaPage extends Component
         $this->desaList = $value ? Desa::where('id_kecamatan', $value)->get() : collect();
     }
 
-    public function detail($id)
+    public function detail($id, $role)
     {
-        $user = User::with('desa')->find($id);
+        $role = Role::from($role);
+
+        if ($role === Role::ADMIN) {
+            $user = Admin::with('desa')->find($id);
+        } elseif ($role === Role::PETANI) {
+            $user = User::with('desa')->find($id);
+        } elseif ($role === Role::AHLIPERTANIAN) {
+            $user = Penyuluh::with('desa')->find($id);
+        } elseif ($role === Role::KEPALADINAS) {
+            $user = KepalaDinas::with('desa')->find($id);
+        }
+
+        $this->form->type = $role->value;
         $this->currentState = State::SHOW;
         $this->form->user = $user;
         $this->form->name = $user->name;
@@ -68,9 +88,9 @@ class PenggunaPage extends Component
 
     }
 
-    public function edit($id)
+    public function edit($id, $role)
     {
-        $this->detail($id);
+        $this->detail($id, $role);
         $this->currentState = State::UPDATE;
     }
 
@@ -78,6 +98,12 @@ class PenggunaPage extends Component
     {
 
         if ($this->currentState === State::CREATE) {
+
+            $this->validate([
+                'type' => 'required',
+            ]);
+
+            $this->form->type = $this->type;
             $this->form->store();
             $this->notifySuccess('Pengguna berhasil ditambahkan!');
         } elseif ($this->currentState === State::UPDATE) {
@@ -89,9 +115,20 @@ class PenggunaPage extends Component
 
     }
 
-    public function delete(int $id)
+    public function delete(int $id, $type)
     {
-        $this->form->user = User::findOrFail($id);
+        $type = Role::from($type);
+
+        if ($type === Role::ADMIN) {
+            $this->form->user = Admin::findOrFail($id);
+        } elseif ($type === Role::PETANI) {
+            $this->form->user = User::findOrFail($id);
+        } elseif ($type === Role::AHLIPERTANIAN) {
+            $this->form->user = Penyuluh::findOrFail($id);
+        } elseif ($type === Role::KEPALADINAS) {
+            $this->form->user = KepalaDinas::findOrFail($id);
+        }
+
         $this->dispatch('deleteConfirmation', message: 'Yakin untuk menghapus pengguna ini?');
     }
 
@@ -115,8 +152,54 @@ class PenggunaPage extends Component
 
     public function render()
     {
+        // Ambil data dari semua tabel
+        $petani = User::with('desa')->get()->map(function ($item) {
+            $item->id = $item->id_petani;
+
+            return $item;
+        });
+
+        $admin = Admin::all()->map(function ($item) {
+            $item->id = $item->id_admin;
+
+            return $item;
+        });
+
+        $penyuluh = Penyuluh::with('desa')->get()->map(function ($item) {
+            $item->id = $item->id_penyuluh;
+
+            return $item;
+        });
+
+        $kepalaDinas = KepalaDinas::all()->map(function ($item) {
+            $item->id = $item->id_kepala_dinas;
+
+            return $item;
+        });
+
+        // Gabungkan jadi satu collection
+        $allUsers = $petani
+            ->concat($admin)
+            ->concat($penyuluh)
+            ->concat($kepalaDinas);
+
+        // Sortir berdasarkan created_at
+        $allUsers = $allUsers->sortByDesc('created_at');
+
+        // Paginasi manual
+        $perPage = 10;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $currentItems = $allUsers->slice(($currentPage - 1) * $perPage, $perPage)->values();
+        $paginated = new LengthAwarePaginator(
+            $currentItems,
+            $allUsers->count(),
+            $perPage,
+            $currentPage,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
+
         return view('livewire.pengguna-page', [
-            'users' => User::with('desa')->latest()->paginate(10),
+            'users' => $paginated,
         ]);
     }
 }

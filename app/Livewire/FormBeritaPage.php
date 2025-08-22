@@ -4,6 +4,8 @@ namespace App\Livewire;
 
 use App\Models\Berita;
 use App\Traits\WithNotify;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -38,10 +40,14 @@ class FormBeritaPage extends Component
     public function submit()
     {
 
-        // 'judul' => 'required|min:3|max:255',
         $this->validate(
             [
-                'judul' => 'required|min:3|max:255|unique:berita,judul,'.($this->selectedIdBerita ?? 'NULL'),
+                'judul' => [
+                    'required',
+                    'min:3',
+                    'max:255',
+                    Rule::unique('berita', 'judul')->ignore($this->selectedIdBerita ?? null, 'id_berita'),
+                ],
                 'isi' => 'required|min:10|max:10000',
             ], [
                 'judul.required' => 'Judul tidak boleh kosong',
@@ -59,7 +65,7 @@ class FormBeritaPage extends Component
                 'judul' => $this->judul,
                 'isi' => $this->isi,
                 'tanggal_publikasi' => date('Y-m-d'),
-                'id_user' => auth()->id(),
+                'id_penulis' => Auth::guard('admin')->user()->id_admin,
             ]);
             $this->notifySuccess('Berita berhasil diperbarui', reload: true);
         } else {
@@ -68,7 +74,7 @@ class FormBeritaPage extends Component
                 'judul' => $this->judul,
                 'isi' => $this->isi,
                 'tanggal_publikasi' => date('Y-m-d'),
-                'id_user' => auth()->id(),
+                'id_penulis' => Auth::guard('admin')->user()->id_admin,
             ]);
             $this->notifySuccess(message: 'Berita berhasil ditambahkan', reload: true);
         }

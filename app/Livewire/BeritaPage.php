@@ -52,7 +52,7 @@ class BeritaPage extends Component
 
     public function detail($item)
     {
-        $this->selectedIdBerita = $item['id'];
+        $this->selectedIdBerita = $item['id_berita'];
         $this->isi = $item['isi'];
         $this->judul = $item['judul'];
         $this->tanggal_publikasi = $item['tanggal_publikasi'];

@@ -10,13 +10,15 @@ class Berita extends Model
 {
     use HasFactory;
 
-    public $table = 'berita';
+    protected $table = 'berita';
 
-    public $guarded = [];
+    protected $primaryKey = 'id_berita';
+
+    protected $guarded = [];
 
     public function penulis()
     {
-        return $this->belongsTo(User::class, 'id_user', 'id');
+        return $this->belongsTo(Admin::class, 'id_penulis', 'id_admin');
     }
 
     public function getLabelJudulAttribute()

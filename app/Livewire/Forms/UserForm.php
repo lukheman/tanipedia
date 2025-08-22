@@ -2,27 +2,31 @@
 
 namespace App\Livewire\Forms;
 
+use App\Enums\Role;
+use App\Models\Admin;
+use App\Models\KepalaDinas;
+use App\Models\Penyuluh;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 use Livewire\Form;
 
 class UserForm extends Form
 {
-    public ?User $user = null;
+    public $user;
 
-    public $name = '';
+    public $name = 'akmal';
 
-    public $email = '';
+    public $email = 'akmal@gmail.com';
 
-    public $role = '';
+    public $telepon = '082929292929';
 
-    public $telepon = '';
+    public $tanggal_lahir = '2005-05-05';
 
-    public $tanggal_lahir = '';
-
-    public $alamat = '';
+    public $alamat = 'akma';
 
     public ?int $id_desa;
+
+    public $type;
 
     protected function rules(): array
     {
@@ -31,9 +35,9 @@ class UserForm extends Form
             'email' => [
                 'required',
                 'email',
-                Rule::unique('users', 'email')->ignore($this->user?->id),
+                Rule::unique(str_replace(' ', '_', strtolower($this->type)), 'email')->ignore($this->user),
+
             ],
-            'role' => 'required',
             'telepon' => [
                 'required',
                 'regex:/^0[0-9]{9,14}$/',
@@ -44,7 +48,7 @@ class UserForm extends Form
                 'before:today',
             ],
             'alamat' => 'required|max:255',
-            'id_desa' => 'required|exists:desa,id',
+            'id_desa' => 'required|exists:desa,id_desa',
         ];
     }
 
@@ -61,8 +65,6 @@ class UserForm extends Form
             'alamat.required' => 'Mohon isi alamat Anda.',
             'alamat|max' => 'Alamat maksimal 255 karakter',
 
-            'role.required' => 'Silakan pilih peran Anda.',
-
             'telepon.required' => 'Mohon masukkan nomor telepon Anda.',
             'telepon.regex' => 'Nomor telepon harus format Indonesia, diawali 0, dan panjang 10–15 digit.',
 
@@ -77,7 +79,18 @@ class UserForm extends Form
 
     public function store()
     {
-        User::create($this->validate());
+        $type = Role::from($this->type);
+
+        if ($type === Role::PETANI) {
+            User::create($this->validate());
+        } elseif ($type === Role::ADMIN) {
+            Admin::create($this->validate());
+        } elseif ($type === Role::AHLIPERTANIAN) {
+            Penyuluh::create($this->validate());
+        } elseif ($type === Role::KEPALADINAS) {
+            KepalaDinas::create($this->validate());
+        }
+
         $this->reset();
     }
 

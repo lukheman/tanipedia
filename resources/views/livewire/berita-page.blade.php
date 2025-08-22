@@ -76,8 +76,8 @@
                     <td>{{ $item->tanggal_publikasi}}</td>
                     <td class="text-end">
                         <button wire:click="detail({{ $item }})"class="btn btn-sm btn-info">Lihat</button>
-                        <a href="{{ route('berita.edit', ['id' => $item->id])}}" class="btn btn-sm btn-warning">Edit</a>
-                        <button wire:click="delete({{ $item->id }})" class="btn btn-sm btn-danger">Hapus</button>
+                        <a href="{{ route('berita.edit', ['id' => $item->id_berita])}}" class="btn btn-sm btn-warning">Edit</a>
+                        <button wire:click="delete({{ $item->id_berita }})" class="btn btn-sm btn-danger">Hapus</button>
 
                     </td>
                 </tr>

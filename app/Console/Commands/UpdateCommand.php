@@ -7,6 +7,7 @@ use Illuminate\Console\Command;
 class UpdateCommand extends Command
 {
     protected $signature = 'update';
+
     protected $description = 'Memperbarui aplikasi ke versi terbaru';
 
     public function handle()
@@ -42,6 +43,7 @@ class UpdateCommand extends Command
 
         if ($resultCode !== 0) {
             $this->error('❌ Gagal memperbarui aplikasi. Silakan coba lagi.');
+
             return;
         }
 
@@ -55,6 +57,7 @@ class UpdateCommand extends Command
 
             if ($composerResult !== 0) {
                 $this->error('❌ Gagal memperbarui dependensi.');
+
                 return;
             }
         }

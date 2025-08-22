@@ -18,7 +18,7 @@
                         <td>{{ $item->tanggal_komentar}}</td>
                         <td>{{ $item->isi }}</td>
                         <td class="text-end">
-                        <button wire:click="delete({{ $item->id }})" class="btn btn-sm btn-danger">Hapus</button>
+                        <button wire:click="delete({{ $item->id_komentar }})" class="btn btn-sm btn-danger">Hapus</button>
 
                         </td>
                     </tr>

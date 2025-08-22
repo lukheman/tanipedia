@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use App\Enums\Role;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
@@ -11,7 +10,7 @@ use Livewire\Component;
 #[Layout('layouts.guest')]
 class LoginPage extends Component
 {
-    #[Rule(['required', 'email', 'exists:users,email'])]
+    #[Rule(['required', 'email'])]
     public string $email = '';
 
     #[Rule(['required'])]
@@ -23,7 +22,7 @@ class LoginPage extends Component
     {
         return [
             'email.required' => 'Email harus diisi.',
-            'email.exists' => 'Email tidak terdaftar.',
+            'email.email' => 'Format email tidak valid.',
             'password.required' => 'Password harus diisi.',
         ];
     }
@@ -37,31 +36,21 @@ class LoginPage extends Component
     {
         $credentials = $this->validate();
 
-        if (! Auth::attempt($credentials)) {
-            return flash('Password tidak valid.', 'danger');
+        foreach (['admin', 'petani', 'penyuluh', 'kepala_dinas'] as $guard) {
+            if (Auth::guard($guard)->attempt([
+                'email' => $credentials['email'],
+                'password' => $credentials['password'],
+            ])) {
+                // regenerate session agar tidak session fixation
+                Auth::guard($guard)->login(Auth::guard($guard)->user(), true);
+
+                flash('Login berhasil');
+
+                return redirect()->intended($this->redirect ?? route('dashboard'));
+            }
         }
 
-        $user = Auth::user();
-        $role = Role::from($user->role);
-
-        // Cek jika user bukan petani tapi mencoba akses tambah konsultasi
-        if ($this->redirect === route('tambah-konsultasi') && $role !== Role::PETANI) {
-            Auth::logout();
-
-            return flash('Anda bukan petani, tidak bisa login.', 'danger');
-        }
-
-        $redirectUrl = $this->redirect ?? route('dashboard');
-
-        flash('Login berhasil');
-
-        return match ($role) {
-            Role::ADMIN,
-            Role::PETANI,
-            Role::AHLIPERTANIAN,
-            Role::KEPALADINAS => redirect()->to($redirectUrl),
-            default => flash('Email tidak terdaftar atau role tidak valid.', 'danger'),
-        };
+        return flash('Email atau password tidak valid.', 'danger');
     }
 
     public function render()

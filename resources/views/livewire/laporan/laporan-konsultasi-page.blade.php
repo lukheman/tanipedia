@@ -83,7 +83,7 @@
 
                                             <option value="">Pilih Kecamatan</option>
                                 @foreach (\App\Models\Kecamatan::all() as $item)
-                                <option value="{{ $item->id}}">{{ $item->nama }}</option>
+                                <option value="{{ $item->id_kecamatan}}">{{ $item->nama }}</option>
                                 @endforeach
                             </select>
                         </div>

@@ -5,7 +5,7 @@
                 <p class="text-muted small">{!! $berita->excerpt !!}</p>
             </div>
             <div class="d-flex justify-content-start mt-3">
-            <a href="{{ route('baca-berita', ['id' => $berita->id])}}?redirect={{ urlencode(url()->full())}}" class="btn btn-custom" wire:navigate>
+            <a href="{{ route('baca-berita', ['id' => $berita->id_berita])}}?redirect={{ urlencode(url()->full())}}" class="btn btn-custom" wire:navigate>
                Baca Selengkapnya
             </a>
         </div>

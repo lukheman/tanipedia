@@ -6,7 +6,7 @@ enum Role: string
 {
     case ADMIN = 'Admin';
     case PETANI = 'Petani';
-    case AHLIPERTANIAN = 'Ahli Pertanian';
+    case AHLIPERTANIAN = 'Penyuluh';
     case KEPALADINAS = 'Kepala Dinas';
 
     public function getLabel(): ?string

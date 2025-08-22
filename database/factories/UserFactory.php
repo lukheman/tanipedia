@@ -15,7 +15,7 @@ class UserFactory extends Factory
         return [
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
-            'role' => $this->faker->randomElement(Role::values()),
+            // 'role' => $this->faker->randomElement(Role::values()),
             'password' => bcrypt('password123'),
             'telepon' => $this->faker->phoneNumber,
             'tanggal_lahir' => $this->faker->date(),

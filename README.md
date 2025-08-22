@@ -34,3 +34,11 @@ email: kepaladinas@gmail.com
 
 
 password semua user: password123
+
+# Revisi
+
+- Pisahkan pisah table setiap role
+- ganti id -> id_konsultasi pada table konsultasi
+- ganti id jadi id_nama_table di semua table
+- pisahkan login petani dan login admin
+

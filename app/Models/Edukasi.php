@@ -10,18 +10,19 @@ class Edukasi extends Model
     use HasFactory;
 
     protected $table = 'edukasi';
+
     protected $primaryKey = 'id_video';
 
     protected $guarded = [];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_user', 'id');
+        return $this->belongsTo(Admin::class, 'id_user', 'id_admin');
     }
 
     public function komentar()
     {
-        return $this->hasMany(Komentar::class, 'id_video', 'id');
+        return $this->hasMany(Komentar::class, 'id_video')->latest();
     }
 
     public function getLabelJudulAttribute()

@@ -38,7 +38,27 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'petani',
+        ],
+
+        'petani' => [
+            'driver' => 'session',
+            'provider' => 'petani',
+        ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admin',
+        ],
+
+        'kepala_dinas' => [
+            'driver' => 'session',
+            'provider' => 'kepala_dinas',
+        ],
+
+        'penyuluh' => [
+            'driver' => 'session',
+            'provider' => 'penyuluh',
         ],
     ],
 
@@ -63,6 +83,26 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
+
+        'admin' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
+
+        'petani' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class,
+        ],
+
+        'penyuluh' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Penyuluh::class,
+        ],
+
+        'kepala_dinas' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\KepalaDinas::class,
         ],
 
         // 'users' => [

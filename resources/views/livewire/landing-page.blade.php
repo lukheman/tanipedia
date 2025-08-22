@@ -14,7 +14,7 @@
             <div class="row">
                 @forelse ($berita as $item)
                     <div class="col-md-4 mb-4">
-                <livewire:berita-card :berita="$item" :wire:key="$item->id" />
+                <livewire:berita-card :berita="$item" :wire:key="$item->id_berita" />
                     </div>
                 @empty
                     <div class="col-12 text-center">
@@ -36,7 +36,7 @@
                 @forelse ($videos as $video)
                     <div class="col-md-4 mb-4">
 
-                    <livewire:video-card :video="$video" :wire:key="$video->id" />
+                    <livewire:video-card :video="$video" :wire:key="$video->id_video" />
                     </div>
                 @empty
                     <div class="col-12 text-center">

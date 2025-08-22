@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Enums\Role;
+use App\Models\Desa;
 use App\Models\HasilKonsultasi;
 use App\Models\Konsultasi;
 use App\Traits\Traits\WithModal;
@@ -12,6 +12,7 @@ use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+use function getActiveGuard;
 
 #[Title('Daftar Konsultasi')]
 class KonsultasiPage extends Component
@@ -36,27 +37,27 @@ class KonsultasiPage extends Component
 
     public function detail($konsultasi)
     {
-        $this->selectedIKonsultasi = $konsultasi['id'];
+        $this->selectedIdKonsultasi = $konsultasi['id_konsultasi'];
         $this->nama_petani = $konsultasi['user']['name'];
         $this->isi = $konsultasi['isi'];
         $this->nama_tanaman = $konsultasi['nama_tanaman'];
         $this->tanggal_konsultasi = $konsultasi['tanggal_konsultasi'];
 
-        $konsultasi = Konsultasi::with('hasil', 'hasil.user')->find($konsultasi['id']);
-        if ($konsultasi->hasil) {
-            $this->nama_ahli_pertanian = $konsultasi->hasil->user->name;
-            $this->jawaban = $konsultasi->hasil->isi;
+        $k = Konsultasi::with('hasil', 'hasil.user')->find($this->selectedIdKonsultasi);
+        if ($k && $k->hasil) {
+            $this->nama_ahli_pertanian = $k->hasil->user->name;
+            $this->jawaban = $k->hasil->isi;
         }
 
         $this->openModal('modal-detail-konsultasi');
-
     }
 
     public function jawab($id)
     {
         $this->selectedIdKonsultasi = $id;
-        $konsultasi = Konsultasi::with('hasil')->find($id);
-        $this->jawaban = $konsultasi->hasil->isi ?? '';
+
+        $k = Konsultasi::with('hasil')->find($id);
+        $this->jawaban = $k->hasil->isi ?? '';
         $this->openModal('modal-jawab');
     }
 
@@ -65,34 +66,30 @@ class KonsultasiPage extends Component
         $this->validateOnly('jawaban');
 
         try {
-            $konsultasi = Konsultasi::with('hasil')->find($this->selectedIdKonsultasi);
+            $k = Konsultasi::with('hasil')->find($this->selectedIdKonsultasi);
 
-            if ($konsultasi->hasil) {
-
-                $konsultasi->hasil->update([
+            if ($k->hasil) {
+                $k->hasil->update([
                     'isi' => $this->jawaban,
                 ]);
-                $konsultasi->hasil->save();
                 $this->notifySuccess('Berhasil memperbarui jawaban');
 
                 return;
             }
 
-            $hasil_konsultasi = HasilKonsultasi::create([
-                'id_user' => auth()->user()->id,
+            $hasil = HasilKonsultasi::create([
+                'id_user' => Auth::guard('penyuluh')->user()->id_penyuluh, // otomatis ambil user id sesuai guard aktif
                 'isi' => $this->jawaban,
             ]);
 
-            $konsultasi->update([
-                'id_solusi' => $hasil_konsultasi->id,
+            $k->update([
+                'id_solusi' => $hasil->id_solusi,
             ]);
-
-            $konsultasi->save();
 
             $this->notifySuccess('Jawaban berhasil dikirim!');
             $this->reset(['jawaban', 'selectedIdKonsultasi']);
         } catch (\Exception $e) {
-            $this->notifyError('Gagal mengirim konsultasi: '.$e->getMessage());
+            $this->notifyError('Gagal mengirim jawaban: '.$e->getMessage());
         }
     }
 
@@ -106,9 +103,8 @@ class KonsultasiPage extends Component
     public function deleteConfirmed()
     {
         try {
-            $konsultasi = Konsultasi::findOrFail($this->selectedIdKonsultasi);
-
-            $konsultasi->delete();
+            $k = Konsultasi::findOrFail($this->selectedIdKonsultasi);
+            $k->delete();
 
             $this->notifySuccess('Konsultasi berhasil dihapus!');
             $this->reset(['selectedIdKonsultasi']);
@@ -119,20 +115,28 @@ class KonsultasiPage extends Component
 
     public function render()
     {
-        if (auth()->user()->role === Role::PETANI->value) {
+        $guard = getActiveGuard(); // guard aktif
+        $user = Auth::guard($guard)->user();
+
+        if ($guard === 'petani') {
             $konsultasi = Konsultasi::with('user')
-                ->where('id_user', auth()->id())
+                ->where('id_user', $user->id_petani)
                 ->get();
-        } elseif (auth()->user()->role === Role::AHLIPERTANIAN->value) {
+
+        } elseif ($guard === 'penyuluh') {
+            // penyuluh hanya lihat konsultasi dari petani di desa/kecamatan tertentu
             $konsultasi = Konsultasi::with(['user', 'user.desa'])
-                ->whereHas('user.desa', function ($query) {
-                    $currentUser = Auth::user();
-                    if ($currentUser && $currentUser->id_desa) {
-                        $kecamatanId = \App\Models\Desa::find($currentUser->id_desa)->id_kecamatan;
-                        $query->where('id_kecamatan', $kecamatanId);
+                ->whereHas('user.desa', function ($query) use ($user) {
+                    if ($user && $user->id_desa) {
+                        $desa = Desa::find($user->id_desa);
+                        if ($desa) {
+                            $query->where('id_kecamatan', $desa->id_kecamatan);
+                        }
                     }
                 })->get();
+
         } else {
+            // admin & kepala_dinas bisa lihat semua
             $konsultasi = Konsultasi::with('user')->get();
         }
 

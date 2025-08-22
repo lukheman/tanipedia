@@ -11,14 +11,12 @@ class Kecamatan extends Model
 
     protected $table = 'kecamatan';
 
-    protected $guarded = [];
+    protected $primaryKey = 'id_kecamatan';
 
-    // public function user() {
-    //     return $this->hasMany(User::class, 'id_user', 'id');
-    // }
+    protected $guarded = [];
 
     public function desa()
     {
-        return $this->hasMany(Desa::class, 'id_kecamatan', 'id');
+        return $this->hasMany(Desa::class, 'id_kecamatan', 'id_kecamatan');
     }
 }

@@ -27,7 +27,7 @@ class FormKonsultasiPage extends Component
         try {
 
             Konsultasi::create([
-                'id_user' => Auth::id(),
+                'id_user' => Auth::guard('petani')->user()->id_petani,
                 'nama_tanaman' => $this->nama_tanaman,
                 'isi' => $this->isi,
                 'tanggal_konsultasi' => now()->toDateString(),

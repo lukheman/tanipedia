@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('hasil_konsultasi', function (Blueprint $table) {
             $table->id('id_solusi');
-            $table->foreignId('id_user')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('id_user')->constrained('penyuluh', 'id_penyuluh')->cascadeOnDelete();
             $table->text('isi');
             $table->timestamps();
         });

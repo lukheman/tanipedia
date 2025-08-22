@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('edukasi', function (Blueprint $table) {
             $table->id('id_video');
-            $table->foreignId('id_user')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('id_user')->constrained('admin', 'id_admin')->cascadeOnDelete();
             $table->string('judul');
             $table->date('tanggal_publikasi');
             $table->string('deskripsi');
