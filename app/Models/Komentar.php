@@ -17,7 +17,7 @@ class Komentar extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_user', 'id_petani');
+        return $this->belongsTo(User::class, 'id_petani', 'id_petani');
     }
 
     public function video()

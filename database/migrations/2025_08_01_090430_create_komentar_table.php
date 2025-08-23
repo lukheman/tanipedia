@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('komentar', function (Blueprint $table) {
             $table->id('id_komentar');
             $table->foreignId('id_video')->constrained('edukasi', 'id_video')->cascadeOnDelete();
-            $table->foreignId('id_user')->constrained('petani', 'id_petani')->cascadeOnDelete();
+            $table->foreignId('id_petani')->constrained('petani', 'id_petani')->cascadeOnDelete();
             $table->text('isi');
             $table->date('tanggal_komentar');
             $table->timestamps();

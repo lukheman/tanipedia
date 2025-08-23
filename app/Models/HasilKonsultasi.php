@@ -14,7 +14,7 @@ class HasilKonsultasi extends Model
 
     public function user()
     {
-        return $this->belongsTo(Penyuluh::class, 'id_user', 'id_penyuluh');
+        return $this->belongsTo(Penyuluh::class, 'id_penyuluh', 'id_penyuluh');
     }
 
     public function konsultasi()

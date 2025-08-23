@@ -17,7 +17,7 @@ class Edukasi extends Model
 
     public function user()
     {
-        return $this->belongsTo(Admin::class, 'id_user', 'id_admin');
+        return $this->belongsTo(Admin::class, 'id_admin', 'id_admin');
     }
 
     public function komentar()
