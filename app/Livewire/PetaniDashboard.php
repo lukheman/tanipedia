@@ -10,7 +10,7 @@ class PetaniDashboard extends Component
     public function render()
     {
         return view('livewire.petani-dashboard', [
-            'jumlah_konsultasi' => Konsultasi::where('id_user', auth()->id())->count(),
+            'jumlah_konsultasi' => Konsultasi::where('id_petani', auth()->id())->count(),
         ]);
     }
 }

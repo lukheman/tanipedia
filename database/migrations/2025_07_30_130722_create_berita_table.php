@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('judul');
             $table->mediumText('isi');
             $table->date('tanggal_publikasi');
-            $table->foreignId('id_penulis')->constrained('admin', 'id_admin')->cascadeOnDelete();
+            $table->foreignId('id_admin')->constrained('admin', 'id_admin')->cascadeOnDelete();
             $table->timestamps();
         });
     }

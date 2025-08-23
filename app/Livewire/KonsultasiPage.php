@@ -78,7 +78,7 @@ class KonsultasiPage extends Component
             }
 
             $hasil = HasilKonsultasi::create([
-                'id_user' => Auth::guard('penyuluh')->user()->id_penyuluh, // otomatis ambil user id sesuai guard aktif
+                'id_penyuluh' => Auth::guard('penyuluh')->user()->id_penyuluh, // otomatis ambil user id sesuai guard aktif
                 'isi' => $this->jawaban,
             ]);
 

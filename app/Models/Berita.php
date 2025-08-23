@@ -18,7 +18,7 @@ class Berita extends Model
 
     public function penulis()
     {
-        return $this->belongsTo(Admin::class, 'id_penulis', 'id_admin');
+        return $this->belongsTo(Admin::class, 'id_admin', 'id_admin');
     }
 
     public function getLabelJudulAttribute()

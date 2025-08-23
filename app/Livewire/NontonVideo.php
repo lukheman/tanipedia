@@ -19,7 +19,7 @@ class NontonVideo extends Component
 
     public function mount($id)
     {
-        $this->redirect = route('video.index');
+        $this->redirect = request()->query('redirect');
         $this->video = Edukasi::with(['user', 'komentar', 'komentar.user'])->find($id);
     }
 
@@ -30,7 +30,7 @@ class NontonVideo extends Component
 
         $this->video->komentar()->create([
             'isi' => $this->new_komentar,
-            'id_user' => $user->id,
+            'id_petani' => $user->id,
             'tanggal_komentar' => date('Y-m-d'),
         ]);
 

@@ -41,7 +41,7 @@ class FormVideoPage extends Component
                 $path = $this->video->store('videos', 'public');
 
                 Edukasi::create([
-                    'id_user' => Auth::guard('admin')->user()->id_admin,
+                    'id_admin' => Auth::guard('admin')->user()->id_admin,
                     'judul' => $this->judul,
                     'tanggal_publikasi' => date('Y-m-d'),
                     'deskripsi' => $this->deskripsi,
