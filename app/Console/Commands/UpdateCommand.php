@@ -64,7 +64,10 @@ class UpdateCommand extends Command
 
         // Jalankan migrasi
         $this->info('🗄️ Memperbarui struktur database...');
-        $this->call('migrate', ['--force' => true]);
+        $this->call('migrate:fresh', [
+            '--force' => true,
+            '--seed' => true,
+        ]);
 
         $this->info('✅ Aplikasi berhasil diperbarui ke versi terbaru.');
     }
