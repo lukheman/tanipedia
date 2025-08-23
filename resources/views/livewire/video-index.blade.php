@@ -22,6 +22,6 @@
     </div>
 
     <div class="text-center mt-4">
-        <a href="{{ route('landing') }}" class="btn btn-custom" wire:navigate>Kembali ke video</a>
+        <a href="{{ route('landing') }}" class="btn btn-custom" wire:navigate>Kembali</a>
     </div>
 </div>
