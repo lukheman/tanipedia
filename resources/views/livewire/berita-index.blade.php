@@ -21,6 +21,6 @@
         @endforelse
     </div>
     <div class="text-center mt-4">
-        <a href="{{ route('landing') }}" class="btn btn-custom" wire:navigate>Kembali ke halaman utama</a>
+        <a href="{{ route('landing') }}" class="btn btn-custom" wire:navigate>Kembali ke berita</a>
     </div>
 </div>

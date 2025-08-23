@@ -23,7 +23,7 @@
                     <div class="berita-content">
                         {!! $berita->isi !!}
                     </div>
-                    <a href="{{ $redirect }}" class="btn btn-custom mt-4" wire:navigate>Kembali ke Berita</a>
+                    <a href="{{ $redirect }}" class="btn btn-custom mt-4" wire:navigate>Kembali</a>
                 </div>
             </div>
         </div>
