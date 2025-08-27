@@ -74,7 +74,7 @@ class ProfileForm extends Form
             'email.email' => 'Format email tidak valid, silakan periksa kembali.',
 
             'alamat.required' => 'Mohon isi alamat Anda.',
-            'alamat|max' => 'Alamat maksimal 255 karakter',
+            'alamat.max' => 'Alamat maksimal 255 karakter',
 
             'telepon.required' => 'Mohon masukkan nomor telepon Anda.',
             'telepon.regex' => 'Nomor telepon harus format Indonesia, diawali 0, dan panjang 10–15 digit.',

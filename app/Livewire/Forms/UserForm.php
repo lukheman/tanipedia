@@ -14,15 +14,15 @@ class UserForm extends Form
 {
     public $user;
 
-    public $name = 'akmal';
+    public $name = '';
 
-    public $email = 'akmal@gmail.com';
+    public $email = '';
 
-    public $telepon = '082929292929';
+    public $telepon = '';
 
-    public $tanggal_lahir = '2005-05-05';
+    public $tanggal_lahir = '';
 
-    public $alamat = 'akma';
+    public $alamat = '';
 
     public ?int $id_desa;
 
