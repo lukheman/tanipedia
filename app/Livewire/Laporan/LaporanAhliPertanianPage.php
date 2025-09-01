@@ -7,7 +7,7 @@ use App\Models\Penyuluh;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-#[Title('Laporan Ahli Pertanian')]
+#[Title('Laporan Penyuluh Pertanian')]
 class LaporanAhliPertanianPage extends Component
 {
     public function render()

@@ -31,13 +31,13 @@ class LaporanController extends Controller
 
         $users = Penyuluh::with(['desa', 'desa.kecamatan'])->get();
 
-        $pdf = Pdf::loadView('invoices.laporan-users', ['users' => $users, 'label' => 'Ahli Pertanian']);
+        $pdf = Pdf::loadView('invoices.laporan-users', ['users' => $users, 'label' => 'Penyuluh Pertanian']);
 
         return $pdf->download('laporan_data_ahli_pertanian_'.date('d_m_Y').'.pdf');
 
         // return view('invoices.laporan-users', [
         //     'users' => $users,
-        //     'label' => 'Ahli Pertanian'
+        //     'label' => 'Penyuluh Pertanian'
         // ]);
 
     }

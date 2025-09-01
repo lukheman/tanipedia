@@ -111,7 +111,7 @@
                     <x-nav-link icon="bi-person-lines-fill"
                         href="{{ route('laporan.ahli-pertanian')}}"
                         :active="request()->routeIs('laporan.ahli-pertanian')">
-                        Laporan Ahli Pertanian
+                        Laporan Penyuluh Pertanian
                     </x-nav-link>
 
                     <x-nav-link icon="bi-journal-text"

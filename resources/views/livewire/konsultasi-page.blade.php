@@ -39,9 +39,9 @@
 
                         <!-- Jawaban -->
                         <div class="mb-2">
-                            <h6 class="fw-bold">Jawaban Ahli Pertanian</h6>
+                            <h6 class="fw-bold">Jawaban Penyuluh Pertanian</h6>
                             <div class="border rounded p-3 bg-light">
-                                <p><strong>Ditanggapi oleh:</strong> {{ $nama_ahli_pertanian ?? 'Ahli Pertanian Tidak Ada' }}</p>
+                                <p><strong>Ditanggapi oleh:</strong> {{ $nama_ahli_pertanian ?? 'Penyuluh Pertanian Tidak Ada' }}</p>
                                 <hr>
                                 <div class="text-dark" style="white-space: pre-line;">
                                     {{ $jawaban ?? 'Belum ada jawaban.' }}

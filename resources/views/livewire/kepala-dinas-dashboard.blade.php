@@ -18,7 +18,7 @@
         </div>
     </div>
 
-    <!-- Jumlah Ahli Pertanian -->
+    <!-- Jumlah Penyuluh Pertanian -->
     <div class="col-6 col-md-6">
         <div class="card">
             <div class="card-body px-4 py-4-5">
@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                        <h6 class="text-muted font-semibold">Jumlah Ahli Pertanian</h6>
+                        <h6 class="text-muted font-semibold">Jumlah Penyuluh Pertanian</h6>
                         <h6 class="font-extrabold mb-0">{{ $jumlah_ahli_pertanian }}</h6>
                     </div>
                 </div>

@@ -14,12 +14,12 @@
         <h6>Isi Konsultasi</h6>
         <p>{{ $konsultasi->isi }}</p>
 
-        <h6>Jawaban Ahli Pertanian</h6>
+        <h6>Jawaban Penyuluh Pertanian</h6>
         <p>
             @if ($konsultasi->hasil)
                 {{ $konsultasi->hasil->isi }}
             @else
-                Belum ada jawaban dari ahli pertanian
+                Belum ada jawaban dari Penyuluh Pertanian
             @endif
         </p>
 
