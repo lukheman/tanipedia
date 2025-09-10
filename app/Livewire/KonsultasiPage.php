@@ -12,6 +12,7 @@ use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+
 use function getActiveGuard;
 
 #[Title('Daftar Konsultasi')]
@@ -120,7 +121,7 @@ class KonsultasiPage extends Component
 
         if ($guard === 'petani') {
             $konsultasi = Konsultasi::with('user')
-                ->where('id_user', $user->id_petani)
+                ->where('id_petani', $user->id_petani)
                 ->get();
 
         } elseif ($guard === 'penyuluh') {
