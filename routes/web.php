@@ -35,7 +35,7 @@ Route::get('/video/{id}/komentar', \App\Livewire\KomentarPage::class)->name('vid
 
 Route::get('/pengguna', \App\Livewire\PenggunaPage::class)->name('pengguna')->middleware(MultiAuth::class.':admin');
 
-Route::get('/konsultasi', \App\Livewire\KonsultasiPage::class)->name('konsultasi')->middleware(MultiAuth::class.':admin,penyuluh,petani');
+Route::get('/konsultasi', \App\Livewire\KonsultasiTable::class)->name('konsultasi')->middleware(MultiAuth::class.':admin,penyuluh,petani');
 
 Route::get('/tanaman', \App\Livewire\TanamanTable::class)->name('tanaman')->middleware(MultiAuth::class.':admin');
 

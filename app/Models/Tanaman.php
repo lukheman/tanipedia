@@ -20,4 +20,9 @@ class Tanaman extends Model
     {
         return $this->hasMany(Penyuluh::class, 'id_tanaman');
     }
+
+    public function konsultasi(): HasMany
+    {
+        return $this->hasMany(Konsultasi::class, 'id_tanaman');
+    }
 }

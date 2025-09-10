@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Konsultasi extends Model
 {
@@ -20,5 +21,10 @@ class Konsultasi extends Model
     public function hasil()
     {
         return $this->hasOne(HasilKonsultasi::class, 'id_solusi', 'id_solusi');
+    }
+
+    public function tanaman(): BelongsTo
+    {
+        return $this->belongsTo(Tanaman::class, 'id_tanaman', 'id_tanaman');
     }
 }

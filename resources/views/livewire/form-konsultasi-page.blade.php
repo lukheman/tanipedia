@@ -1,24 +1,28 @@
 <div class="card">
-    <div class="card-body"> 
+    <div class="card-body">
 
     <div class="text-center mb-5">
         <h2 class="fw-bold text-primary">Konsultasi Tanaman Anda</h2>
         <p class="text-muted lead">
-            Punya masalah dengan tanaman kesayangan? Ceritakan keluhannya di sini, dan kami akan bantu cari solusinya! 🌱
+            Punya masalah dengan tanaman kesayangan? Ceritakan keluhannya di sini, dan kami akan bantu cari solusinya!
         </p>
     </div>
 
     <form wire:submit="submit" class="mx-auto" style="max-width: 600px;">
         <div class="mb-4">
             <label for="crop_type" class="form-label">Jenis Tanaman</label>
-            <input type="text"
-                   id="crop_type"
-                   class="form-control @error('nama_tanaman') is-invalid @enderror"
-                   wire:model.defer="nama_tanaman"
-                   placeholder="Contoh: Cabai, Tomat, Anggrek, dll.">
-            @error('nama_tanaman')
+
+            <select id="crop_type" wire:model="id_tanaman" class="form-control @error('id_tanaman') is-invalid @enderror">
+                                    <option value="">Pilih Tanaman</option>
+                                    @foreach ($tanamanList as $tanaman)
+                                        <option value="{{ $tanaman->id_tanaman }}">{{ $tanaman->nama }}</option>
+                                    @endforeach
+            </select>
+
+            @error('id_tanaman')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
+
         </div>
 
         <div class="mb-4">
