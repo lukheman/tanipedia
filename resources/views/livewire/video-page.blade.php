@@ -9,7 +9,7 @@
         @if ($currentState === \App\Enums\State::CREATE)
             <livewire:form-video-page />
         @elseif($currentState === \App\Enums\State::UPDATE)
-            <livewire:form-video-page :video="$selectedVideo" />
+            <livewire:form-video-page :id_video="$selectedVideo" />
         @elseif($currentState === \App\Enums\State::KOMENTAR)
             <livewire:komentar-page :video="$selectedVideo" />
         @elseif($currentState === \App\Enums\State::LISTDATA)
@@ -37,7 +37,7 @@
                         <td class="text-end">
                         <!-- <button wire:click="detail({{ $item }})"class="btn btn-sm btn-info">Lihat</button> -->
                         <a href="{{ route('video.komentar', ['id' => $item->id_video ])}}" class="btn btn-sm btn-primary" wire:navigate>Lihat Komentar</a>
-                        <button wire:click="edit({{ $item }})" class="btn btn-sm btn-warning">Edit</button>
+                        <button wire:click="edit({{ $item->id_video }})" class="btn btn-sm btn-warning">Edit</button>
                         <button wire:click="delete({{ $item->id_video }})" class="btn btn-sm btn-danger">Hapus</button>
 
                         </td>

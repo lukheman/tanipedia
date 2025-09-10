@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Enums\State;
+use App\Livewire\Forms\VideoForm;
 use App\Models\Edukasi;
 use App\Traits\WithNotify;
 use Illuminate\Support\Facades\Auth;
@@ -15,13 +16,9 @@ class FormVideoPage extends Component
     use WithFileUploads;
     use WithNotify;
 
-    public $judul;
+    public VideoForm $form;
 
-    public $deskripsi;
-
-    public $url_video;
-
-    public $selectedId;
+    public $uploadProgress = 0;
 
     public State $currentState = State::CREATE;
 
@@ -31,22 +28,8 @@ class FormVideoPage extends Component
     {
 
         if ($this->currentState === State::CREATE) {
-            $this->validate([
-                'judul' => 'required|string|min:3|max:255',
-                'deskripsi' => 'string|min:3|max:255',
-                'video' => 'required|file|mimes:mp4,avi,mpeg,mov|max:102400',
-            ]);
             try {
-                // Simpan video ke storage
-                $path = $this->video->store('videos', 'public');
-
-                Edukasi::create([
-                    'id_admin' => Auth::guard('admin')->user()->id_admin,
-                    'judul' => $this->judul,
-                    'tanggal_publikasi' => date('Y-m-d'),
-                    'deskripsi' => $this->deskripsi,
-                    'url_video' => $path,
-                ]);
+                $this->form->store();
 
                 $this->dispatch('setState', state: State::LISTDATA->value);
 
@@ -58,19 +41,10 @@ class FormVideoPage extends Component
             }
 
         } elseif ($this->currentState === State::UPDATE) {
-            $this->validate([
-                'judul' => 'required|string|min:3|max:255',
-                'deskripsi' => 'string|min:3|max:255',
-            ]);
 
             try {
-                $edukasi = Edukasi::findOrFail($this->selectedId);
 
-                $edukasi->update([
-                    'judul' => $this->judul,
-                    'deskripsi' => $this->deskripsi,
-                    'tanggal_publikasi' => date('Y-m-d'),
-                ]);
+                $this->form->update();
 
                 $this->dispatch('setState', state: State::LISTDATA->value);
                 $this->notifySuccess('Berhasil memperbarui video');
@@ -81,14 +55,14 @@ class FormVideoPage extends Component
         }
     }
 
-    public function mount($video = null)
+    public function mount($id_video = null)
     {
-        if ($video) {
+        if ($id_video) {
+
+            $edukasi = Edukasi::find($id_video);
             $this->currentState = State::UPDATE;
-            $this->judul = $video['judul'];
-            $this->deskripsi = $video['deskripsi'];
-            $this->url_video = $video['url_video'];
-            $this->selectedId = $video['id_video'];
+            $this->form->fillFromModel($edukasi);
+
         }
     }
 

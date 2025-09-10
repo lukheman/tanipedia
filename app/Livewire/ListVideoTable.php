@@ -10,9 +10,9 @@ class ListVideoTable extends Component
 {
     use WithPagination;
 
-    public function edit($video)
+    public function edit($id_video)
     {
-        $this->dispatch('editVideo', $video);
+        $this->dispatch('editVideo', $id_video);
         $this->dispatch('setState', 'add');
     }
 
