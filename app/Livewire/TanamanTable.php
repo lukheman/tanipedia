@@ -18,14 +18,14 @@ class TanamanTable extends Component
     use WithNotify;
     use WithPagination;
 
-
     public TanamanForm $form;
 
     public $currentState = State::CREATE;
 
     public $idModal = 'modal-form-tanaman';
 
-    public function detail($id) {
+    public function detail($id)
+    {
         $this->currentState = State::SHOW;
 
         $tanaman = Tanaman::findOrFail($id);
@@ -34,16 +34,18 @@ class TanamanTable extends Component
         $this->openModal($this->idModal);
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
         $this->detail($id);
         $this->currentState = State::UPDATE;
     }
 
-    public function save() {
-        if($this->currentState == State::CREATE) {
+    public function save()
+    {
+        if ($this->currentState == State::CREATE) {
             $this->form->store();
             $this->notifySuccess('Berhasil menambahkan data tanaman');
-        } else if($this->currentState == State::UPDATE) {
+        } elseif ($this->currentState == State::UPDATE) {
             $this->form->update();
             $this->notifySuccess('Berhasil memperbarui data tanaman');
         }
@@ -52,14 +54,16 @@ class TanamanTable extends Component
 
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $tanaman = Tanaman::findOrFail($id);
         $this->form->fillFromModel($tanaman);
-        $this->dispatch('deleteConfirmation', message: 'Apakah Anda yakin ingin menghapus data tanaman ini?',);
+        $this->dispatch('deleteConfirmation', message: 'Apakah Anda yakin ingin menghapus data tanaman ini?');
     }
 
     #[On('deleteConfirmed')]
-    public function deleteConfirmed() {
+    public function deleteConfirmed()
+    {
         try {
             $this->form->delete();
             $this->notifySuccess('Berhasil menghapus data tanaman');
@@ -68,15 +72,16 @@ class TanamanTable extends Component
         }
     }
 
-    public function add() {
+    public function add()
+    {
         $this->currentState = State::CREATE;
         $this->form->reset();
         $this->openModal($this->idModal);
     }
 
-
     #[Computed]
-    public function tanamanList() {
+    public function tanamanList()
+    {
         return Tanaman::query()->orderBy('nama')->paginate(10);
     }
 

@@ -8,9 +8,8 @@ use Illuminate\Validation\Rule;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 use Livewire\WithFileUploads;
+
 use function getActiveGuard;
-use function str_replace;
-use function strtolower;
 
 class ProfileForm extends Form
 {

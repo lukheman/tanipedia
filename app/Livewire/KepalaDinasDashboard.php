@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use App\Enums\Role;
 use App\Models\Konsultasi;
 use App\Models\Penyuluh;
 use App\Models\User;

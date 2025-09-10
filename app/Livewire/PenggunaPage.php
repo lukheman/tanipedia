@@ -10,6 +10,7 @@ use App\Models\Desa;
 use App\Models\Kecamatan;
 use App\Models\KepalaDinas;
 use App\Models\Penyuluh;
+use App\Models\Tanaman;
 use App\Models\User;
 use App\Traits\Traits\WithModal;
 use App\Traits\WithNotify;
@@ -45,15 +46,30 @@ class PenggunaPage extends Component
 
     public $type;
 
+    public $tanamanList;
+
+    public $showTanamanField = false;
+
     public function mount()
     {
         $this->kecamatanList = Kecamatan::all();
         $this->desaList = collect(); // Initialize as empty
+
+        $this->tanamanList = Tanaman::all();
     }
 
     public function updatedKecamatan($value)
     {
         $this->desaList = $value ? Desa::where('id_kecamatan', $value)->get() : collect();
+    }
+
+    public function updatedType($value)
+    {
+        if ($this->type === Role::AHLIPERTANIAN->value) {
+            $this->showTanamanField = true;
+        } else {
+            $this->showTanamanField = false;
+        }
     }
 
     public function detail($id, $role)
@@ -71,6 +87,7 @@ class PenggunaPage extends Component
         }
 
         $this->form->type = $role->value;
+        $this->type = $role->value;
         $this->currentState = State::SHOW;
         $this->form->user = $user;
         $this->form->name = $user->name;
@@ -79,11 +96,13 @@ class PenggunaPage extends Component
         $this->form->role = $user->role;
         $this->form->telepon = $user->telepon;
         $this->form->tanggal_lahir = $user->tanggal_lahir;
+        $this->form->id_tanaman = $user->id_tanaman ?? null;
         $this->form->id_desa = $user->desa->id ?? null;
         $this->kecamatan = $user->desa->id_kecamatan;
         $this->selectedDesa = $user->desa->nama;
         $this->selectedKecamatan = Kecamatan::find($user->desa->id_kecamatan)->nama;
         $this->updatedKecamatan($this->kecamatan); // Load desa list for the selected kecamatan
+        $this->showTanamanField = true;
         $this->openModal($this->idModal);
 
     }

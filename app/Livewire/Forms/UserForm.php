@@ -28,15 +28,16 @@ class UserForm extends Form
 
     public $type;
 
+    public ?int $id_tanaman;
+
     protected function rules(): array
     {
-        return [
+        $rules = [
             'name' => 'required|string|max:255',
             'email' => [
                 'required',
                 'email',
                 Rule::unique(str_replace(' ', '_', strtolower($this->type)), 'email')->ignore($this->user),
-
             ],
             'telepon' => [
                 'required',
@@ -50,6 +51,13 @@ class UserForm extends Form
             'alamat' => 'required|max:255',
             'id_desa' => 'required|exists:desa,id_desa',
         ];
+
+        // hanya penyuluh yang punya id_tanaman
+        if ($this->type === Role::AHLIPERTANIAN->value) {
+            $rules['id_tanaman'] = 'required|exists:tanaman,id_tanaman';
+        }
+
+        return $rules;
     }
 
     public function messages(): array
@@ -74,21 +82,25 @@ class UserForm extends Form
 
             'id_desa.required' => 'Silakan pilih desa.',
             'id_desa.exists' => 'Desa yang dipilih tidak tersedia di sistem.',
+
+            'id_tanaman.required' => 'Silakan pilih tanaman.',
+            'id_tanaman.exists' => 'Tanaman yang dipilih tidak tersedia di sistem.',
         ];
     }
 
     public function store()
     {
+        $validated = $this->validate();
         $type = Role::from($this->type);
 
         if ($type === Role::PETANI) {
-            User::create($this->validate());
+            User::create($validated);
         } elseif ($type === Role::ADMIN) {
-            Admin::create($this->validate());
+            Admin::create($validated);
         } elseif ($type === Role::AHLIPERTANIAN) {
-            Penyuluh::create($this->validate());
+            Penyuluh::create($validated); // sudah ada id_tanaman di $validated
         } elseif ($type === Role::KEPALADINAS) {
-            KepalaDinas::create($this->validate());
+            KepalaDinas::create($validated);
         }
 
         $this->reset();

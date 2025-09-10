@@ -6,8 +6,6 @@ use App\Enums\State;
 use App\Livewire\Forms\VideoForm;
 use App\Models\Edukasi;
 use App\Traits\WithNotify;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 

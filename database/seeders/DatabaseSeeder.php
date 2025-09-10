@@ -5,6 +5,7 @@ use App\Models\Desa;
 use App\Models\Kecamatan;
 use App\Models\KepalaDinas;
 use App\Models\Penyuluh;
+use App\Models\Tanaman;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -44,6 +45,7 @@ class DatabaseSeeder extends Seeder
 
         // Ambil daftar desa secara acak untuk dipakai user
         $desaIds = $desaList->pluck('id_desa');
+        Tanaman::factory(10)->create();
 
         // Buat user dengan id_desa secara acak
         Admin::create([

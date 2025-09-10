@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Laporan;
 
-use App\Enums\Role;
 use App\Models\User;
 use Livewire\Attributes\Title;
 use Livewire\Component;

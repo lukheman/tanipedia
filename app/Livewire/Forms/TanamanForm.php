@@ -2,14 +2,12 @@
 
 namespace App\Livewire\Forms;
 
-use Illuminate\Validation\Rule;
-use Livewire\Attributes\Validate;
-use Livewire\Form;
 use App\Models\Tanaman;
+use Illuminate\Validation\Rule;
+use Livewire\Form;
 
 class TanamanForm extends Form
 {
-
     public ?Tanaman $tanaman = null;
 
     public string $nama = '';
@@ -21,7 +19,8 @@ class TanamanForm extends Form
         ];
     }
 
-    protected function messages(): array {
+    protected function messages(): array
+    {
         return [
             'nama.required' => 'Nama tanaman harus diisi.',
             'nama.string' => 'Nama tanaman harus berupa teks.',
@@ -30,7 +29,8 @@ class TanamanForm extends Form
         ];
     }
 
-    public function store() {
+    public function store()
+    {
         $this->validate();
 
         Tanaman::query()->create([
@@ -41,7 +41,8 @@ class TanamanForm extends Form
 
     }
 
-    public function update() {
+    public function update()
+    {
         $this->validate();
         $this->tanaman->update([
             'nama' => $this->nama,
@@ -49,15 +50,15 @@ class TanamanForm extends Form
 
     }
 
-    public function delete() {
+    public function delete()
+    {
         $this->tanaman->delete();
         $this->reset();
     }
 
-
-    public function fillFromModel(Tanaman $tanaman) {
+    public function fillFromModel(Tanaman $tanaman)
+    {
         $this->tanaman = $tanaman;
         $this->nama = $tanaman->nama;
     }
-
 }

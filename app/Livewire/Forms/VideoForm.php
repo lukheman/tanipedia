@@ -3,7 +3,6 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Edukasi;
-use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class VideoForm extends Form
@@ -41,7 +40,8 @@ class VideoForm extends Form
         ];
     }
 
-    public function store() {
+    public function store()
+    {
         $this->validate();
 
         // Simpan video ke storage
@@ -58,7 +58,8 @@ class VideoForm extends Form
         $this->reset();
     }
 
-    public function update() {
+    public function update()
+    {
 
         $this->edukasi->update([
             'judul' => $this->judul,
@@ -76,6 +77,4 @@ class VideoForm extends Form
         $this->deskripsi = $edukasi->deskripsi;
         $this->url_video = $edukasi->url_video;
     }
-
-
 }

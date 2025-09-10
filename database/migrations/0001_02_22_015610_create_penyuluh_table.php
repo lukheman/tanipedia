@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('photo')->nullable();
             $table->string('alamat')->nullable();
             $table->foreignId('id_desa')->nullable()->constrained('desa', 'id_desa')->nullOnDelete();
+            $table->foreignId('id_tanaman')->nullable()->constrained('tanaman', 'id_tanaman')->nullOnDelete();
             $table->rememberToken();
             $table->timestamps();
         });

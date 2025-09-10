@@ -62,6 +62,15 @@
                         :active="request()->routeIs('konsultasi')">
                         Daftar Konsultasi
                     </x-nav-link>
+
+                    <x-nav-link icon="bi-tree-fill"
+                        href="{{ route('tanaman')}}"
+                        :active="request()->routeIs('tanaman*')">
+                        Tanaman
+                    </x-nav-link>
+
+
+
                 @endif
 
                 {{-- PETANI --}}

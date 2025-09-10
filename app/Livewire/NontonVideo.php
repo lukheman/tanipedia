@@ -6,6 +6,7 @@ use App\Models\Edukasi;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+
 use function getActiveGuard;
 
 #[Layout('layouts.guest')]

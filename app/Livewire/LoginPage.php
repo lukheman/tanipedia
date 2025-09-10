@@ -47,13 +47,14 @@ class LoginPage extends Component
                     if ($guard !== 'petani') {
                         Auth::guard($guard)->logout();
                         flash('Silakan login sebagai petani untuk melakukan konsultasi.', 'danger');
+
                         return;
                     }
 
                     flash('Berhasil login sebagai petani');
                 }
 
-                flash('Berhasil login sebagai ' . $guard);
+                flash('Berhasil login sebagai '.$guard);
 
                 return redirect()->intended($this->redirect ?? route('dashboard'));
             }

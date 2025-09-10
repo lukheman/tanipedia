@@ -37,19 +37,21 @@ Route::get('/pengguna', \App\Livewire\PenggunaPage::class)->name('pengguna')->mi
 
 Route::get('/konsultasi', \App\Livewire\KonsultasiPage::class)->name('konsultasi')->middleware(MultiAuth::class.':admin,penyuluh,petani');
 
+Route::get('/tanaman', \App\Livewire\TanamanTable::class)->name('tanaman')->middleware(MultiAuth::class.':admin');
+
 Route::get('/tambah-konsultasi', \App\Livewire\FormKonsultasiPage::class)
     ->name('tambah-konsultasi')
     ->middleware(MultiAuth::class.':petani');
 
-Route::get('/laporan/petani', \App\Livewire\Laporan\LaporanPetaniPage::class)->name('laporan.petani')->middleware(MultiAuth::class . ':kepala_dinas');
-Route::get('/laporan/ahli-pertanian', \App\Livewire\Laporan\LaporanAhliPertanianPage::class)->name('laporan.ahli-pertanian')->middleware(MultiAuth::class . ':kepala_dinas');
-Route::get('/laporan/konsultasi', \App\Livewire\Laporan\LaporanKonsultasiPage::class)->name('laporan.konsultasi')->middleware(MultiAuth::class . ':kepala_dinas');
+Route::get('/laporan/petani', \App\Livewire\Laporan\LaporanPetaniPage::class)->name('laporan.petani')->middleware(MultiAuth::class.':kepala_dinas');
+Route::get('/laporan/ahli-pertanian', \App\Livewire\Laporan\LaporanAhliPertanianPage::class)->name('laporan.ahli-pertanian')->middleware(MultiAuth::class.':kepala_dinas');
+Route::get('/laporan/konsultasi', \App\Livewire\Laporan\LaporanKonsultasiPage::class)->name('laporan.konsultasi')->middleware(MultiAuth::class.':kepala_dinas');
 
 Route::get('/profile', \App\Livewire\Profile::class)->name('profile')->middleware(MultiAuth::class.':admin,petani,penyuluh,kepala_dinas');
 
-Route::get('/cetak-laporan/petani', [LaporanController::class, 'laporanPetani'])->name('print-laporan.petani')->middleware(MultiAuth::class . ':kepala_dinas');
-Route::get('/cetak-laporan/ahli-pertanian', [LaporanController::class, 'laporanAhliPertanian'])->name('print-laporan.ahli-pertanian')->middleware(MultiAuth::class . ':kepala_dinas');
-Route::post('/cetak-laporan/konsultasi', [LaporanController::class, 'laporanKonsultasi'])->name('print-laporan.konsultasi')->middleware(MultiAuth::class . ':kepala_dinas');
-Route::post('/cetak-laporan/konsultasi-kecamatan', [LaporanController::class, 'laporanKonsultasiKecamatan'])->name('print-laporan.konsultasi-kecamatan')->middleware(MultiAuth::class . ':kepala_dinas');
+Route::get('/cetak-laporan/petani', [LaporanController::class, 'laporanPetani'])->name('print-laporan.petani')->middleware(MultiAuth::class.':kepala_dinas');
+Route::get('/cetak-laporan/ahli-pertanian', [LaporanController::class, 'laporanAhliPertanian'])->name('print-laporan.ahli-pertanian')->middleware(MultiAuth::class.':kepala_dinas');
+Route::post('/cetak-laporan/konsultasi', [LaporanController::class, 'laporanKonsultasi'])->name('print-laporan.konsultasi')->middleware(MultiAuth::class.':kepala_dinas');
+Route::post('/cetak-laporan/konsultasi-kecamatan', [LaporanController::class, 'laporanKonsultasiKecamatan'])->name('print-laporan.konsultasi-kecamatan')->middleware(MultiAuth::class.':kepala_dinas');
 
-Route::post('/upload-image', UploadImageController::class)->name('upload.image')->middleware(MultiAuth::class . ':admin');
+Route::post('/upload-image', UploadImageController::class)->name('upload.image')->middleware(MultiAuth::class.':admin');

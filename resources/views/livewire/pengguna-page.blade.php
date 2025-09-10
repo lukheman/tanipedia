@@ -6,7 +6,7 @@
         </button>
 
         <div class="modal fade" id="modal-form-pengguna" tabindex="-1" wire:ignore.self>
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
                 <div class="modal-content shadow-lg rounded-3">
                     <div class="modal-header bg-primary text-white">
                         <h5 class="modal-title text-white" id="myModalLabel1">
@@ -24,6 +24,8 @@
                     </div>
                     <div class="modal-body">
                         <form>
+                            <div class="row">
+                                <div class="col-md-6 col-12">
                             <div class="mb-3">
                                 <label for="name" class="form-label fw-semibold">Nama</label>
                                 <input wire:model="form.name" type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama" @if ($currentState === \App\Enums\State::SHOW) disabled @endif>
@@ -31,12 +33,17 @@
                                     <small class="d-blmck mt-1 text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
+                                </div>
+                                <div class="col-md-6 col-12">
+
                             <div class="mb-3">
                                 <label for="email" class="form-label fw-semibold">Email</label>
                                 <input wire:model="form.email" type="email" class="form-control" id="email" name="email" placeholder="Masukkan email" @if ($currentState === \App\Enums\State::SHOW) disabled @endif>
                                 @error('form.email')
                                     <small class="d-block mt-1 text-danger">{{ $message }}</small>
                                 @enderror
+                            </div>
+                                    </div>
                             </div>
 
                             @if ($currentState === \App\Enums\State::SHOW)
@@ -94,18 +101,11 @@
 
                             @endif
 
-                            <div class="mb-3">
-                                <label for="alamat" class="form-label fw-semibold">Alamat</label>
-                                <input wire:model="form.alamat" type="text" class="form-control" id="alamat" name="alamat" placeholder="Contoh: Jl. Pemuda" @if ($currentState === \App\Enums\State::SHOW) disabled @endif>
-                                @error('form.alamat')
-                                    <small class="d-block mt-1 text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
                             @if ($currentState === \App\Enums\State::CREATE)
 
                             <div class="mb-3">
                                 <label for="role" class="form-label fw-semibold">Role</label>
-                                <select wire:model="type" class="form-select" id="role" name="role" @if ($currentState === \App\Enums\State::SHOW) disabled @endif>
+                                <select wire:model.live="type" class="form-select" id="role" name="role" @if ($currentState === \App\Enums\State::SHOW) disabled @endif>
                                     <option value="">Pilih Role</option>
                                     @foreach (\App\Enums\Role::values() as $role)
                                         <option value="{{ $role }}">{{ $role }}</option>
@@ -115,6 +115,9 @@
                                     <small class="d-block mt-1 text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
+
+
+
 
 
                             @endif
@@ -137,6 +140,34 @@
                                         @enderror
                                     </div>
                                 </div>
+                            </div>
+
+                            @if ($type === \App\Enums\Role::AHLIPERTANIAN->value)
+
+                            <div class="mb-3" wire:show="showTanamanField">
+
+                                <label for="tanaman" class="form-label fw-semibold">Penyuluh untuk tanaman</label>
+                                <select wire:model="form.id_tanaman" class="form-select" id="tanaman" name="role" @if ($currentState === \App\Enums\State::SHOW) disabled @endif>
+                                    <option value="">Pilih Tanaman</option>
+                                    @foreach ($tanamanList as $tanaman)
+                                        <option value="{{ $tanaman->id_tanaman }}">{{ $tanaman->nama }}</option>
+                                    @endforeach
+                                </select>
+                                @error('type')
+                                    <small class="d-block mt-1 text-danger">{{ $message }}</small>
+                                @enderror
+
+                            </div>
+
+                            @endif
+
+                            <div class="mb-3">
+                                <label for="alamat" class="form-label fw-semibold">Alamat</label>
+                                <input wire:model="form.alamat" type="text" class="form-control" id="alamat" name="alamat" @if ($currentState === \App\Enums\State::CREATE) placeholder="Masukkan alamat"
+                                @endif @if ($currentState === \App\Enums\State::SHOW) disabled @endif>
+                                @error('form.alamat')
+                                    <small class="d-block mt-1 text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </form>
                     </div>

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\Role;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Penyuluh extends Authenticatable
@@ -26,5 +27,10 @@ class Penyuluh extends Authenticatable
     public function desa()
     {
         return $this->hasOne(Desa::class, 'id_desa');
+    }
+
+    public function tanaman(): BelongsTo
+    {
+        return $this->belongsTo(Tanaman::class, 'id_tanaman');
     }
 }
