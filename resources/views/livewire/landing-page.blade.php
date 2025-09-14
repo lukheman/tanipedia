@@ -1,9 +1,18 @@
 <div>
-    <!-- Header -->
-    <div class="header-section">
-        <div class="container">
-            <h1>Selamat Datang di Tani Pedia</h1>
-            <p>Informasi dan Edukasi untuk Petani Modern</p>
+    <!-- Hero Section -->
+    <div class="header-section d-flex align-items-center justify-content-center text-center"
+         style="background-image: url('{{ asset('img/hero.jpg')}}'); 
+                background-size: cover; 
+                background-position: center; 
+                height: 100vh; 
+                position: relative;">
+
+        <!-- Overlay -->
+        <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5);"></div>
+
+        <div class="container position-relative text-white">
+            <h1 class="display-4 fw-bold">Selamat Datang di Tani Pedia</h1>
+            <p class="lead">Informasi dan Edukasi untuk Petani Modern</p>
         </div>
     </div>
 
@@ -14,7 +23,7 @@
             <div class="row">
                 @forelse ($berita as $item)
                     <div class="col-md-4 mb-4">
-                <livewire:berita-card :berita="$item" :wire:key="$item->id_berita" />
+                        <livewire:berita-card :berita="$item" :wire:key="$item->id_berita" />
                     </div>
                 @empty
                     <div class="col-12 text-center">
@@ -35,8 +44,7 @@
             <div class="row">
                 @forelse ($videos as $video)
                     <div class="col-md-4 mb-4">
-
-                    <livewire:video-card :video="$video" :wire:key="$video->id_video" />
+                        <livewire:video-card :video="$video" :wire:key="$video->id_video" />
                     </div>
                 @empty
                     <div class="col-12 text-center">

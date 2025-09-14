@@ -54,27 +54,27 @@ class User extends Authenticatable
 
     public function berita()
     {
-        return $this->hasMany(Berita::class, 'id_user', 'id');
+        return $this->hasMany(Berita::class, 'id_petani', 'id');
     }
 
     public function video()
     {
-        return $this->hasMany(Edukasi::class, 'id_user', 'id');
+        return $this->hasMany(Edukasi::class, 'id_petani', 'id');
     }
 
     public function komentar()
     {
-        return $this->hasMany(Komentar::class, 'id_user', 'id');
+        return $this->hasMany(Komentar::class, 'id_petani', 'id');
     }
 
     public function konsultasi()
     {
-        return $this->hasMany(Konsultasi::class, 'id_user', 'id');
+        return $this->hasMany(Konsultasi::class, 'id_petani', 'id');
     }
 
     public function hasilKonsultasi()
     {
-        return $this->hasMany(HasilKonsultasi::class, 'id_user', 'id');
+        return $this->hasMany(HasilKonsultasi::class, 'id_petani', 'id');
     }
 
     public function desa()
@@ -83,7 +83,7 @@ class User extends Authenticatable
     }
 
     // public function kecamatan() {
-    //     return $this->belongsTo(kecamatan::class, 'id_user', 'id');
+    //     return $this->belongsTo(kecamatan::class, 'id_petani', 'id');
     // }
 
 }

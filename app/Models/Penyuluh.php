@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Enums\Role;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Penyuluh extends Authenticatable
@@ -24,7 +26,7 @@ class Penyuluh extends Authenticatable
         return $this->id_penyuluh;
     }
 
-    public function desa()
+    public function desa(): HasOne
     {
         return $this->hasOne(Desa::class, 'id_desa');
     }
@@ -33,4 +35,10 @@ class Penyuluh extends Authenticatable
     {
         return $this->belongsTo(Tanaman::class, 'id_tanaman');
     }
+
+    public function konsultasi(): HasMany
+    {
+        return $this->hasMany(Konsultasi::class, 'id_penyuluh');
+    }
+
 }

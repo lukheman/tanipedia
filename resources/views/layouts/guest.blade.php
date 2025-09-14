@@ -106,18 +106,21 @@
                     </li>
                     <li class="nav-item">
                         @auth
-                        <a class="nav-link" href="{{ route('tambah-konsultasi') }}" wire:navigate>Konsultasi</a>
+                        <a class="nav-link" href="{{ route('konsultasi') }}" >Konsultasi</a>
 
                         @else
-                        <a class="nav-link" href="{{ route('login')}}?redirect={{ urlencode(route('tambah-konsultasi'))}}" wire:navigate>Konsultasi</a>
+                        <a class="nav-link" href="{{ route('login')}}?redirect={{ urlencode(route('konsultasi'))}}">Konsultasi</a>
                         @endauth
                     </li>
 
-                    @if (getActiveGuard())
+                    @if (getActiveGuard() !== 'petani')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('dashboard')}}">Dashboard</a>
                     </li>
-
+                    @elseif(getActiveGuard() === 'petani')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('petani-home')}}">Dashboard</a>
+                    </li>
                     @else
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login')}}" wire:navigate>Login</a>

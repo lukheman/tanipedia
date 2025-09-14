@@ -17,6 +17,8 @@
   <link rel="stylesheet" crossorigin href="{{ asset('/assets/compiled/css/app-dark.css')}}">
   <link rel="stylesheet" crossorigin href="{{ asset('/assets/compiled/css/iconly.css')}}">
 
+<link rel="stylesheet" crossorigin="" href="{{ asset('/assets/compiled/css/ui-widgets-chatbox.css')}}">
+
 <!-- Toastfy -->
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 

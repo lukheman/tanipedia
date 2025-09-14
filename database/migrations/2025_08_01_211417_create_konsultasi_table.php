@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Enums\StatusKonsultasi;
 
 return new class extends Migration
 {
@@ -14,10 +15,10 @@ return new class extends Migration
         Schema::create('konsultasi', function (Blueprint $table) {
             $table->id('id_konsultasi');
             $table->foreignId('id_petani')->constrained('petani', 'id_petani')->cascadeOnDelete();
-            $table->foreignId('id_solusi')->nullable()->constrained('hasil_konsultasi', 'id_solusi');
             $table->foreignId('id_tanaman')->constrained('tanaman', 'id_tanaman')->cascadeOnDelete();
-            $table->text('isi');
+            $table->foreignId('id_penyuluh')->constrained('penyuluh', 'id_penyuluh')->cascadeOnDelete();
             $table->date('tanggal_konsultasi');
+            $table->enum('status', StatusKonsultasi::values())->default(StatusKonsultasi::PENDING->value);
             $table->timestamps();
         });
     }

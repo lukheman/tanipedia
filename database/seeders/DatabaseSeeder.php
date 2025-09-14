@@ -4,6 +4,7 @@ use App\Models\Admin;
 use App\Models\Desa;
 use App\Models\Kecamatan;
 use App\Models\KepalaDinas;
+use App\Models\Konsultasi;
 use App\Models\Penyuluh;
 use App\Models\Tanaman;
 use App\Models\User;
@@ -69,11 +70,12 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Penyuluh::create([
-            'name' => 'Penyuluh',
+            'name' => 'Penyuluh tanaman '. Tanaman::first()->nama,
             'email' => 'ahlipertanian@gmail.com',
             'telepon' => '0822502231231',
             'tanggal_lahir' => now(),
             'id_desa' => $desaIds->random(),
+            'id_tanaman' => 1
         ]);
 
         KepalaDinas::create([

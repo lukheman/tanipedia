@@ -31,14 +31,16 @@
 
                 <li class="sidebar-title">Navigasi Utama</li>
 
+
+                {{-- ADMIN --}}
+                @if(auth('admin')->check())
+
                 <x-nav-link icon="bi-speedometer2"
                     href="{{ route('dashboard')}}"
                     :active="request()->routeIs('dashboard')">
                     Beranda
                 </x-nav-link>
 
-                {{-- ADMIN --}}
-                @if(auth('admin')->check())
                     <x-nav-link icon="bi-people-fill"
                         href="{{ route('pengguna')}}"
                         :active="request()->routeIs('pengguna')">
@@ -75,17 +77,20 @@
 
                 {{-- PETANI --}}
                 @if(auth('petani')->check())
-                    <x-nav-link icon="bi-plus-circle-fill"
-                        href="{{ route('tambah-konsultasi')}}"
-                        :active="request()->routeIs('tambah-konsultasi')">
-                        Buat Konsultasi Baru
-                    </x-nav-link>
+
+                <x-nav-link icon="bi-speedometer2"
+                    href="{{ route('petani-home')}}"
+                    :active="request()->routeIs('petani-home')">
+                    Beranda
+                </x-nav-link>
 
                     <x-nav-link icon="bi-chat-dots-fill"
                         href="{{ route('konsultasi')}}"
                         :active="request()->routeIs('konsultasi')">
-                        Daftar Konsultasi
+                        Konsultasi
                     </x-nav-link>
+
+                        {{--
 
                     <x-nav-link icon="bi-newspaper"
                         href="{{ route('berita.index') }}"
@@ -98,19 +103,43 @@
                         :active="request()->routeIs('video.index')">
                         Video Terkini
                     </x-nav-link>
+                        --}}
+
+
                 @endif
 
                 {{-- PENYULUH --}}
                 @if(auth('penyuluh')->check())
+
+                <x-nav-link icon="bi-speedometer2"
+                    href="{{ route('dashboard')}}"
+                    :active="request()->routeIs('dashboard')">
+                    Beranda
+                </x-nav-link>
+
+                    <x-nav-link icon="bi-chat-dots-fill"
+                        href="{{ route('permintaan-konsultasi')}}"
+                        :active="request()->routeIs('permintaan-konsultasi')">
+                        Permintaan Konsultasi
+                    </x-nav-link>
+
                     <x-nav-link icon="bi-chat-dots-fill"
                         href="{{ route('konsultasi')}}"
                         :active="request()->routeIs('konsultasi')">
-                        Daftar Konsultasi
+                        Konsultasi
                     </x-nav-link>
+
                 @endif
 
                 {{-- KEPALA DINAS --}}
                 @if(auth('kepala_dinas')->check())
+
+                <x-nav-link icon="bi-speedometer2"
+                    href="{{ route('dashboard')}}"
+                    :active="request()->routeIs('dashboard')">
+                    Beranda
+                </x-nav-link>
+
                     <x-nav-link icon="bi-clipboard-data"
                         href="{{ route('laporan.petani')}}"
                         :active="request()->routeIs('laporan.petani')">

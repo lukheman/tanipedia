@@ -42,8 +42,12 @@ class LoginPage extends Component
                 // regenerate session agar tidak session fixation
                 Auth::guard($guard)->login(Auth::guard($guard)->user(), true);
 
-                // khusus redirect tambah-konsultasi → hanya petani yg boleh login
-                if ($this->redirect === route('tambah-konsultasi')) {
+                if($guard === 'petani') {
+                    return redirect()->route('petani-home');
+                }
+
+                // khusus redirect konsultasi → hanya petani yg boleh login
+                if ($this->redirect === route('konsultasi')) {
                     if ($guard !== 'petani') {
                         Auth::guard($guard)->logout();
                         flash('Silakan login sebagai petani untuk melakukan konsultasi.', 'danger');

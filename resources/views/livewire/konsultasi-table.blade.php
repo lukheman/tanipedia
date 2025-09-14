@@ -73,6 +73,8 @@
         </div>
         @endauth
 
+        <!-- Modal Chat -->
+
         <!-- Tabel Konsultasi -->
         <div class="table-responsive">
             <table class="table table-lg">
@@ -91,6 +93,7 @@
 
                         <th>Tanggal Konsultasi</th>
                         <th>Jenis Tanaman</th>
+                        <th>Status</th>
                         <th class="text-end">Aksi</th>
                     </tr>
                 </thead>
@@ -110,6 +113,7 @@
 
                             <td>{{ $item->tanggal_konsultasi }}</td>
                             <td>{{ $item->tanaman->nama }}</td>
+                            <td><span class="badge bg-{{$item->status->getColor()}}">{{ $item->status->getLabel()}}</span></td>
                             <td class="text-end">
                                 {{-- Admin & penyuluh bisa jawab / hapus --}}
                                 @auth('admin')
@@ -124,7 +128,7 @@
 
                                 {{-- Petani hanya bisa lihat jawaban --}}
                                 @auth('petani')
-                                    <button wire:click="detail({{ $item->id_konsultasi }})" class="btn btn-sm btn-info">Lihat Jawaban</button>
+                                    <button wire:click="openChat({{ $item->id_konsultasi }})" class="btn btn-sm btn-info">Lihat Percakapan</button>
                                 @endauth
                             </td>
                         </tr>

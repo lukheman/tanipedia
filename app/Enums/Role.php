@@ -4,10 +4,10 @@ namespace App\Enums;
 
 enum Role: string
 {
-    case ADMIN = 'Admin';
-    case PETANI = 'Petani';
-    case AHLIPERTANIAN = 'Penyuluh';
-    case KEPALADINAS = 'Kepala Dinas';
+    case ADMIN = 'admin';
+    case PETANI = 'petani';
+    case AHLIPERTANIAN = 'penyuluh';
+    case KEPALADINAS = 'kepala_dinas';
 
     public function getLabel(): ?string
     {
@@ -37,4 +37,13 @@ enum Role: string
             array_filter(self::cases(), fn ($case) => ! in_array($case, [self::ADMIN, self::KEPALADINAS]))
         );
     }
+
+    public static function senders(): array
+    {
+        return array_map(
+            fn ($case) => $case->value,
+            array_filter(self::cases(), fn ($case) => in_array($case, [self::PETANI, self::AHLIPERTANIAN]))
+        );
+    }
+
 }

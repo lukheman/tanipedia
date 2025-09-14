@@ -35,13 +35,15 @@ Route::get('/video/{id}/komentar', \App\Livewire\KomentarPage::class)->name('vid
 
 Route::get('/pengguna', \App\Livewire\PenggunaPage::class)->name('pengguna')->middleware(MultiAuth::class.':admin');
 
-Route::get('/konsultasi', \App\Livewire\KonsultasiTable::class)->name('konsultasi')->middleware(MultiAuth::class.':admin,penyuluh,petani');
+Route::get('/home', \App\Livewire\PetaniHome::class)->name('petani-home')->middleware(MultiAuth::class.':petani');
+
+// Route::get('/konsultasi', \App\Livewire\KonsultasiTable::class)->name('konsultasi')->middleware(MultiAuth::class.':admin,penyuluh,petani');
+
+Route::get('/permintaan-konsultasi', \App\Livewire\Konsultasi\PermintaanTable::class)->name('permintaan-konsultasi')->middleware(MultiAuth::class.':penyuluh');
+
+Route::get('/konsultasi', \App\Livewire\Konsultasi\DiterimaPage::class)->name('konsultasi')->middleware(MultiAuth::class.':penyuluh,petani');
 
 Route::get('/tanaman', \App\Livewire\TanamanTable::class)->name('tanaman')->middleware(MultiAuth::class.':admin');
-
-Route::get('/tambah-konsultasi', \App\Livewire\FormKonsultasiPage::class)
-    ->name('tambah-konsultasi')
-    ->middleware(MultiAuth::class.':petani');
 
 Route::get('/laporan/petani', \App\Livewire\Laporan\LaporanPetaniPage::class)->name('laporan.petani')->middleware(MultiAuth::class.':kepala_dinas');
 Route::get('/laporan/ahli-pertanian', \App\Livewire\Laporan\LaporanAhliPertanianPage::class)->name('laporan.ahli-pertanian')->middleware(MultiAuth::class.':kepala_dinas');
