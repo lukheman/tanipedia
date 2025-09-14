@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
 
         // Ambil daftar desa secara acak untuk dipakai user
         $desaIds = $desaList->pluck('id_desa');
-        Tanaman::factory(10)->create();
+        // Tanaman::factory(10)->create();
 
         // Buat user dengan id_desa secara acak
         Admin::create([
@@ -70,12 +70,12 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Penyuluh::create([
-            'name' => 'Penyuluh tanaman '. Tanaman::first()->nama,
+            'name' => 'Penyuluh tanaman '. Tanaman::create(['nama' => 'Padi'])->nama,
             'email' => 'ahlipertanian@gmail.com',
             'telepon' => '0822502231231',
             'tanggal_lahir' => now(),
             'id_desa' => $desaIds->random(),
-            'id_tanaman' => 1
+            'id_tanaman' => Tanaman::first()->id_tanaman
         ]);
 
         KepalaDinas::create([
