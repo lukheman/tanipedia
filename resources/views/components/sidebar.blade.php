@@ -117,17 +117,17 @@
                     Beranda
                 </x-nav-link>
 
-                    <x-nav-link icon="bi-chat-dots-fill"
-                        href="{{ route('permintaan-konsultasi')}}"
-                        :active="request()->routeIs('permintaan-konsultasi')">
-                        Permintaan Konsultasi
-                    </x-nav-link>
+                <x-nav-link icon="bi-envelope-open"
+                    href="{{ route('permintaan-konsultasi')}}"
+                    :active="request()->routeIs('permintaan-konsultasi')">
+                    Permintaan Konsultasi
+                </x-nav-link>
 
-                    <x-nav-link icon="bi-chat-dots-fill"
-                        href="{{ route('konsultasi')}}"
-                        :active="request()->routeIs('konsultasi')">
-                        Konsultasi
-                    </x-nav-link>
+                <x-nav-link icon="bi-chat-dots-fill"
+                    href="{{ route('konsultasi')}}"
+                    :active="request()->routeIs('konsultasi')">
+                    Konsultasi
+                </x-nav-link>
 
                 @endif
 
