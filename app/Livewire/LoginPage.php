@@ -43,20 +43,22 @@ class LoginPage extends Component
                 Auth::guard($guard)->login(Auth::guard($guard)->user(), true);
 
                 if($guard === 'petani') {
+
+                    if ($this->redirect === route('konsultasi')) {
+                        if ($guard !== 'petani') {
+                            Auth::guard($guard)->logout();
+                            flash('Silakan login sebagai petani untuk melakukan konsultasi.', 'danger');
+
+                            return;
+                        }
+
+                        flash('Berhasil login sebagai petani');
+                        return redirect()->route('konsultasi');
+                    }
                     return redirect()->route('petani-home');
                 }
 
                 // khusus redirect konsultasi → hanya petani yg boleh login
-                if ($this->redirect === route('konsultasi')) {
-                    if ($guard !== 'petani') {
-                        Auth::guard($guard)->logout();
-                        flash('Silakan login sebagai petani untuk melakukan konsultasi.', 'danger');
-
-                        return;
-                    }
-
-                    flash('Berhasil login sebagai petani');
-                }
 
                 flash('Berhasil login sebagai '.$guard);
 

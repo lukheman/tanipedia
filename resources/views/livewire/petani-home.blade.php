@@ -25,7 +25,7 @@
                 <div class="card-body text-center">
                     <h5 class="card-title">Berita Pertanian</h5>
                     <p class="card-text">Dapatkan berita terbaru seputar dunia pertanian.</p>
-                    <a href="{{ route('landing') }}#berita" class="btn btn-custom">Lihat Berita</a>
+                    <a wire:navigate href="{{ route('berita.index') }}" class="btn btn-custom">Lihat Berita</a>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
                 <div class="card-body text-center">
                     <h5 class="card-title">Video Edukasi</h5>
                     <p class="card-text">Tonton video edukasi untuk meningkatkan pengetahuanmu.</p>
-                    <a href="{{ route('landing') }}#video" class="btn btn-custom">Lihat Video</a>
+                    <a wire:navigate href="{{ route('video.index') }}" class="btn btn-custom">Lihat Video</a>
                 </div>
             </div>
         </div>
