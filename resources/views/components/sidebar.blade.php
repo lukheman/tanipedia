@@ -81,6 +81,12 @@
                 {{-- PETANI --}}
                 @if(auth('petani')->check())
 
+                <x-nav-link icon="bi-house-door"
+                    href="{{ route('landing')}}"
+                    :active="request()->routeIs('landing')">
+                        Halaman Utama
+                </x-nav-link>
+
                 <x-nav-link icon="bi-speedometer2"
                     href="{{ route('dashboard')}}"
                     :active="request()->routeIs('dashboard')">
@@ -92,21 +98,6 @@
                         :active="request()->routeIs('konsultasi')">
                         Konsultasi
                     </x-nav-link>
-
-                        {{--
-
-                    <x-nav-link icon="bi-newspaper"
-                        href="{{ route('berita.index') }}"
-                        :active="request()->routeIs('berita.index')">
-                        Berita Terbaru
-                    </x-nav-link>
-
-                    <x-nav-link icon="bi-play-circle-fill"
-                        href="{{ route('video.index') }}"
-                        :active="request()->routeIs('video.index')">
-                        Video Terkini
-                    </x-nav-link>
-                        --}}
 
 
                 @endif
