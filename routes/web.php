@@ -41,10 +41,11 @@ Route::get('/home', \App\Livewire\PetaniHome::class)->name('petani-home')->middl
 
 Route::get('/permintaan-konsultasi', \App\Livewire\Konsultasi\PermintaanTable::class)->name('permintaan-konsultasi')->middleware(MultiAuth::class.':penyuluh');
 
-Route::get('/konsultasi', \App\Livewire\Konsultasi\DiterimaPage::class)->name('konsultasi')->middleware(MultiAuth::class.':penyuluh,petani');
+Route::get('/konsultasi', \App\Livewire\Konsultasi\DiterimaPage::class)->name('konsultasi')->middleware(MultiAuth::class.':penyuluh,petani,admin');
 
 Route::get('/tanaman', \App\Livewire\TanamanTable::class)->name('tanaman')->middleware(MultiAuth::class.':admin');
 
+Route::get('/laporan/pengguna', \App\Livewire\Laporan\LaporanPenggunaPage::class)->name('laporan.pengguna')->middleware(MultiAuth::class.':kepala_dinas');
 Route::get('/laporan/petani', \App\Livewire\Laporan\LaporanPetaniPage::class)->name('laporan.petani')->middleware(MultiAuth::class.':kepala_dinas');
 Route::get('/laporan/ahli-pertanian', \App\Livewire\Laporan\LaporanAhliPertanianPage::class)->name('laporan.ahli-pertanian')->middleware(MultiAuth::class.':kepala_dinas');
 Route::get('/laporan/konsultasi', \App\Livewire\Laporan\LaporanKonsultasiPage::class)->name('laporan.konsultasi')->middleware(MultiAuth::class.':kepala_dinas');

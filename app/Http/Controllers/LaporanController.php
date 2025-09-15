@@ -66,7 +66,7 @@ class LaporanController extends Controller
             'id' => 'required|exists:kecamatan,id_kecamatan',
         ]);
 
-        $konsultasi = Konsultasi::with(['user', 'user.desa', 'hasil'])
+        $konsultasi = Konsultasi::with(['user', 'user.desa'])
             ->whereHas('user.desa', function ($query) use ($request) {
                 $query->where('id_kecamatan', $request->id);
             })->get();

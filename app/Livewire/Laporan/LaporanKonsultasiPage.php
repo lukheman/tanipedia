@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Laporan;
 
+use App\Enums\Role;
 use App\Models\Konsultasi;
 use App\Traits\Traits\WithModal;
 use Livewire\Attributes\Title;
@@ -12,32 +13,22 @@ class LaporanKonsultasiPage extends Component
 {
     use WithModal;
 
-    public $kecamatan;
+    public ?Konsultasi $selectedKonsultasi;
 
-    public $selectedIKonsultasi;
+    public string $nama_petani = '';
+    public string $nama_penyuluh = '';
+    public string $tanggal_konsultasi = '';
+    public string $nama_tanaman = '';
 
-    public $nama_petani = '';
 
-    public $isi = '';
-
-    public $nama_tanaman = '';
-
-    public $tanggal_konsultasi = '';
-
-    public function detail($konsultasi)
+    public function detail($id)
     {
-        $this->selectedIKonsultasi = $konsultasi['id'];
-        $this->nama_petani = $konsultasi['user']['name'];
-        $this->isi = $konsultasi['isi'];
-        $this->nama_tanaman = $konsultasi['nama_tanaman'];
-        $this->tanggal_konsultasi = $konsultasi['tanggal_konsultasi'];
 
-        $konsultasi = Konsultasi::with('hasil', 'hasil.user')->find($konsultasi['id']);
-        if ($konsultasi->hasil) {
-            $this->nama_ahli_pertanian = $konsultasi->hasil->user->name;
-            $this->jawaban = $konsultasi->hasil->isi;
-        }
-
+        $this->selectedKonsultasi = Konsultasi::with('tanaman', 'user', 'penyuluh')->find($id);
+        $this->nama_petani = $this->selectedKonsultasi->user->name;
+        $this->nama_penyuluh = $this->selectedKonsultasi->penyuluh->name;
+        $this->tanggal_konsultasi = $this->selectedKonsultasi->tanggal_konsultasi;
+        $this->nama_tanaman = $this->selectedKonsultasi->tanaman->nama;
         $this->openModal('modal-detail-konsultasi');
 
     }

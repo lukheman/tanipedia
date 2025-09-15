@@ -59,11 +59,14 @@
                         Galeri Video
                     </x-nav-link>
 
+                        {{--
+
                     <x-nav-link icon="bi-chat-dots-fill"
                         href="{{ route('konsultasi')}}"
                         :active="request()->routeIs('konsultasi')">
                         Daftar Konsultasi
                     </x-nav-link>
+                        --}}
 
                     <x-nav-link icon="bi-tree-fill"
                         href="{{ route('tanaman')}}"
@@ -79,8 +82,8 @@
                 @if(auth('petani')->check())
 
                 <x-nav-link icon="bi-speedometer2"
-                    href="{{ route('petani-home')}}"
-                    :active="request()->routeIs('petani-home')">
+                    href="{{ route('dashboard')}}"
+                    :active="request()->routeIs('dashboard')">
                     Beranda
                 </x-nav-link>
 
@@ -141,16 +144,11 @@
                 </x-nav-link>
 
                     <x-nav-link icon="bi-clipboard-data"
-                        href="{{ route('laporan.petani')}}"
-                        :active="request()->routeIs('laporan.petani')">
-                        Laporan Petani
+                        href="{{ route('laporan.pengguna')}}"
+                        :active="request()->routeIs('laporan.pengguna')">
+                        Laporan Pengguna
                     </x-nav-link>
 
-                    <x-nav-link icon="bi-person-lines-fill"
-                        href="{{ route('laporan.ahli-pertanian')}}"
-                        :active="request()->routeIs('laporan.ahli-pertanian')">
-                        Laporan Penyuluh Pertanian
-                    </x-nav-link>
 
                     <x-nav-link icon="bi-journal-text"
                         href="{{ route('laporan.konsultasi')}}"

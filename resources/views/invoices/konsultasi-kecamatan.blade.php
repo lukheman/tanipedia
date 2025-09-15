@@ -7,21 +7,26 @@
 
     <p class="report-date">Laporan Konsultasi - {{ date('d F Y') }}</p>
 
-    <!-- Consultation Entries -->
-    @foreach ($konsultasi as $item)
-        <div class="consultation-section">
-            <h6>Konsultasi #{{ $loop->index + 1 }}</h6>
-            <p><span class="label">Nama Petani:</span> {{ $item->user->name }}</p>
-            <p><span class="label">Nama Tanaman:</span> {{ $item->nama_tanaman }}</p>
-            <p><span class="label">Isi Konsultasi:</span> {{ $item->isi }}</p>
-            <p><span class="label">Tanggal Konsultasi:</span> {{ $item->tanggal_konsultasi }}</p>
-            @if ($item->id_solusi)
-                <p class="solution"><span class="label">Hasil Konsultasi:</span> {{ $item->hasil->isi ?? 'Solusi tidak tersedia' }}</p>
-            @else
-                <p class="solution"><span class="label">Hasil Konsultasi:</span> Belum ada solusi</p>
-            @endif
-        </div>
-    @endforeach
+        <table id="petani">
+            <thead>
+                <tr>
+                    <th>Tanggal Konsultasi</th>
+                    <th>Nama Pengguna</th>
+                    <th>Nama Penyuluh</th>
+                    <th>Jenis Tanaman</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($konsultasi as $item)
+                <tr>
+                    <td>{{ $item->tanggal_konsultasi }}</td>
+                    <td class="text-bold-500">{{ $item->user->name }}</td>
+                    <td class="text-bold-500">{{ $item->penyuluh->name }}</td>
+                    <td>{{ $item->tanaman->nama }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
 
     <!-- Total -->
     <div class="total">

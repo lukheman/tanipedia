@@ -1,0 +1,125 @@
+@push('styles')
+<!-- Tambahkan style agar card bisa klik -->
+<style>
+    .option-card {
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: all 0.2s ease;
+        border-radius: 12px;
+    }
+    input[type="radio"]:checked + .option-card {
+        border-color: #dc3545; /* warna merah Bootstrap */
+        box-shadow: 0 0 10px rgba(220, 53, 69, 0.4);
+    }
+    .option-card:hover {
+        border-color: #aaa;
+    }
+</style>
+
+@endpush
+<div class="card">
+
+    <div class="card-header">
+
+
+<div class="modal fade text-left" id="modal-cetak-laporan-konsultasi" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title white" id="myModalLabel120">Download Laporan Konsultasi</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                         fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body">
+                <div class="row g-3">
+                    <!-- Card Pilih Petani -->
+                    <div class="col-6">
+                        <label class="w-100">
+                            <input type="radio" wire:model="tipe_laporan" name="tipe_laporan" value="petani" class="d-none" checked>
+                            <div class="card shadow-sm text-center p-3 option-card">
+                                <i class="bi bi-person-fill fs-1 text-primary"></i>
+                                <h6 class="mt-2">Petani</h6>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Card Pilih Penyuluh -->
+                    <div class="col-6">
+                        <label class="w-100">
+                            <input type="radio" wire:model="tipe_laporan" name="tipe_laporan" value="penyuluh" class="d-none">
+                            <div class="card shadow-sm text-center p-3 option-card">
+                                <i class="bi bi-people-fill fs-1 text-success"></i>
+                                <h6 class="mt-2">Penyuluh</h6>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer">
+                <button wire:click="download" type="button" class="btn btn-danger ms-1">
+                    <i class="bx bx-check d-block d-sm-none"></i>
+                    <span class="d-none d-sm-block">
+                        <i class="bi bi-printer"></i> Download
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<button class="btn btn-danger" type="submit" wire:click="$dispatch('openModal', {id: 'modal-cetak-laporan-konsultasi'})">
+    <i class="bi bi-printer"></i>
+    Download Laporan
+</button>
+
+    </div>
+
+
+    <div class="card-body">
+
+
+
+    <div class="table-responsive">
+        <table class="table table-lg">
+            <thead>
+                <tr>
+                    <th>Nama Pengguna</th>
+                    <th>Email</th>
+                    <th>Telepon</th>
+                    <th>Tanggal Lahir</th>
+                    <th>Alamat</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($users as $item)
+                <tr>
+                    <td class="text-bold-500">{{ $item->name }}</td>
+                    <td>{{ $item->email}}</td>
+                    <td>{{ $item->telepon}}</td>
+                    <td>{{ $item->tanggal_lahir}}</td>
+                    <td>{{ $item->alamat}}</td>
+                    <td><span class="badge bg-{{ $item->role->getColor() }}">{{ $item->role }}</span></td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <x-pagination :items="$users" />
+    </div>
+
+    </div>
+
+</div>

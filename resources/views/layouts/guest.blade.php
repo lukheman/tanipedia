@@ -115,7 +115,7 @@
 
                     @if (getActiveGuard())
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ getActiveGuard() === 'petani' ? route('petani-home') : route('dashboard') }}">Dashboard</a>
+                        <a class="nav-link" href="{{ route('dashboard')}}">Dashboard</a>
                     </li>
                     @else
                     <li class="nav-item">

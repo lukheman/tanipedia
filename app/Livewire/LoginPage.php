@@ -55,7 +55,7 @@ class LoginPage extends Component
                         flash('Berhasil login sebagai petani');
                         return redirect()->route('konsultasi');
                     }
-                    return redirect()->route('petani-home');
+                    return redirect()->route('landing');
                 }
 
                 // khusus redirect konsultasi → hanya petani yg boleh login

@@ -17,43 +17,36 @@
 
             <!-- Body -->
             <div class="modal-body">
-                <!-- Informasi Petani -->
                 <div class="row g-3 mb-3">
-                    <div class="col-md-8">
-                        <label class="form-label fw-semibold" for="judul">Nama Petani</label>
-                        <input type="text" id="judul" wire:model="nama_petani" class="form-control-plaintext border rounded px-3 py-2 bg-white" readonly>
+                    <!-- Nama Petani -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Nama Petani</label>
+                        <input type="text" class="form-control-plaintext border rounded px-3 py-2 bg-white"
+                               value="{{ $nama_petani }}" readonly>
                     </div>
-                    <div class="col-md-4">
-                        <label class="form-label fw-semibold" for="tanggal-publikasi">Tanggal Konsultasi</label>
-                        <input type="text" id="tanggal-publikasi" wire:model="tanggal_konsultasi" class="form-control-plaintext border rounded px-3 py-2 bg-white" readonly>
+
+                    <!-- Nama Penyuluh -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Nama Penyuluh Yang Menangani</label>
+                        <input type="text" class="form-control-plaintext border rounded px-3 py-2 bg-white"
+                               value="{{ $nama_penyuluh ?? 'Belum ditangani' }}" readonly>
                     </div>
-                </div>
 
-                <!-- Detail Konsultasi -->
-                <div class="mb-4">
-                    <h6 class="fw-bold">Detail Konsultasi</h6>
-                    <div class="border rounded p-3 bg-light">
-                        <p><strong>Tanaman:</strong> {{ $nama_tanaman }}</p>
-                        <hr>
-                        <p><strong>Keluhan:</strong></p>
-                        <div class="text-dark" style="white-space: pre-line;">{{ $isi }}</div>
+                    <!-- Tanggal Konsultasi -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Tanggal Konsultasi</label>
+                        <input type="text" class="form-control-plaintext border rounded px-3 py-2 bg-white"
+                               value="{{ $tanggal_konsultasi }}" readonly>
                     </div>
-                </div>
 
-                <!-- Jawaban -->
-                <div class="mb-2">
-                    <h6 class="fw-bold">Jawaban Penyuluh Pertanian</h6>
-                    <div class="border rounded p-3 bg-light">
-
-                        <p><strong>Ditanggapi oleh:</strong> {{ $nama_ahli_pertanian ?? 'Penyuluh Pertanian Tidak Ada' }}</p>
-                        <hr>
-                        <div class="text-dark" style="white-space: pre-line;">
-                            {{ $jawaban ?? 'Belum ada jawaban.' }}
-                        </div>
-
-
+                    <!-- Nama Tanaman -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Tanaman</label>
+                        <input type="text" class="form-control-plaintext border rounded px-3 py-2 bg-white"
+                               value="{{ $nama_tanaman }}" readonly>
                     </div>
                 </div>
+
             </div>
 
             <!-- Footer -->
@@ -125,7 +118,7 @@
                     <td>{{ $item->tanggal_konsultasi }}</td>
                     <td>{{ $item->nama_tanaman }}</td>
                     <td class="text-end">
-                        <button wire:click="detail({{ $item }})" class="btn btn-sm btn-info">Detail</button>
+                        <button wire:click="detail({{ $item->id_konsultasi }})" class="btn btn-sm btn-info">Detail</button>
 
                     </td>
                 </tr>
