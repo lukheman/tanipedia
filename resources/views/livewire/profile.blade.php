@@ -76,14 +76,6 @@
                         </div>
                     @endif
 
-                    <div class="form-group">
-                        <label for="alamat" class="form-label">Alamat</label>
-                        <input wire:model="form.alamat" type="text" id="alamat" class="form-control">
-                        @error('form.alamat')
-                        <small class="d-block mt-1 text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">

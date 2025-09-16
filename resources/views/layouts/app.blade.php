@@ -174,7 +174,7 @@
 
         });
 
-        // setelah halamat dimuat ulang, periksa apakah ada notifikasi yang harus ditampilkan
+        // setelah halaman dimuat ulang, periksa apakah ada notifikasi yang harus ditampilkan
         $(window).on('load', function() {
             if (sessionStorage.getItem('reload') === 'true') {
                 message = sessionStorage.getItem('message');

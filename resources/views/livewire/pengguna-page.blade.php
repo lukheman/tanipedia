@@ -161,14 +161,6 @@
 
                             @endif
 
-                            <div class="mb-3">
-                                <label for="alamat" class="form-label fw-semibold">Alamat</label>
-                                <input wire:model="form.alamat" type="text" class="form-control" id="alamat" name="alamat" @if ($currentState === \App\Enums\State::CREATE) placeholder="Masukkan alamat"
-                                @endif @if ($currentState === \App\Enums\State::SHOW) disabled @endif>
-                                @error('form.alamat')
-                                    <small class="d-block mt-1 text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">

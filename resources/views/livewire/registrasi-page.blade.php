@@ -27,9 +27,9 @@
                                     <div class="mb-3">
                                         <label for="kecamatan" class="form-label">Kecamatan</label>
                                         <select wire:model.live="kecamatan" class="form-control" id="kecamatan">
-                                            <option value="">Pilih Kecamatan</option>
+                                            <option value=""></option>
                                             @foreach ($kecamatanList as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                                <option value="{{ $item->id_kecamatan }}">{{ $item->nama }}</option>
                                             @endforeach
                                         </select>
                                         @error('kecamatan')
@@ -41,9 +41,8 @@
                                     <div class="mb-3">
                                         <label for="desa" class="form-label">Desa</label>
                                         <select wire:model.live="desa" class="form-control" id="desa">
-                                            <option value="">Pilih Desa</option>
                                             @foreach ($desaList as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                                <option value="{{ $item->id_desa }}">{{ $item->nama }}</option>
                                             @endforeach
                                         </select>
                                         @error('desa')
@@ -52,11 +51,6 @@
                                     </div>
                                 </div>
                             </div>
-                        <div class="mb-3">
-                            <label for="alamat" class="form-label">Alamat</label>
-                            <input type="text" class="form-control" id="alamat" wire:model="alamat" placeholder="Contoh: Jl. Pemuda" required>
-                            @error('alamat') <span class="text-danger">{{ $message }}</span> @enderror
-                        </div>
                         <div class="mb-3">
                             <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
                             <input type="date" class="form-control" id="tanggal_lahir" wire:model="tanggal_lahir" required>

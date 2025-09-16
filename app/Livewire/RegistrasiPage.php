@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use App\Enums\Role;
 use App\Models\Desa;
 use App\Models\Kecamatan;
 use App\Models\User;
@@ -17,14 +16,11 @@ class RegistrasiPage extends Component
     #[Validate('required|string|max:255')]
     public $name;
 
-    #[Validate('required|email|max:255|unique:users,email', message: 'Email wajib diisi, harus valid, dan belum terdaftar.')]
+    #[Validate('required|email|max:255|unique:petani,email', message: 'Email wajib diisi, harus valid, dan belum terdaftar.')]
     public $email;
 
-    #[Validate('required|string|regex:/^0[0-9]{9,14}$/|unique:users,telepon')]
+    #[Validate('required|string|regex:/^0[0-9]{9,14}$/|unique:petani,telepon')]
     public $telepon;
-
-    #[Validate('nullable|string', message: 'Alamat wajib di isi')]
-    public $alamat;
 
     #[Validate('required|date|before:today')]
     public $tanggal_lahir;
@@ -32,7 +28,7 @@ class RegistrasiPage extends Component
     #[Rule('required|string|min:4|confirmed')]
     public $password;
 
-    #[Rule('required|exists:desa,id')]
+    #[Rule('required|exists:desa,id_desa')]
     public $desa;
 
     public $password_confirmation;
@@ -60,7 +56,6 @@ class RegistrasiPage extends Component
             'email.email' => 'Email wajib diisi, harus valid, dan belum terdaftar.',
             'email.max' => 'Email wajib diisi, harus valid, dan belum terdaftar.',
             'email.unique' => 'Email telah terdaftar',
-            'alamat.required' => 'Alamat wajib diisi.',
             'telepon.required' => 'Telepon wajib diisi dan harus berupa nomor Indonesia (0xxxxxxxxxx).',
             'telepon.regex' => 'Telepon harus berupa nomor Indonesia yang dimulai dari 0 dengan panjang 10 hingga 15 digit.',
             'telepon.unique' => 'Nomor telepon telah terdaftar',
@@ -88,8 +83,6 @@ class RegistrasiPage extends Component
             'telepon' => $this->telepon,
             'tanggal_lahir' => $this->tanggal_lahir,
             'id_desa' => $this->desa,
-            'alamat' => $this->alamat,
-            'role' => Role::PETANI->value,
             'password' => bcrypt($this->password),
         ]);
 

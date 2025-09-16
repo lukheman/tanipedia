@@ -24,10 +24,9 @@ class PermintaanTable extends Component
         ->whereHas('tanaman', function ($query) use ($user) {
             if ($user && $user->id_tanaman) {
                     $query->where('id_tanaman', $user->id_tanaman)
-                    ->where('status', StatusKonsultasi::PENDING)
-                    ;
-            }
+; }
         })->get();
+        // ->where('status', StatusKonsultasi::PENDING)
 
     }
 
@@ -43,6 +42,13 @@ class PermintaanTable extends Component
         $konsultasi = Konsultasi::query()->findOrFail($id);
         $konsultasi->reject();
         $this->notifySuccess('Konsultasi berhasil ditolak.');
+    }
+
+    public function delete($id) {
+        $konsultasi = Konsultasi::query()->findOrFail($id);
+        $konsultasi->delete();
+        $this->notifySuccess('Konsultasi berhasil dihapus.');
+
     }
 
     public function render()

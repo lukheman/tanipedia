@@ -60,7 +60,7 @@ class FormKonsultasiPage extends Component
             $konsultasiBelumSelesai = Konsultasi::query()
                 ->where('id_petani', $id_petani)
                 ->where('id_penyuluh', $this->id_penyuluh)
-                ->where('status', '!=', StatusKonsultasi::COMPLETED)
+                ->where('status', StatusKonsultasi::ACCEPTED)
                 ->exists();
 
             if($konsultasiBelumSelesai) {
@@ -79,6 +79,7 @@ class FormKonsultasiPage extends Component
 
             $this->reset(['id_tanaman']);
             $this->closeModal('modal-form-konsultasi');
+            $this->dispatch('refreshListChats');
 
         } catch (\Exception $e) {
             $this->notifyError('Gagal mengirim konsultasi: '.$e->getMessage());

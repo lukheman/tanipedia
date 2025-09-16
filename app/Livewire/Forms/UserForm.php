@@ -22,7 +22,6 @@ class UserForm extends Form
 
     public $tanggal_lahir = '';
 
-    public $alamat = '';
 
     public ?int $id_desa;
 
@@ -48,7 +47,6 @@ class UserForm extends Form
                 'date',
                 'before:today',
             ],
-            'alamat' => 'required|max:255',
             'id_desa' => 'required|exists:desa,id_desa',
         ];
 
@@ -69,9 +67,6 @@ class UserForm extends Form
 
             'email.required' => 'Mohon masukkan email Anda.',
             'email.email' => 'Format email tidak valid, silakan periksa kembali.',
-
-            'alamat.required' => 'Mohon isi alamat Anda.',
-            'alamat.max' => 'Alamat maksimal 255 karakter',
 
             'telepon.required' => 'Mohon masukkan nomor telepon Anda.',
             'telepon.regex' => 'Nomor telepon harus format Indonesia, diawali 0, dan panjang 10–15 digit.',

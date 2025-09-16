@@ -23,8 +23,6 @@ class ProfileForm extends Form
 
     public $tanggal_lahir;
 
-    public $alamat;
-
     public string $password = '';
 
     public $photo;
@@ -46,7 +44,6 @@ class ProfileForm extends Form
                 Rule::unique($guard, 'email')->ignore($this->user),
             ],
             'desa' => 'required|exists:desa,id_desa',
-            'alamat' => 'required|max:255',
             'password' => ['nullable', 'min:4'],
             'telepon' => [
                 'required',
@@ -71,9 +68,6 @@ class ProfileForm extends Form
 
             'email.required' => 'Mohon masukkan email Anda.',
             'email.email' => 'Format email tidak valid, silakan periksa kembali.',
-
-            'alamat.required' => 'Mohon isi alamat Anda.',
-            'alamat.max' => 'Alamat maksimal 255 karakter',
 
             'telepon.required' => 'Mohon masukkan nomor telepon Anda.',
             'telepon.regex' => 'Nomor telepon harus format Indonesia, diawali 0, dan panjang 10–15 digit.',
@@ -111,9 +105,6 @@ class ProfileForm extends Form
         }
         if ($this->desa !== $this->user->id_desa) {
             $updates['id_desa'] = $this->desa;
-        }
-        if ($this->alamat !== $this->user->alamat) {
-            $updates['alamat'] = $this->alamat;
         }
 
         if ($this->photo) {

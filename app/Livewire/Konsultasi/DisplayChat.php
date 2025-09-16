@@ -53,6 +53,7 @@ class DisplayChat extends Component
         ]);
 
         $this->notifySuccess('Pesan berhasil dikirim');
+        $this->reset('pesan');
 
     }
 

@@ -19,7 +19,6 @@
                     <th>Email</th>
                     <th>Telepon</th>
                     <th>Tanggal Lahir</th>
-                    <th>Alamat</th>
                     <!-- <th class="text-end">Aksi</th> -->
                 </tr>
             </thead>
@@ -30,7 +29,6 @@
                     <td>{{ $item->email}}</td>
                     <td>{{ $item->telepon}}</td>
                     <td>{{ $item->tanggal_lahir}}</td>
-                    <td>{{ $item->alamat}}</td>
                 </tr>
                 @endforeach
             </tbody>

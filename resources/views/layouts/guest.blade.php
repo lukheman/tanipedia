@@ -105,7 +105,7 @@
                         <a class="nav-link" href="{{ route('landing')}}#video">Video Edukasi</a>
                     </li>
                     <li class="nav-item">
-                        @auth
+                        @auth('petani')
                         <a class="nav-link" href="{{ route('konsultasi') }}" >Konsultasi</a>
 
                         @else

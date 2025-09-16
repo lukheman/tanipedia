@@ -57,7 +57,6 @@ class Profile extends Component
         $this->form->email = $this->user->email ?? '';
         $this->form->tanggal_lahir = $this->user->tanggal_lahir ?? '';
         $this->form->telepon = $this->user->telepon ?? '';
-        $this->form->alamat = $this->user->alamat ?? '';
         $this->form->desa = $this->user->desa->id ?? '';
         $this->kecamatan = $this->user->desa->id_kecamatan ?? '';
 

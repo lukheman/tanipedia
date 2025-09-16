@@ -92,7 +92,6 @@ class PenggunaPage extends Component
         $this->form->user = $user;
         $this->form->name = $user->name;
         $this->form->email = $user->email;
-        $this->form->alamat = $user->alamat;
         $this->form->role = $user->role;
         $this->form->telepon = $user->telepon;
         $this->form->tanggal_lahir = $user->tanggal_lahir;

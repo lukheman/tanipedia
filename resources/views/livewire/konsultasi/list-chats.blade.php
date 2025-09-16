@@ -37,7 +37,7 @@ Buat Konsultasi Baru
     </div>
     <div class="card-content pb-4">
 
-        @foreach ($this->konsultasiList() as $konsultasi)
+        @forelse ($this->konsultasiList() as $konsultasi)
         <div wire:click="select({{ $konsultasi->id_konsultasi}})" class="recent-message d-flex px-4 py-3">
 
             @if ($activeRole === Role::PETANI)
@@ -45,8 +45,15 @@ Buat Konsultasi Baru
                 <img src="{{ $konsultasi->penyuluh->photo ? asset('storage/' . $konsultasi->penyuluh->photo) : asset('./assets/compiled/jpg/2.jpg') }}">
             </div>
             <div class="name ms-4">
-                <h5 class="mb-1">{{ $konsultasi->penyuluh->name}}</h5>
-                <h6 class="text-muted mb-0">{{ $konsultasi->penyuluh->desa->nama}} </h6>
+                <p class="mb-1 fw-bold">{{ $konsultasi->penyuluh->name}}</p>
+                <small class="text-muted mb-0 fw-b">{{ $konsultasi->penyuluh->desa->nama}} </small>
+            </div>
+             <!-- Tombol Batalkan -->
+            <div>
+                <button wire:click.stop="delete({{ $konsultasi->id_konsultasi }})"
+                        class="btn btn-sm btn-danger">
+                    Batalkan
+                </button>
             </div>
 
             @endif
@@ -62,7 +69,11 @@ Buat Konsultasi Baru
 
             @endif
         </div>
-        @endforeach
+         @empty
+        <div class="text-center text-muted py-4">
+            Belum ada konsultasi.
+        </div>
+        @endforelse
 
     </div>
 </div>
