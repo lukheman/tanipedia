@@ -10,36 +10,50 @@ use Illuminate\Http\Request;
 
 class LaporanController extends Controller
 {
-    public function laporanPetani()
-    {
 
+    public function laporanPetani($idKecamatan)
+    {
+    if ((int) $idKecamatan === 0) {
+        // Semua kecamatan
         $users = User::with(['desa', 'desa.kecamatan'])->get();
-        $pdf = Pdf::loadView('invoices.laporan-users', ['users' => $users, 'label' => 'Petani']);
-
-        return $pdf->download('laporan_data_petani_'.date('d_m_Y').'.pdf');
-
-        // return view('invoices.laporan-users', [
-        //     'users' => $users,
-        //     'label' => 'Petani'
-        // ]);
-
+    } else {
+        // Hanya kecamatan tertentu
+        $users = User::with(['desa', 'desa.kecamatan'])
+            ->whereHas('desa.kecamatan', function ($q) use ($idKecamatan) {
+                $q->where('id_kecamatan', $idKecamatan);
+            })
+            ->get();
     }
 
-    public function laporanAhliPertanian()
+    $pdf = Pdf::loadView('invoices.laporan-users', [
+        'users' => $users,
+        'label' => 'Petani',
+    ]);
+
+    return $pdf->download('laporan_data_petani_' . date('d_m_Y') . '.pdf');
+}
+
+    public function laporanAhliPertanian($idTanaman)
     {
-
-        $users = Penyuluh::with(['desa', 'desa.kecamatan'])->get();
-
-        $pdf = Pdf::loadView('invoices.laporan-users', ['users' => $users, 'label' => 'Penyuluh Pertanian']);
-
-        return $pdf->download('laporan_data_ahli_pertanian_'.date('d_m_Y').'.pdf');
-
-        // return view('invoices.laporan-users', [
-        //     'users' => $users,
-        //     'label' => 'Penyuluh Pertanian'
-        // ]);
-
+    if ((int) $idTanaman === 0) {
+        // Semua tanaman
+        $users = Penyuluh::with(['desa', 'desa.kecamatan', 'tanaman'])->get();
+    } else {
+        // Filter berdasarkan tanaman
+        $users = Penyuluh::with(['desa', 'desa.kecamatan', 'tanaman'])
+            ->whereHas('tanaman', function ($q) use ($idTanaman) {
+                $q->where('id_tanaman', $idTanaman);
+            })
+            ->get();
     }
+
+    $pdf = Pdf::loadView('invoices.laporan-users', [
+        'users' => $users,
+        'label' => 'Penyuluh Pertanian',
+    ]);
+
+    return $pdf->download('laporan_data_ahli_pertanian_' . date('d_m_Y') . '.pdf');
+}
 
     public function laporanKonsultasi(Request $request)
     {

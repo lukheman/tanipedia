@@ -22,13 +22,14 @@
     <div class="card-header">
 
 
-<div class="modal fade text-left" id="modal-cetak-laporan-konsultasi" tabindex="-1" role="dialog">
+<!-- Modal Pilih Jenis Laporan Yang dicetak (petani/penyuluh) -->
+<div class="modal fade text-left" id="modal-cetak-laporan-konsultasi" tabindex="-1" role="dialog" wire:ignore.self>
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <!-- Header -->
             <div class="modal-header bg-danger">
-                <h5 class="modal-title white" id="myModalLabel120">Download Laporan Konsultasi</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title white" id="myModalLabel120">Download Laporan</h5>
+                <button wire:click="$dispatch('closeModal', {id: 'modal-cetak-laporan-konsultasi'})" type="button" class="close">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                          fill="none" stroke="currentColor" stroke-width="2"
                          stroke-linecap="round" stroke-linejoin="round"
@@ -42,10 +43,11 @@
             <!-- Body -->
             <div class="modal-body">
                 <div class="row g-3">
+
                     <!-- Card Pilih Petani -->
                     <div class="col-6">
                         <label class="w-100">
-                            <input type="radio" wire:model="tipe_laporan" name="tipe_laporan" value="petani" class="d-none" checked>
+                            <input type="radio" wire:model="tipe_laporan"  value="petani" class="d-none" checked>
                             <div class="card shadow-sm text-center p-3 option-card">
                                 <i class="bi bi-person-fill fs-1 text-primary"></i>
                                 <h6 class="mt-2">Petani</h6>
@@ -56,14 +58,109 @@
                     <!-- Card Pilih Penyuluh -->
                     <div class="col-6">
                         <label class="w-100">
-                            <input type="radio" wire:model="tipe_laporan" name="tipe_laporan" value="penyuluh" class="d-none">
+                            <input type="radio" wire:model="tipe_laporan"  value="penyuluh" class="d-none">
                             <div class="card shadow-sm text-center p-3 option-card">
                                 <i class="bi bi-people-fill fs-1 text-success"></i>
                                 <h6 class="mt-2">Penyuluh</h6>
                             </div>
                         </label>
                     </div>
+
                 </div>
+
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer">
+                <button wire:click="next" type="button" class="btn btn-danger ms-1">
+                    <i class="bx bx-check d-block d-sm-none"></i>
+                    <span class="d-none d-sm-block">
+                        <i class="bi bi-arrow-right"></i> Lanjut
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Konfigurasi -->
+<div class="modal fade text-left" id="modal-konfigurasi-laporan" tabindex="-1" role="dialog" wire:ignore.self>
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title white" id="myModalLabel120">Download Laporan</h5>
+                <button wire:click="$dispatch('closeModal', {id: 'modal-konfigurasi-laporan'})"  class="close">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                         fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body">
+                <div class="row">
+
+                    @if ($tipe_laporan === 'petani')
+                    <!-- Card Pilih Petani -->
+                    <div class="col-12">
+                        <label class="w-100">
+                            <div class="card shadow-sm text-center p-3 option-card">
+                                <i class="bi bi-person-fill fs-1 text-primary"></i>
+                                <h6 class="mt-2">Petani</h6>
+                            </div>
+                        </label>
+                    </div>
+
+                            <div class="col-12">
+                                <label for="kecamatan" class="form-label fw-semibold">Kecamatan</label>
+                                <select wire:model.live="id_kecamatan" class="form-control" id="kecamatan">
+                                    <option value="">Semua</option>
+                                    @foreach ($this->kecamatanList() as $item)
+                                        <option value="{{ $item->id_kecamatan }}">{{ $item->nama }}</option>
+                                    @endforeach
+                                </select>
+                                @error('id_kecamatan')
+                                    <small class="d-block mt-1 text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+
+                    @elseif($tipe_laporan === 'penyuluh')
+
+                    <!-- Card Pilih Penyuluh -->
+                    <div class="col-12">
+                        <label class="w-100">
+                            <div class="card shadow-sm text-center p-3 option-card">
+                                <i class="bi bi-people-fill fs-1 text-success"></i>
+                                <h6 class="mt-2">Penyuluh</h6>
+                            </div>
+                        </label>
+                    </div>
+
+                        <div class="col-12">
+
+                            <label for="tanaman" class="form-label fw-semibold">Cetak penyuluh untuk tanaman</label>
+                            <select wire:model.live="id_tanaman" class="form-select" id="tanaman" name="role">
+                                <option value="">Semua</option>
+                                @foreach ($this->tanamanList() as $tanaman)
+                                    <option value="{{ $tanaman->id_tanaman }}">{{ $tanaman->nama }}</option>
+                                @endforeach
+                            </select>
+                            @error('type')
+                                <small class="d-block mt-1 text-danger">{{ $message }}</small>
+                            @enderror
+
+                        </div>
+
+                    @endif
+
+
+                </div>
+
             </div>
 
             <!-- Footer -->
@@ -80,7 +177,7 @@
 </div>
 
 
-<button class="btn btn-danger" type="submit" wire:click="$dispatch('openModal', {id: 'modal-cetak-laporan-konsultasi'})">
+<button class="btn btn-danger" type="button" wire:click="openModalDownload">
     <i class="bi bi-printer"></i>
     Download Laporan
 </button>
