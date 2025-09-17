@@ -13,6 +13,13 @@
 
         <form wire:submit.prevent="save" enctype="multipart/form-data">
 
+            <div x-data="{ uploading: false, progress: 10}"
+                x-on:livewire-upload-start="uploading = true"
+                x-on:livewire-upload-finish="uploading = false"
+                x-on:livewire-upload-error="uploading = false"
+                x-on:livewire-upload-progress="progress = $event.detail.progress"
+                >
+
         <!-- Judul Video -->
         <div class="mb-3">
             <label for="judul" class="form-label fw-semibold">Judul Video</label>
@@ -36,25 +43,22 @@
     @error('form.video')
         <small class="text-danger">{{ $message }}</small>
     @enderror
+                    <div x-show="uploading">
 
-    <!-- Progress bar -->
-    <div
-        x-data="{ progress: @entangle('uploadProgress') }"
-        x-on:livewire-upload-start="progress = 0"
-        x-on:livewire-upload-progress="progress = $event.detail.progress"
-        x-on:livewire-upload-finish="progress = 100"
-        class="mt-2"
-    >
-        <div class="progress" x-show="progress > 0">
-            <div class="progress-bar progress-bar-striped progress-bar-animated"
-                 role="progressbar"
-                 :style="`width: ${progress}%`"
-                 x-text="progress + '%'">
-            </div>
+<div x-show="uploading">
+    <div class="progress w-100">
+        <div class="progress-bar progress-bar-striped progress-bar-animated"
+             role="progressbar"
+             x-bind:style="`width: ${progress}%`"
+             x-bind:aria-valuenow="progress"
+             aria-valuemin="0"
+             aria-valuemax="100">
+            <span x-text="progress + '%'"></span>
         </div>
     </div>
 </div>
-
+                    </div>
+</div>
         @endif
 
         <!-- Deskripsi Video -->
@@ -64,6 +68,8 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+
         </form>
 
     </div>
