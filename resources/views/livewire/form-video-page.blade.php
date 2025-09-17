@@ -11,7 +11,7 @@
         </div>
         @endif
 
-        <form wire:submit.prevent="save">
+        <form wire:submit.prevent="save" enctype="multipart/form-data">
 
         <!-- Judul Video -->
         <div class="mb-3">
