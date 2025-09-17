@@ -44,7 +44,7 @@ class LaporanPenggunaPage extends Component
             $this->id_kecamatan = $this->id_kecamatan ?? 0;
             return redirect()->route('print-laporan.petani', ['id' => $this->id_kecamatan]);
         } elseif($this->tipe_laporan === 'penyuluh') {
-            $this->id_kecamatan = $this->id_tanaman ?? 0;
+            $this->id_tanaman = $this->id_tanaman ?? 0;
             return redirect()->route('print-laporan.ahli-pertanian', ['id' => $this->id_tanaman]);
         }
     }
