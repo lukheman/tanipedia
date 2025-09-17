@@ -52,7 +52,7 @@ class LaporanController extends Controller
         'label' => 'Penyuluh Pertanian',
     ]);
 
-    return $pdf->download('laporan_data_ahli_pertanian_' . date('d_m_Y') . '.pdf');
+    return $pdf->download('laporan_data_penyuluh_pertanian' . date('d_m_Y') . '.pdf');
 }
 
     public function laporanKonsultasi(Request $request)
