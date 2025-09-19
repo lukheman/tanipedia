@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('id_admin')->constrained('admin', 'id_admin')->cascadeOnDelete();
             $table->string('judul');
             $table->date('tanggal_publikasi');
-            $table->string('deskripsi');
+            $table->longText('deskripsi');
             $table->string('url_video');
             $table->timestamps();
         });
