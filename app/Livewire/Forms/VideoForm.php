@@ -21,7 +21,7 @@ class VideoForm extends Form
     {
         return [
             'judul' => 'required|string|min:3|max:255',
-            'deskripsi' => 'string|min:3|max:255',
+            'deskripsi' => 'nullable',
             'video' => 'nullable|file|mimes:mp4,avi,mpeg,mov|max:512000',
         ];
     }
@@ -32,8 +32,6 @@ class VideoForm extends Form
             'judul.required' => 'Judul wajib diisi',
             'judul.min' => 'Judul minimal 3 karakter',
             'judul.max' => 'Judul maksimal 255 karakter',
-            'deskripsi.min' => 'Deskripsi minimal 3 karakter',
-            'deskripsi.max' => 'Deskripsi maksimal 255 karakter',
             'video.required' => 'Video wajib diisi',
             'video.mimes' => 'Format video harus mp4, avi, mpeg, atau mov',
             'video.max' => 'Ukuran video maksimal 100MB',
