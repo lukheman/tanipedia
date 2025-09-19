@@ -45,6 +45,7 @@ class LoginPage extends Component
                 if($this->redirect) {
 
                     if ($guard !== 'petani') {
+
                         Auth::guard($guard)->logout();
                         flash('Silakan login sebagai petani untuk melakukan konsultasi.', 'danger');
 
@@ -52,7 +53,7 @@ class LoginPage extends Component
                     }
 
                     flash('Berhasil login sebagai petani');
-                    return redirect()->route('konsultasi');
+                    return redirect()->to($this->redirect);
 
                 }
 

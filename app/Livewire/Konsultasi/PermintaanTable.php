@@ -24,9 +24,9 @@ class PermintaanTable extends Component
         ->whereHas('tanaman', function ($query) use ($user) {
             if ($user && $user->id_tanaman) {
                     $query->where('id_tanaman', $user->id_tanaman)
+                    ->where('status', StatusKonsultasi::PENDING)
 ; }
         })->get();
-        // ->where('status', StatusKonsultasi::PENDING)
 
     }
 

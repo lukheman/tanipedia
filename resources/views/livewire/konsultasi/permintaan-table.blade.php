@@ -22,7 +22,6 @@
                             <td class="text-end">
                                 <button wire:click="accepted({{ $item->id_konsultasi }})" class="btn btn-sm btn-info">Terima</button>
                                 <button wire:click="rejected({{ $item->id_konsultasi }})" class="btn btn-sm btn-danger">Tolak</button>
-                                <button wire:click="hapus({{ $item->id_konsultasi }})" class="btn btn-sm btn-danger">Hapus</button>
                             </td>
                         </tr>
                     @endforeach
