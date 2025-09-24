@@ -65,7 +65,7 @@ class FormBeritaPage extends Component
                 'judul' => $this->judul,
                 'isi' => $this->isi,
                 'tanggal_publikasi' => date('Y-m-d'),
-                'id_penulis' => Auth::guard('admin')->user()->id_admin,
+                'id_admin' => Auth::guard('admin')->user()->id_admin,
             ]);
             $this->notifySuccess('Berita berhasil diperbarui', reload: true);
         } else {
