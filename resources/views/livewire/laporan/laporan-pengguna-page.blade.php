@@ -116,7 +116,7 @@
                         </label>
                     </div>
 
-                            <div class="col-12">
+                            <div class="col-12 mb-3">
                                 <label for="kecamatan" class="form-label fw-semibold">Kecamatan</label>
                                 <select wire:model.live="id_kecamatan" class="form-control" id="kecamatan">
                                     <option value="">Semua</option>
@@ -125,6 +125,14 @@
                                     @endforeach
                                 </select>
                                 @error('id_kecamatan')
+                                    <small class="d-block mt-1 text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+
+                            <div class="col-12 mb-3">
+                                <label for="tahun" class="form-label fw-semibold">Tahun</label>
+                                <input wire:model="tahun" type="number" class="form-control" id="tahun" placeholder="Tahun" min="1900" max="2100">
+                                @error('tahun')
                                     <small class="d-block mt-1 text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
@@ -141,7 +149,7 @@
                         </label>
                     </div>
 
-                        <div class="col-12">
+                        <div class="col-12 mb-3">
 
                             <label for="tanaman" class="form-label fw-semibold">Cetak penyuluh untuk tanaman</label>
                             <select wire:model.live="id_tanaman" class="form-select" id="tanaman" name="role">
@@ -155,6 +163,14 @@
                             @enderror
 
                         </div>
+
+                            <div class="col-12 mb-3">
+                                <label for="tahun" class="form-label fw-semibold">Tahun</label>
+                                <input wire:model="tahun" type="number" class="form-control" id="tahun" placeholder="Tahun" min="1900" max="2100">
+                                @error('tahun')
+                                    <small class="d-block mt-1 text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
 
                     @endif
 

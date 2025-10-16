@@ -19,6 +19,11 @@ class LaporanPenggunaPage extends Component
 
     public ?int $id_kecamatan = null;
     public ?int $id_tanaman = null;
+    public ?int $tahun;
+
+    public function mount() {
+        $this->tahun = date('Y');
+    }
 
 
     public string $idModal = 'modal-cetak-laporan-konsultasi';
@@ -42,10 +47,10 @@ class LaporanPenggunaPage extends Component
     public function download() {
         if ($this->tipe_laporan === 'petani') {
             $this->id_kecamatan = $this->id_kecamatan ?? 0;
-            return redirect()->route('print-laporan.petani', ['id' => $this->id_kecamatan]);
+            return redirect()->route('print-laporan.petani', ['id' => $this->id_kecamatan, 'tahun' => $this->tahun]);
         } elseif($this->tipe_laporan === 'penyuluh') {
             $this->id_tanaman = $this->id_tanaman ?? 0;
-            return redirect()->route('print-laporan.ahli-pertanian', ['id' => $this->id_tanaman]);
+            return redirect()->route('print-laporan.ahli-pertanian', ['id' => $this->id_tanaman, 'tahun' => $this->tahun]);
         }
     }
 

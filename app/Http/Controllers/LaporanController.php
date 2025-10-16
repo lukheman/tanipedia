@@ -11,49 +11,57 @@ use Illuminate\Http\Request;
 class LaporanController extends Controller
 {
 
-    public function laporanPetani($idKecamatan)
+    public function laporanPetani($idKecamatan, $tahun)
     {
-    if ((int) $idKecamatan === 0) {
-        // Semua kecamatan
-        $users = User::with(['desa', 'desa.kecamatan'])->get();
-    } else {
-        // Hanya kecamatan tertentu
-        $users = User::with(['desa', 'desa.kecamatan'])
-            ->whereHas('desa.kecamatan', function ($q) use ($idKecamatan) {
-                $q->where('id_kecamatan', $idKecamatan);
-            })
-            ->get();
+        if ((int) $idKecamatan === 0) {
+            // Semua kecamatan tapi filter berdasarkan tahun created_at
+            $users = User::with(['desa', 'desa.kecamatan'])
+                ->whereYear('created_at', $tahun)
+                ->get();
+        } else {
+            // Hanya kecamatan tertentu dan filter tahun
+            $users = User::with(['desa', 'desa.kecamatan'])
+                ->whereHas('desa.kecamatan', function ($q) use ($idKecamatan) {
+                    $q->where('id_kecamatan', $idKecamatan);
+                })
+                ->whereYear('created_at', $tahun)
+                ->get();
+        }
+
+        $pdf = Pdf::loadView('invoices.laporan-users', [
+            'users' => $users,
+            'label' => 'Petani',
+            'tahun' => $tahun, // kirim tahun ke view juga kalau mau ditampilkan
+        ]);
+
+        return $pdf->download('laporan_data_petani_' . $tahun . '_' . date('d_m_Y') . '.pdf');
     }
 
-    $pdf = Pdf::loadView('invoices.laporan-users', [
-        'users' => $users,
-        'label' => 'Petani',
-    ]);
-
-    return $pdf->download('laporan_data_petani_' . date('d_m_Y') . '.pdf');
-}
-
-    public function laporanAhliPertanian($idTanaman)
+    public function laporanAhliPertanian($idTanaman, $tahun)
     {
-    if ((int) $idTanaman === 0) {
-        // Semua tanaman
-        $users = Penyuluh::with(['desa', 'desa.kecamatan', 'tanaman'])->get();
-    } else {
-        // Filter berdasarkan tanaman
-        $users = Penyuluh::with(['desa', 'desa.kecamatan', 'tanaman'])
-            ->whereHas('tanaman', function ($q) use ($idTanaman) {
-                $q->where('id_tanaman', $idTanaman);
-            })
-            ->get();
+        if ((int) $idTanaman === 0) {
+            // Semua tanaman, tapi filter berdasarkan tahun created_at
+            $users = Penyuluh::with(['desa', 'desa.kecamatan', 'tanaman'])
+                ->whereYear('created_at', $tahun)
+                ->get();
+        } else {
+            // Filter berdasarkan tanaman dan tahun
+            $users = Penyuluh::with(['desa', 'desa.kecamatan', 'tanaman'])
+                ->whereHas('tanaman', function ($q) use ($idTanaman) {
+                    $q->where('id_tanaman', $idTanaman);
+                })
+                ->whereYear('created_at', $tahun)
+                ->get();
+        }
+
+        $pdf = Pdf::loadView('invoices.laporan-users', [
+            'users' => $users,
+            'label' => 'Penyuluh Pertanian',
+            'tahun' => $tahun, // dikirim ke view agar bisa ditampilkan di laporan
+        ]);
+
+        return $pdf->download('laporan_data_penyuluh_pertanian_' . $tahun . '_' . date('d_m_Y') . '.pdf');
     }
-
-    $pdf = Pdf::loadView('invoices.laporan-users', [
-        'users' => $users,
-        'label' => 'Penyuluh Pertanian',
-    ]);
-
-    return $pdf->download('laporan_data_penyuluh_pertanian' . date('d_m_Y') . '.pdf');
-}
 
     public function laporanKonsultasi(Request $request)
     {
