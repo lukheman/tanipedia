@@ -83,7 +83,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'kepaladinas@gmail.com',
             'telepon' => '082283919291',
             'tanggal_lahir' => now(),
-            'id_desa' => $desaIds->random(),
         ]);
     }
 }

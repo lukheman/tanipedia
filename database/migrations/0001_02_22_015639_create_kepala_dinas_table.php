@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('telepon');
             $table->date('tanggal_lahir');
             $table->string('photo')->nullable();
-            $table->foreignId('id_desa')->nullable()->constrained('desa', 'id_desa')->nullOnDelete();
             $table->rememberToken();
             $table->timestamps();
         });

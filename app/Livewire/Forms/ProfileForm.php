@@ -9,7 +9,6 @@ use Livewire\Attributes\Validate;
 use Livewire\Form;
 use Livewire\WithFileUploads;
 
-use function getActiveGuard;
 
 class ProfileForm extends Form
 {
@@ -33,17 +32,15 @@ class ProfileForm extends Form
 
     protected function rules(): array
     {
-
         $guard = getActiveGuard(); // guard / table active
 
-        return [
+        $rules = [
             'name' => ['required', 'max:50'],
             'email' => [
                 'required',
                 'email',
                 Rule::unique($guard, 'email')->ignore($this->user),
             ],
-            'desa' => 'required|exists:desa,id_desa',
             'password' => ['nullable', 'min:4'],
             'telepon' => [
                 'required',
@@ -57,6 +54,14 @@ class ProfileForm extends Form
             'photo' => ['nullable', 'image', 'max:2048'], // Max 2MB
         ];
 
+        // ✅ Jika user BUKAN kepala dinas → desa wajib diisi
+        if ($guard !== 'kepala_dinas') {
+            $rules['desa'] = ['required', 'exists:desa,id_desa'];
+        } else {
+            $rules['desa'] = ['nullable', 'exists:desa,id_desa'];
+        }
+
+        return $rules;
     }
 
     public function messages(): array
@@ -83,8 +88,9 @@ class ProfileForm extends Form
 
     public function update(): bool
     {
-        // Validate the form data
+
         $this->validate();
+        $guard = getActiveGuard();
 
         // Prepare updates only for changed fields
         $updates = [];
@@ -103,8 +109,13 @@ class ProfileForm extends Form
         if ($this->tanggal_lahir !== $this->user->tanggal_lahir) {
             $updates['tanggal_lahir'] = $this->tanggal_lahir;
         }
+
+
+        if ($guard !== 'kepala_dinas') {
+
         if ($this->desa !== $this->user->id_desa) {
             $updates['id_desa'] = $this->desa;
+        }
         }
 
         if ($this->photo) {
