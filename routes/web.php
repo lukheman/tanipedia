@@ -16,15 +16,15 @@ Route::get('/admin/login', \App\Livewire\LoginPage::class)->name('admin.login')-
 Route::get('/logout', App\Http\Controllers\LogoutController::class)->name('logout');
 Route::get('/registrasi', \App\Livewire\RegistrasiPage::class)->name('registrasi')->middleware('guest');
 
-Route::get('/baca-berita/{id}', \App\Livewire\BacaBerita::class)->name('baca-berita');
+Route::get('/baca-berita/{id}', \App\Livewire\Berita\BacaBerita::class)->name('berita.baca-berita');
 Route::get('/nonton-video/{id}', \App\Livewire\NontonVideo::class)->name('nonton-video');
 
-Route::get('/semua-berita', \App\Livewire\BeritaIndex::class)->name('berita.index');
+Route::get('/semua-berita', \App\Livewire\Berita\BeritaIndex::class)->name('berita.index');
 Route::get('/semua-video', \App\Livewire\VideoIndex::class)->name('video.index');
 
 Route::get('/edit-berita/{id}', \App\Livewire\FormBeritaPage::class)->name('berita.edit')->middleware(MultiAuth::class.':admin');
 Route::get('/tambah-berita', \App\Livewire\FormBeritaPage::class)->name('berita.add')->middleware(MultiAuth::class.':admin');
-Route::get('/berita', \App\Livewire\BeritaPage::class)->name('berita')->middleware(MultiAuth::class.':admin');
+Route::get('/berita', \App\Livewire\Berita\BeritaPage::class)->name('berita')->middleware(MultiAuth::class.':admin');
 
 Route::get('/dashboard', \App\Livewire\DashboardPage::class)
     ->name('dashboard')
