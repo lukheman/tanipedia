@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Berita;
 
 use App\Models\Berita;
 use Livewire\Component;
@@ -11,6 +11,6 @@ class BeritaCard extends Component
 
     public function render()
     {
-        return view('livewire.berita-card');
+        return view('livewire.berita.berita-card');
     }
 }

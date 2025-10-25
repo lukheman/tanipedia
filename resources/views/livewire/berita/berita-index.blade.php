@@ -12,7 +12,7 @@
     <div class="row">
         @forelse ($this->berita as $item)
             <div class="col-12 mt-3">
-                <livewire:berita-card :berita="$item" :wire:key="$item->id" />
+                <livewire:berita.berita-card :berita="$item" :wire:key="$item->id" />
             </div>
         @empty
             <div class="col-12 text-center">

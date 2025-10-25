@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Berita;
 
 use App\Enums\State;
 use App\Models\Berita;
@@ -75,7 +75,7 @@ class BeritaPage extends Component
     public function render()
     {
 
-        return view('livewire.berita-page', [
+        return view('livewire.berita.berita-page', [
             'berita' => Berita::with('penulis')->latest()->paginate(5),
         ]);
     }

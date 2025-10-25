@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Berita;
 
 use App\Models\Berita;
 use Livewire\Attributes\Computed;
@@ -26,6 +26,6 @@ class BeritaIndex extends Component
 
     public function render()
     {
-        return view('livewire.berita-index');
+        return view('livewire.berita.berita-index');
     }
 }

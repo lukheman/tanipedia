@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Berita;
 
 use App\Models\Berita;
 use Livewire\Attributes\Layout;
@@ -21,6 +21,6 @@ class BacaBerita extends Component
 
     public function render()
     {
-        return view('livewire.baca-berita');
+        return view('livewire.berita.baca-berita');
     }
 }
