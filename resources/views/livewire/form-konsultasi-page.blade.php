@@ -2,6 +2,17 @@
     <div class="card-body">
 
     <form wire:submit="submit" class="mx-auto" style="max-width: 600px;">
+
+        <div class="mb-4">
+            <label for="judul" class="form-label">Judul Konsultasi</label>
+
+            <input wire:model="judul" type="text" class="form-control" id="judul" placeholder="contoh: perkembangan tanaman">
+            @error('judul')
+                <small class="d-blmck mt-1 text-danger">{{ $message }}</small>
+            @enderror
+
+        </div>
+
         <div class="mb-4">
             <label for="crop_type" class="form-label">Jenis Tanaman</label>
 

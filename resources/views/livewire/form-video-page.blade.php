@@ -65,7 +65,11 @@
         <div class="mb-3">
             <label for="deskripsi" class="form-label fw-semibold">Deskripsi</label>
             <textarea id="deskripsi" wire:model="form.deskripsi" class="form-control" rows="6" placeholder="Tulis deskripsi video..."></textarea>
+    @error('form.deskripsi')
+        <small class="text-danger">{{ $message }}</small>
+    @enderror
         </div>
+
 
         <button type="submit" class="btn btn-primary">Simpan</button>
             </div>

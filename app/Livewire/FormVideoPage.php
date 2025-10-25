@@ -26,7 +26,6 @@ class FormVideoPage extends Component
     {
 
         if ($this->currentState === State::CREATE) {
-            try {
                 $this->form->store();
 
                 $this->dispatch('setState', state: State::LISTDATA->value);
@@ -34,22 +33,14 @@ class FormVideoPage extends Component
                 $this->notifySuccess('Berhasil menambahkan video');
                 $this->reset();
 
-            } catch (\Exception $e) {
-                $this->notifyError('Gagal upload video: '.$e->getMessage());
-            }
-
         } elseif ($this->currentState === State::UPDATE) {
 
-            try {
 
                 $this->form->update();
 
                 $this->dispatch('setState', state: State::LISTDATA->value);
                 $this->notifySuccess('Berhasil memperbarui video');
 
-            } catch (\Exception $e) {
-                $this->notifyError('Gagal memperbarui video: '.$e->getMessage());
-            }
         }
     }
 

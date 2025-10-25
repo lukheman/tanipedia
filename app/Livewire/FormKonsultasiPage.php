@@ -27,8 +27,8 @@ class FormKonsultasiPage extends Component
     #[Validate('required|exists:penyuluh,id_penyuluh', message: 'Penyuluh wajib dipilih.')]
     public $id_penyuluh= '';
 
-    // #[Validate('required|string', message: 'Deskripsi masalah wajib diisi.')]
-    // public $isi = '';
+    #[Validate('required|string', message: 'Judul konsultasi wajib diisi.')]
+    public $judul = '';
 
     public $tanamanList;
 
@@ -68,7 +68,9 @@ class FormKonsultasiPage extends Component
                 return;
             }
 
+            // buat konsultasi baru
             $konsutasi = Konsultasi::query()->create([
+                'judul' => $this->judul,
                 'id_petani' => Auth::guard('petani')->user()->id_petani,
                 'id_penyuluh' => $this->id_penyuluh,
                 'id_tanaman' => $this->id_tanaman,

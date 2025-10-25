@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('konsultasi', function (Blueprint $table) {
             $table->id('id_konsultasi');
+            $table->string('judul');
             $table->foreignId('id_petani')->constrained('petani', 'id_petani')->cascadeOnDelete();
             $table->foreignId('id_tanaman')->constrained('tanaman', 'id_tanaman')->cascadeOnDelete();
             $table->foreignId('id_penyuluh')->constrained('penyuluh', 'id_penyuluh')->cascadeOnDelete();

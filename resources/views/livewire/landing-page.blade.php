@@ -23,7 +23,7 @@
             <div class="row">
                 @forelse ($berita as $item)
                     <div class="col-md-4 mb-4">
-                        <livewire:berita-card :berita="$item" :wire:key="$item->id_berita" />
+                        <livewire:berita.berita-card :berita="$item" :wire:key="$item->id_berita" />
                     </div>
                 @empty
                     <div class="col-12 text-center">

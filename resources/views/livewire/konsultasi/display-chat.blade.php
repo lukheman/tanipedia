@@ -8,39 +8,42 @@ use App\Enums\StatusKonsultasi;
 
     @isset($konsultasi)
 
-    <div class="card-header">
-        <div class="media d-flex align-items-center">
-            <div class="avatar me-3">
-
-@isset($konsultasi)
-
-@if ($activeRole === Role::PETANI)
-                <img src="{{ $konsultasi->penyuluh->photo ? asset('storage/' . $konsultasi->penyuluh->photo) : asset('./assets/compiled/jpg/2.jpg') }}" alt="" srcset="">
-@endif
-
-@if ($activeRole === Role::AHLIPERTANIAN)
-                <img src="{{ $konsultasi->user->photo ? asset('storage/' .  $konsultasi->user->photo) : asset('./assets/compiled/jpg/2.jpg') }}" alt="" srcset="">
+<div class="card-header d-flex justify-content-between align-items-center">
+    <div class="media d-flex align-items-center">
+        <div class="avatar me-3">
+            @isset($konsultasi)
+                @if ($activeRole === Role::PETANI)
+                    <img src="{{ $konsultasi->penyuluh->photo ? asset('storage/' . $konsultasi->penyuluh->photo) : asset('./assets/compiled/jpg/2.jpg') }}" alt="" srcset="">
                 @endif
 
-@endisset
-
-                <span class="avatar-status bg-success"></span>
-            </div>
-            <div class="name flex-grow-1">
-@isset($konsultasi)
-@if ($activeRole === Role::PETANI)
-<h6 class="mb-0">{{ $konsultasi?->penyuluh->name ?? 'Tidak ada data' }}</h6>
-@endif
-@if ($activeRole === Role::AHLIPERTANIAN)
-<h6 class="mb-0">{{ $konsultasi?->user->name ?? 'Tidak ada data' }}</h6>
-@endif
-
-
-@endisset
-                <span class="text-xs">Online</span>
-            </div>
+                @if ($activeRole === Role::AHLIPERTANIAN)
+                    <img src="{{ $konsultasi->user->photo ? asset('storage/' . $konsultasi->user->photo) : asset('./assets/compiled/jpg/2.jpg') }}" alt="" srcset="">
+                @endif
+            @endisset
+            <span class="avatar-status bg-success"></span>
+        </div>
+        <div class="name flex-grow-1">
+            @isset($konsultasi)
+                @if ($activeRole === Role::PETANI)
+                    <h6 class="mb-0">{{ $konsultasi?->penyuluh->name ?? 'Tidak ada data' }}</h6>
+                @endif
+                @if ($activeRole === Role::AHLIPERTANIAN)
+                    <h6 class="mb-0">{{ $konsultasi?->user->name ?? 'Tidak ada data' }}</h6>
+                @endif
+            @endisset
+            <span class="text-xs">Online</span>
         </div>
     </div>
+
+    {{-- Judul konsultasi di sebelah kanan --}}
+    @isset($konsultasi)
+        <div class="text-end">
+            <h6 class="mb-0 text-primary fw-bold">
+                {{ $konsultasi->judul ?? 'Tanpa Judul' }}
+            </h6>
+        </div>
+    @endisset
+</div>
     <div class="card-body pt-4 bg-grey">
         <div class="chat-content">
 
