@@ -25,6 +25,9 @@
 <!-- Quill Js -->
 <!-- <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" /> -->
 
+
+ <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js'></script>
+
 <style>
 .swal2-popup {
   border-radius: 15px;

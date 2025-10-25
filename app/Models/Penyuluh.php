@@ -41,4 +41,9 @@ class Penyuluh extends Authenticatable
         return $this->hasMany(Konsultasi::class, 'id_penyuluh');
     }
 
+    public function jadwalPenyuluhan()
+    {
+        return $this->hasMany(JadwalPenyuluhan::class, 'id_penyuluh', 'id_penyuluh');
+    }
+
 }

@@ -24,4 +24,10 @@ class Desa extends Model
     {
         return $this->belongsTo(Kecamatan::class, 'id_kecamatan', 'id_kecamatan');
     }
+
+    public function jadwalPenyuluhan()
+    {
+        return $this->hasMany(JadwalPenyuluhan::class, 'id_desa', 'id_desa');
+    }
+
 }

@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-body">
         <button wire:click="add" class="btn btn-primary">
-            <i class="bi bi-person-plus"></i>
+            <i class="bi bi-tree-fill"></i>
             Tambah Tanaman
         </button>
 
