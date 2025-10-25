@@ -5,56 +5,60 @@ namespace App\Livewire\Konsultasi;
 use App\Enums\Role;
 use App\Enums\StatusKonsultasi;
 use App\Models\Konsultasi;
-use App\Models\Pesan;
 use App\Traits\WithNotify;
+use App\Livewire\Forms\PesanForm;
 use Livewire\Attributes\On;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class DisplayChat extends Component
 {
     use WithNotify;
+    use WithFileUploads;
 
-    public ?Konsultasi $konsultasi;
-
-
-    #[Validate('required|min:1')]
-    public string $pesan = '';
-
+    public ?Konsultasi $konsultasi = null;
     public Role $activeRole;
 
+    // Form pesan
+    public PesanForm $form;
 
     #[On('display')]
-    public function display($idKonsultasi) {
+    public function display($idKonsultasi)
+    {
+        $this->konsultasi = Konsultasi::query()
+            ->with(['user', 'tanaman', 'pesan', 'penyuluh'])
+            ->find($idKonsultasi);
 
-        $this->konsultasi = Konsultasi::query()->with(['user', 'tanaman', 'pesan','penyuluh'])->find($idKonsultasi);
-
-        if($this->konsultasi->status === StatusKonsultasi::PENDING) {
+        if ($this->konsultasi && $this->konsultasi->status === StatusKonsultasi::PENDING) {
             flash('Silahkan tunggu penyuluh untuk menerima permintaan konsultasi Anda', 'warning');
         }
 
-
+        // set id konsultasi di form
+        $this->form->id_konsultasi = $this->konsultasi?->id_konsultasi;
     }
 
-    public function mount() {
+    public function mount()
+    {
         $this->activeRole = Role::from(getActiveGuard());
+        $this->form->role_pengirim = $this->activeRole->value;
+        $this->form->id_pengirim = getActiveUserId();
     }
 
-    public function kirimPesan() {
+    public function kirimPesan()
+    {
+        try {
+            // isi otomatis ID konsultasi
+            $this->form->id_konsultasi = $this->konsultasi?->id_konsultasi;
+            $this->form->id_pengirim = getActiveUserId();
+            $this->form->role_pengirim = $this->activeRole->value;
 
-        $this->validate();
-        $user = getActiveUser();
+            // simpan data via form
+            $this->form->store();
 
-        Pesan::query()->create([
-            'id_konsultasi' => $this->konsultasi->id_konsultasi,
-            'id_pengirim' => getActiveUserId(),
-            'role_pengirim' => $this->activeRole,
-            'isi' => $this->pesan
-        ]);
-
-        $this->notifySuccess('Pesan berhasil dikirim');
-        $this->reset('pesan');
-
+            $this->notifySuccess('Pesan berhasil dikirim');
+        } catch (\Throwable $e) {
+            $this->notifyError('Gagal mengirim pesan: ' . $e->getMessage());
+        }
     }
 
     public function render()

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('id_pengirim');
             $table->enum('role_pengirim', Role::senders());
             $table->text('isi');
+            $table->string('gambar')->nullable();
             $table->timestamps();
         });
     }
