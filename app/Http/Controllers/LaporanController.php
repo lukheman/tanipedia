@@ -86,19 +86,26 @@ class LaporanController extends Controller
     {
         $request->validate([
             'id' => 'required|exists:kecamatan,id_kecamatan',
+            'tahun' => 'required|digits:4'
         ]);
 
         $konsultasi = Konsultasi::with(['user', 'user.desa'])
             ->whereHas('user.desa', function ($query) use ($request) {
                 $query->where('id_kecamatan', $request->id);
-            })->get();
+            })
+            ->whereYear('tanggal_konsultasi', $request->tahun)
+            ->get();
 
-        $pdf = Pdf::loadView('invoices.konsultasi-kecamatan', ['konsultasi' => $konsultasi]);
+        $pdf = Pdf::loadView('invoices.konsultasi-kecamatan', [
+            'konsultasi' => $konsultasi,
+            'tahun' => $request->tahun,
+        ]);
 
-        return $pdf->download('laporan_konsultasi_kecamatan'.date('d_m_Y').'.pdf');
+        return $pdf->download('laporan_konsultasi_kecamatan_' . $request->tahun . '_' . date('d_m_Y') . '.pdf');
 
         // return view('invoices.konsultasi-kecamatan', [
         //     'konsultasi' => $konsultasi,
+        //     'tahun' => $tahun,
         // ]);
     }
 }
