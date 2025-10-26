@@ -16,7 +16,7 @@ class JadwalPenyuluhanForm extends Form
     public ?string $tanggal = null;
     public ?string $kegiatan = null;
     public ?string $laporan = null;
-    public ?string $status = 'terjadwal';
+    public ?string $status = 'dijadwalkan';
 
     protected function rules(): array
     {
