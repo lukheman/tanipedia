@@ -4,25 +4,28 @@ namespace App\Enums;
 
 enum StatusJadwal: string
 {
-    case TERJADWAL = 'terjadwal';
+    case DIJADWALKAN = 'dijadwalkan';
     case SELESAI = 'selesai';
     case DIBATALKAN = 'dibatalkan';
+    case DIUNDUR = 'diundur';
 
     public function getLabel(): string
     {
         return match ($this) {
-            self::TERJADWAL => 'Terjadwal',
+            self::DIJADWALKAN => 'Dijadwalkan',
             self::SELESAI => 'Selesai',
             self::DIBATALKAN => 'Dibatalkan',
+            self::DIUNDUR => 'Diundur',
         };
     }
 
     public function getColor(): string
     {
         return match ($this) {
-            self::TERJADWAL => 'primary',
+            self::DIJADWALKAN => 'primary',
             self::SELESAI => 'success',
             self::DIBATALKAN => 'danger',
+            self::DIUNDUR => 'warning',
         };
     }
 
@@ -30,5 +33,4 @@ enum StatusJadwal: string
     {
         return array_map(fn ($case) => $case->value, self::cases());
     }
-
 }

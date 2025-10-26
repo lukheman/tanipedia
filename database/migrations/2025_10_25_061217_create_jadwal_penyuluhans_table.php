@@ -24,7 +24,7 @@ return new class extends Migration
             $table->date('tanggal');
             $table->text('kegiatan')->nullable();
             $table->text('laporan')->nullable();
-            $table->enum('status', StatusJadwal::values())->default(StatusJadwal::TERJADWAL->value);
+            $table->enum('status', StatusJadwal::values())->default(StatusJadwal::DIJADWALKAN->value);
 
             $table->timestamps();
         });
