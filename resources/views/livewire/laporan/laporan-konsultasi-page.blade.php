@@ -70,16 +70,23 @@
                     @csrf
 
                     <div class="modal-body">
+
                         <div class="form-group">
                             <label for="kecamatan" class="form-label">Kecamatan</label>
                             <select name="id" wire:model="kecamatan" id="kecamatan" class="form-control">
-
                                             <option value="">Pilih Kecamatan</option>
                                 @foreach (\App\Models\Kecamatan::all() as $item)
                                 <option value="{{ $item->id_kecamatan}}">{{ $item->nama }}</option>
                                 @endforeach
                             </select>
                         </div>
+
+                        <div class="form-group">
+                            <label for="Tahun" class="form-label">Tahun</label>
+                            <input type="text" name="tahun" class="form-control" value="{{ date('Y')}}">
+                        </div>
+
+
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-danger ms-1">
