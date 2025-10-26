@@ -85,11 +85,17 @@
                     Beranda
                 </x-nav-link>
 
-                    <x-nav-link icon="bi-chat-dots-fill"
-                        href="{{ route('konsultasi')}}"
-                        :active="request()->routeIs('konsultasi')">
-                        Konsultasi
-                    </x-nav-link>
+                <x-nav-link icon="bi-chat-dots-fill"
+                    href="{{ route('konsultasi')}}"
+                    :active="request()->routeIs('konsultasi')">
+                    Konsultasi
+                </x-nav-link>
+
+                <x-nav-link icon="bi-calendar"
+                    href="{{ route('jadwal-penyuluhan')}}"
+                    :active="request()->routeIs('jadwal-penyuluhan')">
+                    Jadwal Penyuluhan
+                </x-nav-link>
 
 
                 @endif

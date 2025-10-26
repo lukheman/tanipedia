@@ -35,7 +35,6 @@ class JadwalPenyuluhanTable extends Component
     public function openDetailJadwal($id)
     {
         $this->detail($id);
-
         $this->currentState = State::UPDATE;
     }
 
@@ -46,7 +45,13 @@ class JadwalPenyuluhanTable extends Component
         $jadwal = JadwalPenyuluhan::with(['desa'])->findOrFail($id);
         $this->form->fillFromModel($jadwal);
 
-        $this->openModal($this->idModal);
+        if (auth('penyuluh')->check()) {
+
+            $this->openModal('modal-form-jadwal-penyuluhan');
+        } else if(auth('petani')->check()) {
+            $this->openModal('modal-show-jadwal');
+        }
+
     }
 
     public function edit($id)
@@ -124,22 +129,25 @@ class JadwalPenyuluhanTable extends Component
      */
     public function getCalendarEvents(): array
     {
-        // ambil semua jadwal (tanpa pagination)
+        // Ambil semua jadwal (tanpa pagination)
         $jadwals = JadwalPenyuluhan::with('desa')->orderBy('tanggal')->get();
 
         return $jadwals->map(function ($item) {
+            $defaultColor = '#6c757d'; // abu-abu
+
             return [
                 'id' => $item->id_jadwal_penyuluhan,
                 'title' => ($item->desa->nama ?? '-') . ' - ' . ($item->kegiatan ?? ''),
                 'start' => $item->tanggal,
                 'color' => match ($item->status) {
-                    StatusJadwal::TERJADWAL => '#17a2b8',
-                    StatusJadwal::SELESAI => '#28a745',
-                    StatusJadwal::DIBATALKAN => '#dc3545',
-                    default => '#6c757d',
+                    StatusJadwal::DIJADWALKAN => '#007bff', // biru (primary)
+                    StatusJadwal::SELESAI => '#28a745',     // hijau (success)
+                    StatusJadwal::DIBATALKAN => '#dc3545',  // merah (danger)
+                    StatusJadwal::DIUNDUR => '#ffc107',     // kuning (warning)
+                    default => $defaultColor,
                 },
             ];
-        })->values()->all(); // ->all() mengembalikan array murni
+        })->values()->all();
     }
 
     public function render()

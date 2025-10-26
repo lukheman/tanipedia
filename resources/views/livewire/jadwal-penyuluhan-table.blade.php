@@ -1,14 +1,53 @@
 <div class="card">
+
+    @if (auth('penyuluh')->check())
+
     <div class="card-header">
 <div class="alert alert-light-warning color-warning">
     <i class="bi bi-exclamation-triangle"></i>
     Klik pada <strong>nama kegiatan</strong> di kalender untuk melihat detail dan menambahkan laporan hasil penyuluhan.
 </div>
-    </div>
-    <div class="card-body">
+
         <button wire:click="add" class="btn btn-primary mb-3">
             <i class="bi bi-calendar-plus"></i> Tambah Jadwal
         </button>
+
+    </div>
+
+    @endif
+
+    <div class="card-body">
+
+
+<!-- Modal Placeholder: Detail Jadwal Penyuluhan -->
+<div class="modal fade" id="modal-show-jadwal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow-lg rounded-3">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title text-white">Detail Jadwal Penyuluhan</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label fw-semibold text-muted">Tanggal</label>
+                    <input type="text" class="form-control " wire:model="form.tanggal" disabled>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold text-muted">Deskripsi Kegiatan</label>
+                    <textarea wire:model="form.kegiatan" class="form-control " rows="5" disabled></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Status</label>
+                    <input value="{{ ucfirst($form->status)}}" type="text" class="form-control text-{{ \App\Enums\StatusJadwal::from($form->status)->getColor() }} fw-semibold" disabled>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 
         <div class="modal fade" id="modal-form-jadwal-penyuluhan" tabindex="-1" wire:ignore.self>
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">

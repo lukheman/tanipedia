@@ -45,7 +45,7 @@ Route::get('/konsultasi', \App\Livewire\Konsultasi\DiterimaPage::class)->name('k
 
 Route::get('/tanaman', \App\Livewire\TanamanTable::class)->name('tanaman')->middleware(MultiAuth::class.':admin');
 
-Route::get('/jadwal-penyuluhan', \App\Livewire\JadwalPenyuluhanTable::class)->name('jadwal-penyuluhan')->middleware(MultiAuth::class.':admin,penyuluh');
+Route::get('/jadwal-penyuluhan', \App\Livewire\JadwalPenyuluhanTable::class)->name('jadwal-penyuluhan')->middleware(MultiAuth::class.':penyuluh,petani');
 
 Route::get('/laporan/pengguna', \App\Livewire\Laporan\LaporanPenggunaPage::class)->name('laporan.pengguna')->middleware(MultiAuth::class.':kepala_dinas');
 Route::get('/laporan/petani', \App\Livewire\Laporan\LaporanPetaniPage::class)->name('laporan.petani')->middleware(MultiAuth::class.':kepala_dinas');
