@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('telepon');
             $table->date('tanggal_lahir');
             $table->string('photo')->nullable();
-            $table->foreignId('id_desa')->nullable()->constrained('desa', 'id_desa')->nullOnDelete();
-            $table->foreignId('id_tanaman')->nullable()->constrained('tanaman', 'id_tanaman')->nullOnDelete();
+            $table->foreignId('id_desa')->nullable()->constrained('desa', 'id_desa')->cascadeOnDelete();
+            $table->foreignId('id_tanaman')->nullable()->constrained('tanaman', 'id_tanaman')->cascadeOnDelete();
             $table->rememberToken();
             $table->timestamps();
         });

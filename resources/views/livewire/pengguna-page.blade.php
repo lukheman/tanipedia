@@ -46,7 +46,7 @@
                                     </div>
                             </div>
 
-                            @if ($currentState === \App\Enums\State::SHOW)
+                            @if (($currentState === \App\Enums\State::SHOW) && ($type === \App\Enums\Role::PETANI->value || $type === \App\Enums\Role::AHLIPERTANIAN->value))
 
                             <div class="row">
                                 <div class="col-6">
@@ -65,8 +65,10 @@
 
                             @endif
 
-                            @if ($currentState !== \App\Enums\State::SHOW)
+                            @if ($currentState === \App\Enums\State::CREATE || $currentState === \App\Enums\State::UPDATE)
 
+
+                                @if ($type === \App\Enums\Role::PETANI->value || $type === \App\Enums\Role::AHLIPERTANIAN->value )
 
                             <div class="row">
                                 <div class="col-6">
@@ -98,6 +100,9 @@
                                     </div>
                                 </div>
                             </div>
+
+                                @endif
+
 
                             @endif
 

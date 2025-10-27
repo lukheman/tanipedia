@@ -54,7 +54,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'telepon' => '082250223148',
             'tanggal_lahir' => now(),
-            'id_desa' => $desaIds->random(),
         ]);
 
         User::factory()->create([

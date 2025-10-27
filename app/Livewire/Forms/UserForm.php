@@ -47,12 +47,17 @@ class UserForm extends Form
                 'date',
                 'before:today',
             ],
-            'id_desa' => 'required|exists:desa,id_desa',
         ];
 
         // hanya penyuluh yang punya id_tanaman
         if ($this->type === Role::AHLIPERTANIAN->value) {
             $rules['id_tanaman'] = 'required|exists:tanaman,id_tanaman';
+        }
+
+        if ($this->type === Role::PETANI->value || $this->type === Role::AHLIPERTANIAN->value) {
+
+            $rules['id_desa'] = 'required|exists:desa,id_desa';
+
         }
 
         return $rules;
@@ -85,7 +90,8 @@ class UserForm extends Form
 
     public function store()
     {
-        $validated = $this->validate();
+        $this->validate();
+
         $type = Role::from($this->type);
 
         if ($type === Role::PETANI) {

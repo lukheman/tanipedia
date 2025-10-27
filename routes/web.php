@@ -63,7 +63,7 @@ Route::get('/dashboard', \App\Livewire\DashboardPage::class)
     ->name('dashboard')
     ->middleware(MultiAuth::class . ':petani,admin,penyuluh,kepala_dinas');
 
-Route::get('/profile', \App\Livewire\Profile::class)
+Route::get('/profile', \App\Livewire\Profile\IndexProfile::class)
     ->name('profile')
     ->middleware(MultiAuth::class . ':admin,petani,penyuluh,kepala_dinas');
 

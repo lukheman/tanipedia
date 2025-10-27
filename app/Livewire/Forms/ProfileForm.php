@@ -86,11 +86,24 @@ class ProfileForm extends Form
         ];
     }
 
+    public function fillFromModel($user) {
+
+        $this->user = $user;
+        $this->name = $user->name ?? '';
+        $this->email = $user->email ?? '';
+        $this->tanggal_lahir = $user->tanggal_lahir ?? '';
+        $this->telepon = $user->telepon ?? '';
+        $this->desa = $user->desa->id_desa ?? '';
+        $this->photo = $user->photo ?? '';
+
+    }
+
     public function update(): bool
     {
 
         $this->validate();
         $guard = getActiveGuard();
+
 
         // Prepare updates only for changed fields
         $updates = [];

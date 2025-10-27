@@ -77,13 +77,13 @@ class PenggunaPage extends Component
         $role = Role::from($role);
 
         if ($role === Role::ADMIN) {
-            $user = Admin::with('desa')->find($id);
+            $user = Admin::query()->find($id);
         } elseif ($role === Role::PETANI) {
             $user = User::with('desa')->find($id);
         } elseif ($role === Role::AHLIPERTANIAN) {
             $user = Penyuluh::with('desa')->find($id);
         } elseif ($role === Role::KEPALADINAS) {
-            $user = KepalaDinas::with('desa')->find($id);
+            $user = KepalaDinas::query()->find($id);
         }
 
         $this->form->type = $role->value;
@@ -96,10 +96,12 @@ class PenggunaPage extends Component
         $this->form->telepon = $user->telepon;
         $this->form->tanggal_lahir = $user->tanggal_lahir;
         $this->form->id_tanaman = $user->id_tanaman ?? null;
-        $this->form->id_desa = $user->desa->id ?? null;
-        $this->kecamatan = $user->desa->id_kecamatan;
-        $this->selectedDesa = $user->desa->nama;
-        $this->selectedKecamatan = Kecamatan::find($user->desa->id_kecamatan)->nama;
+        $this->form->id_desa = $user->desa->id_desa ?? null;
+        $this->kecamatan = $user->desa->id_kecamatan ?? null;
+        $this->selectedDesa = $user->desa->nama ?? null;
+        $this->selectedKecamatan = optional(
+            Kecamatan::find(optional($user->desa)->id_kecamatan)
+        )->nama;
         $this->updatedKecamatan($this->kecamatan); // Load desa list for the selected kecamatan
         $this->showTanamanField = true;
         $this->openModal($this->idModal);
