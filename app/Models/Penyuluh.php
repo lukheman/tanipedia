@@ -26,9 +26,9 @@ class Penyuluh extends Authenticatable
         return $this->id_penyuluh;
     }
 
-    public function desa(): HasOne
+    public function desa(): BelongsTo
     {
-        return $this->hasOne(Desa::class, 'id_desa');
+        return $this->belongsTo(Desa::class, 'id_desa', 'id_desa');
     }
 
     public function tanaman(): BelongsTo
