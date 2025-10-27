@@ -90,7 +90,7 @@ class UserForm extends Form
 
     public function store()
     {
-        $this->validate();
+        $validated = $this->validate();
 
         $type = Role::from($this->type);
 
