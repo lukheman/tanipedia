@@ -60,7 +60,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Petani 1',
             'email' => 'petani1@gmail.com',
-            'id_desa' => $desaIds->random(),
+            'id_desa' => 1,
         ]);
 
         User::factory()->create([

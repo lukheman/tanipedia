@@ -7,11 +7,13 @@ use App\Enums\StatusJadwal;
 use App\Livewire\Forms\JadwalPenyuluhanForm;
 use App\Models\Desa;
 use App\Models\JadwalPenyuluhan;
+use App\Models\Kecamatan;
 use App\Traits\Traits\WithModal;
 use App\Traits\WithNotify;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use function getActiveUser;
 
 class JadwalPenyuluhanTable extends Component
 {
@@ -23,6 +25,11 @@ class JadwalPenyuluhanTable extends Component
     public $currentState = State::CREATE;
     public $idModal = 'modal-form-jadwal-penyuluhan';
 
+    public $kecamatanList;
+    public $desaList;
+
+    public $kecamatan;
+
     public function add()
     {
         $this->currentState = State::CREATE;
@@ -30,6 +37,17 @@ class JadwalPenyuluhanTable extends Component
         $this->openModal($this->idModal);
     }
 
+    public function mount()
+    {
+        $this->kecamatanList = Kecamatan::all();
+        $this->desaList = collect(); // Initialize as empty
+
+    }
+
+    public function updatedKecamatan($value)
+    {
+        $this->desaList = $value ? Desa::where('id_kecamatan', $value)->get() : collect();
+    }
 
     #[On('openDetailJadwal')]
     public function openDetailJadwal($id)
@@ -42,7 +60,11 @@ class JadwalPenyuluhanTable extends Component
     {
         $this->currentState = State::SHOW;
 
-        $jadwal = JadwalPenyuluhan::with(['desa'])->findOrFail($id);
+        $jadwal = JadwalPenyuluhan::with('desa', 'desa.kecamatan')->findOrFail($id);
+
+        $this->kecamatan = $jadwal->desa->kecamatan->id_kecamatan;
+        $this->updatedKecamatan($this->kecamatan);
+
         $this->form->fillFromModel($jadwal);
 
         if (auth('penyuluh')->check()) {
@@ -102,49 +124,37 @@ class JadwalPenyuluhanTable extends Component
         }
     }
 
-    #[Computed]
-    public function desaList() {
-
-        $user = getActiveUser();
-
-        $user->load('desa', 'desa.kecamatan');
-
-        return Desa::query()->where('id_kecamatan', $user->desa->kecamatan->id_kecamatan)->get();
-    }
-
-
-
-    #[Computed]
-    public function jadwalList()
-    {
-        // Untuk tampilan tabel (jika kamu punya)
-        return JadwalPenyuluhan::query()
-            ->with(['penyuluh', 'desa'])
-            ->orderByDesc('tanggal')
-            ->get();
-    }
-
     /**
      * Buat event untuk FullCalendar (dipanggil di JS via @json)
      */
     public function getCalendarEvents(): array
     {
-        // Ambil semua jadwal (tanpa pagination)
-        $jadwals = JadwalPenyuluhan::with('desa')->orderBy('tanggal')->get();
+        $user = getActiveUser();
+        $user->load('desa');
+
+        $query = JadwalPenyuluhan::query()->with('desa');
+
+        if (auth('petani')->check()) {
+            $query->where('id_desa', $user->desa->id_desa);
+        } elseif (auth('penyuluh')->check()) {
+            $query->where('id_penyuluh', $user->id_penyuluh);
+        }
+
+        $jadwals = $query->orderBy('tanggal')->get();
 
         return $jadwals->map(function ($item) {
             $defaultColor = '#6c757d'; // abu-abu
 
             return [
                 'id' => $item->id_jadwal_penyuluhan,
-                'title' => ($item->desa->nama ?? '-') . ' - ' . ($item->kegiatan ?? ''),
+                'title' => sprintf('%s - %s', $item->desa->nama ?? '-', $item->kegiatan ?? ''),
                 'start' => $item->tanggal,
                 'color' => match ($item->status) {
-                    StatusJadwal::DIJADWALKAN => '#007bff', // biru (primary)
-                    StatusJadwal::SELESAI => '#28a745',     // hijau (success)
-                    StatusJadwal::DIBATALKAN => '#dc3545',  // merah (danger)
-                    StatusJadwal::DIUNDUR => '#ffc107',     // kuning (warning)
-                    default => $defaultColor,
+                    StatusJadwal::DIJADWALKAN => '#007bff', // biru
+                    StatusJadwal::SELESAI     => '#28a745', // hijau
+                    StatusJadwal::DIBATALKAN  => '#dc3545', // merah
+                    StatusJadwal::DIUNDUR     => '#ffc107', // kuning
+                    default                   => $defaultColor,
                 },
             ];
         })->values()->all();

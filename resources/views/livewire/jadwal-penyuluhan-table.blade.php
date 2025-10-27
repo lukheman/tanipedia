@@ -75,6 +75,27 @@
                     </div>
                     <div class="modal-body">
                         <form>
+
+                            <div class="row">
+
+                    <div class="col-6">
+
+                                    <div class="mb-3">
+                                        <label for="kecamatan" class="form-label fw-semibold">Kecamatan</label>
+                                        <select wire:model.live="kecamatan" class="form-control" id="kecamatan" @if ($currentState === \App\Enums\State::SHOW) disabled @endif>
+                                            <option value="">Pilih Kecamatan</option>
+                                            @foreach ($kecamatanList as $item)
+                                                <option value="{{ $item->id_kecamatan }}">{{ $item->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('kecamatan')
+                                            <small class="d-block mt-1 text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                    </div>
+
+                    <div class="col-6">
+
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Desa</label>
                                 <select wire:model="form.id_desa" class="form-select"
@@ -88,6 +109,11 @@
                                     <small class="d-block mt-1 text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
+
+                    </div>
+
+                    </div>
+
 
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Tanggal</label>
