@@ -14,7 +14,7 @@
             <p><strong>Nama Penyuluh:</strong> {{ $item->penyuluh->name ?? '-' }}</p>
             <p><strong>Lokasi Kunjungan:</strong> {{ $item->desa->nama ?? '-' }}</p>
             <p><strong>Tanggal Kunjungan:</strong> {{ \Carbon\Carbon::parse($item->tanggal_penyuluhan)->format('d F Y') }}</p>
-            <p><strong>Jenis Kegiatan:</strong> {{ $item->jenis_kegiatan ?? '-' }}</p>
+            <p><strong>Jenis Kegiatan:</strong> {{ $item->kegiatan ?? '-' }}</p>
             <p><strong>Status Jadwal:</strong> {{ ucfirst($item->status->value ?? '-') }}</p>
         </div>
     @empty
