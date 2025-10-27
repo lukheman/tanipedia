@@ -108,4 +108,32 @@ class LaporanController extends Controller
         //     'tahun' => $tahun,
         // ]);
     }
+
+    public function laporanKegiatanPenyuluhan(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|exists:kecamatan,id_kecamatan',
+            'tahun' => 'required|digits:4'
+        ]);
+
+        $penyuluhan = \App\Models\JadwalPenyuluhan::with(['desa', 'desa.kecamatan', 'penyuluh'])
+            ->whereHas('desa.kecamatan', function ($query) use ($request) {
+                $query->where('id_kecamatan', $request->id);
+            })
+            ->whereYear('tanggal', $request->tahun)
+            ->get();
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('invoices.kegiatan-penyuluhan', [
+            'penyuluhan' => $penyuluhan,
+            'tahun' => $request->tahun,
+        ]);
+
+        return $pdf->download('laporan_kegiatan_penyuluhan_kecamatan_' . $request->tahun . '_' . date('d_m_Y') . '.pdf');
+
+        // Jika ingin uji tampil di browser, bisa sementara pakai:
+        // return view('invoices.kegiatan-penyuluhan-kecamatan', [
+        //     'penyuluhan' => $penyuluhan,
+        //     'tahun' => $request->tahun,
+        // ]);
+    }
 }

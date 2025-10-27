@@ -123,7 +123,7 @@
                 <tr>
                     <td class="text-bold-500">{{ $item->user->name }}</td>
                     <td>{{ $item->tanggal_konsultasi }}</td>
-                    <td>{{ $item->nama_tanaman }}</td>
+                    <td>{{ $item->tanaman->nama }}</td>
                     <td class="text-end">
                         <button wire:click="detail({{ $item->id_konsultasi }})" class="btn btn-sm btn-info">Detail</button>
 

@@ -150,6 +150,13 @@
                         :active="request()->routeIs('laporan.konsultasi')">
                         Laporan Konsultasi
                     </x-nav-link>
+
+                    <x-nav-link icon="bi-journal-text"
+                        href="{{ route('laporan.kegiatan-penyuluhan')}}"
+                        :active="request()->routeIs('laporan.kegiatan-penyuluhan')">
+                        Laporan Kegiatan Penyuluhan
+                    </x-nav-link>
+
                 @endif
 
                 <li class="sidebar-title">Akun</li>
