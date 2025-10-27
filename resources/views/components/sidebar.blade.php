@@ -151,7 +151,7 @@
                         Laporan Konsultasi
                     </x-nav-link>
 
-                    <x-nav-link icon="bi-journal-text"
+                    <x-nav-link icon="bi-clipboard-check"
                         href="{{ route('laporan.kegiatan-penyuluhan')}}"
                         :active="request()->routeIs('laporan.kegiatan-penyuluhan')">
                         Laporan Kegiatan Penyuluhan
