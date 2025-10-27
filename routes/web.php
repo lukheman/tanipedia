@@ -81,7 +81,7 @@ Route::middleware(MultiAuth::class . ':petani')->group(function () {
 | Penyuluh Routes
 |--------------------------------------------------------------------------
 */
-Route::middleware(MultiAuth::class . ':penyuluh')->group(function () {
+Route::middleware(MultiAuth::class . ':penyuluh,petani')->group(function () {
     Route::get('/permintaan-konsultasi', \App\Livewire\Konsultasi\PermintaanTable::class)
         ->name('permintaan-konsultasi');
 
