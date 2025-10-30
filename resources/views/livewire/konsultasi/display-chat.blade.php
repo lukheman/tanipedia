@@ -4,7 +4,7 @@ use App\Enums\Role;
 use App\Enums\StatusKonsultasi;
 
 @endphp
-<div class="card">
+<div class="card" wire:poll>
 
     @isset($konsultasi)
 
@@ -63,9 +63,9 @@ use App\Enums\StatusKonsultasi;
                 {{-- Tampilkan gambar jika ada --}}
                 @if ($pesan->gambar)
                     <div class="mt-1">
-                        <img 
-                            src="{{ asset('storage/' . $pesan->gambar) }}" 
-                            alt="Gambar pesan" 
+                        <img
+                            src="{{ asset('storage/' . $pesan->gambar) }}"
+                            alt="Gambar pesan"
                             class="rounded border"
                             style="max-width: 150px; max-height: 150px; object-fit: cover;"
                         >
@@ -86,15 +86,15 @@ use App\Enums\StatusKonsultasi;
         {{-- Preview gambar jika ada --}}
         @if ($form->gambar)
             <div class="w-100 text-start mb-2">
-                <img 
-                    src="{{ $form->gambar->temporaryUrl() }}" 
-                    alt="Preview Gambar" 
-                    class="rounded border" 
+                <img
+                    src="{{ $form->gambar->temporaryUrl() }}"
+                    alt="Preview Gambar"
+                    class="rounded border"
                     style="max-width: 80px; max-height: 80px; object-fit: cover;"
                 >
-                <button 
-                    type="button" 
-                    wire:click="$set('form.gambar', null)" 
+                <button
+                    type="button"
+                    wire:click="$set('form.gambar', null)"
                     class="btn btn-sm btn-link text-danger p-0 ms-2 align-middle"
                 >
                     Hapus
@@ -104,10 +104,10 @@ use App\Enums\StatusKonsultasi;
 
         <div class="d-flex w-100 align-items-center">
             {{-- Input pesan teks --}}
-            <input 
-                wire:model="form.isi" 
-                type="text" 
-                class="form-control me-2" 
+            <input
+                wire:model="form.isi"
+                type="text"
+                class="form-control me-2"
                 placeholder="Tulis pesan..."
                 style="flex: 1;"
                 @if ($konsultasi->status === StatusKonsultasi::PENDING) disabled @endif
@@ -116,19 +116,19 @@ use App\Enums\StatusKonsultasi;
             {{-- Tombol upload gambar --}}
             <label class="btn btn-outline-secondary mb-0 me-2">
                 <i class="bi bi-image"></i>
-                <input 
-                    type="file" 
-                    wire:model="form.gambar" 
-                    accept="image/*" 
-                    hidden 
+                <input
+                    type="file"
+                    wire:model="form.gambar"
+                    accept="image/*"
+                    hidden
                     @if ($konsultasi->status === StatusKonsultasi::PENDING) disabled @endif
                 >
             </label>
 
             {{-- Tombol kirim --}}
-            <button 
-                type="button" 
-                wire:click="kirimPesan" 
+            <button
+                type="button"
+                wire:click="kirimPesan"
                 class="btn btn-primary"
                 @if ($konsultasi->status === StatusKonsultasi::PENDING) disabled @endif
             >
