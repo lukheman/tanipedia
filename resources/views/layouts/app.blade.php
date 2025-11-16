@@ -7,53 +7,53 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $title ?? 'Page Title' }}</title>
 
-<link rel="icon" href="{{ asset('img/logo-tanipedia.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('img/logo-tanipedia.ico') }}" type="image/x-icon">
 
 
-<link rel="stylesheet" href="{{ asset('assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}">
 
-  <link rel="stylesheet" crossorigin href="{{ asset('/assets/compiled/css/table-datatable-jquery.css')}}">
-  <link rel="stylesheet" crossorigin href="{{ asset('/assets/compiled/css/app.css')}}">
-  <link rel="stylesheet" crossorigin href="{{ asset('/assets/compiled/css/app-dark.css')}}">
-  <link rel="stylesheet" crossorigin href="{{ asset('/assets/compiled/css/iconly.css')}}">
+    <link rel="stylesheet" crossorigin href="{{ asset('/assets/compiled/css/table-datatable-jquery.css') }}">
+    <link rel="stylesheet" crossorigin href="{{ asset('/assets/compiled/css/app.css') }}">
+    <link rel="stylesheet" crossorigin href="{{ asset('/assets/compiled/css/app-dark.css') }}">
+    <link rel="stylesheet" crossorigin href="{{ asset('/assets/compiled/css/iconly.css') }}">
 
-<link rel="stylesheet" crossorigin="" href="{{ asset('/assets/compiled/css/ui-widgets-chatbox.css')}}">
+    <link rel="stylesheet" crossorigin="" href="{{ asset('/assets/compiled/css/ui-widgets-chatbox.css') }}">
 
-<!-- Toastfy -->
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <!-- Toastfy -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
-<!-- Quill Js -->
-<!-- <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" /> -->
+    <!-- Quill Js -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" /> -->
 
 
- <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js'></script>
 
-<style>
-.swal2-popup {
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
+    <style>
+        .swal2-popup {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
 
-.swal2-title {
-  font-family: 'Arial Black', sans-serif;
-}
+        .swal2-title {
+            font-family: 'Arial Black', sans-serif;
+        }
 
-#editor {
-    height: 500px;
-}
+        #editor {
+            height: 500px;
+        }
 
-.logo-tanipedia {
-    width: 150px;
-    height: 150px;
-    object-fit: contain;
-}
-</style>
+        .logo-tanipedia {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+        }
+    </style>
 
-        @stack('styles')
+    @stack('styles')
 </head>
 
 <body>
-    <script src="{{ asset('assets/static/js/initTheme.js')}}"></script>
+    <script src="{{ asset('assets/static/js/initTheme.js') }}"></script>
     <div id="app">
         <x-sidebar />
         <div id="main">
@@ -63,60 +63,65 @@
                 </a>
             </header>
 
-<div class="page-heading">
-    <h3>{{ $title ?? '' }}</h3>
-</div>
-<div class="page-content">
-    <section class="row">
-        <div class="col-12">
-            {{ $slot }}
-        </div>
-    </section>
-</div>
+            <div class="page-heading">
+                <h3>{{ $title ?? '' }}</h3>
+            </div>
+            <div class="page-content">
+                <section class="row">
+                    <div class="col-12">
+                        {{ $slot }}
+                    </div>
+                </section>
+            </div>
 
-<!--             <footer> -->
-<!--     <div class="footer clearfix mb-0 text-muted"> -->
-<!--         <div class="float-start"> -->
-<!--             <p>2023 &copy; Mazer</p> -->
-<!--         </div> -->
-<!--         <div class="float-end"> -->
-<!--             <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span> -->
-<!--                 by <a href="https://saugi.me">Saugi</a></p> -->
-<!--         </div> -->
-<!--     </div> -->
-<!-- </footer> -->
+            <!--             <footer> -->
+            <!--     <div class="footer clearfix mb-0 text-muted"> -->
+            <!--         <div class="float-start"> -->
+            <!--             <p>2023 &copy; Mazer</p> -->
+            <!--         </div> -->
+            <!--         <div class="float-end"> -->
+            <!--             <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span> -->
+            <!--                 by <a href="https://saugi.me">Saugi</a></p> -->
+            <!--         </div> -->
+            <!--     </div> -->
+            <!-- </footer> -->
         </div>
     </div>
-    <script src="{{ asset('assets/static/js/components/dark.js')}}"></script>
-    <script src="{{ asset('assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
+    <script src="{{ asset('assets/static/js/components/dark.js') }}"></script>
+    <script src="{{ asset('assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
 
 
-    <script src="{{ asset('assets/compiled/js/app.js')}}"></script>
+    <script src="{{ asset('assets/compiled/js/app.js') }}"></script>
 
-<script src="{{ asset('assets/extensions/jquery/jquery.min.js')}}"></script>
-<script src="{{ asset('assets/extensions/datatables.net/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{ asset('assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js')}}"></script>
-<script src="{{ asset('assets/static/js/pages/datatables.js')}}"></script>
+    <script src="{{ asset('assets/extensions/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/extensions/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('assets/static/js/pages/datatables.js') }}"></script>
 
-<!-- Toastfy -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- Toastfy -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-<script>
-
+    <script>
         $(window).on('livewire:initialized', () => {
 
-            Livewire.on('openModal', ({ id }) => {
+            Livewire.on('openModal', ({
+                id
+            }) => {
                 $('#' + id).modal('show');
             });
 
-            Livewire.on('closeModal', ({id}) => {
+            Livewire.on('closeModal', ({
+                id
+            }) => {
                 $('#' + id).modal('hide');
             });
 
-            Livewire.on('deleteConfirmation', ({ message }) => {
+            Livewire.on('deleteConfirmation', ({
+                message
+            }) => {
                 Swal.fire({
                     title: message,
                     icon: "warning",
@@ -139,15 +144,19 @@
                             animate__faster`
                     }
                 }).then((result) => {
-                        if (result.isConfirmed) {
-                            Livewire.dispatch('deleteConfirmed');
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        Livewire.dispatch('deleteConfirmed');
+                    }
+                });
             });
 
-            Livewire.on('toast', ({ message, variant, reload}) => {
+            Livewire.on('toast', ({
+                message,
+                variant,
+                reload
+            }) => {
 
-                if(reload) {
+                if (reload) {
                     sessionStorage.setItem('reload', 'true');
                     sessionStorage.setItem('variant', variant);
                     sessionStorage.setItem('message', message);
@@ -210,19 +219,18 @@
                 sessionStorage.removeItem('variant');
             }
         });
+    </script>
 
-        </script>
-
-        <!-- Include the Quill library -->
-        <!-- <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script> -->
-
-
-        @stack('scripts')
+    <!-- Include the Quill library -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script> -->
 
 
+    @stack('scripts')
 
-<!-- <script src="assets/extensions/apexcharts/apexcharts.min.js"></script> -->
-<!-- <script src="assets/static/js/pages/dashboard.js"></script> -->
+
+
+    <!-- <script src="assets/extensions/apexcharts/apexcharts.min.js"></script> -->
+    <!-- <script src="assets/static/js/pages/dashboard.js"></script> -->
 
 </body>
 
